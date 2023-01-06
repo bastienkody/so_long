@@ -6,7 +6,7 @@
 /*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:05:05 by bguillau          #+#    #+#             */
-/*   Updated: 2023/01/06 17:51:21 by bguillau         ###   ########.fr       */
+/*   Updated: 2023/01/06 19:09:00 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,11 @@ int	main(int argc, char **argv)
 		return (arg_error());
 	vars.map = get_map(argv[1]);
 	if (!vars.map)
-		return (map_error());
-	while (*(vars.map))
-		printf("%s\n", *(vars.map)++);
+		return (map_error(NULL));
+	print_map(vars.map);
+//	while (*(vars.map))
+//		printf("%s\n", *(vars.map)++);
+	check_map(vars.map);
 
 	return (0);
 

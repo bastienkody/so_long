@@ -6,7 +6,7 @@
 /*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 19:06:55 by bguillau          #+#    #+#             */
-/*   Updated: 2023/01/06 17:38:30 by bguillau         ###   ########.fr       */
+/*   Updated: 2023/01/06 20:25:43 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,10 @@ void	unload_player(t_vars *vars);
 t_data	*init_sprite(t_vars *vars, char *path);
 void	move_player(int keycode, t_vars *vars);
 void    draw_player(t_vars *vars);
-int		map_error(void);
+int		map_error(char *msg);
 int		arg_error(void);
 char	**get_map(char *map_path);
+int		check_map(char **map);
+int		check_wall(char **map, int nb_line, int line_len);
+void	print_map(char **map);
 #endif
