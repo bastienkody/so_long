@@ -1,11 +1,13 @@
-SRCS = 	main.c\
-		color_img.c\
-		player.c\
-		tileset.c\
-		rect.c\
-		draw.c\
-		map.c\
-		print_error.c\
+SRC_DIR = ./src/
+
+SRCS = ${SRC_DIR}main.c\
+		${SRC_DIR}color_img.c\
+		${SRC_DIR}player.c\
+		${SRC_DIR}tileset.c\
+		${SRC_DIR}rect.c\
+		${SRC_DIR}draw.c\
+		${SRC_DIR}map.c\
+		${SRC_DIR}print_error.c\
 
 OBJS =	${SRCS:.c=.o}
 
