@@ -6,7 +6,7 @@
 /*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 19:06:55 by bguillau          #+#    #+#             */
-/*   Updated: 2023/01/09 17:36:00 by bguillau         ###   ########.fr       */
+/*   Updated: 2023/01/09 18:35:44 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@
 #define T_HEIGHT 128
 #define	GRASS_P "assets/grass.xpm"
 #define	WALL_P "assets/white_wall.xpm"
+#define	COLLECT_P "assets/salad.xpm"
 
 
 /* struct */

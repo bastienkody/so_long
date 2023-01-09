@@ -20,8 +20,6 @@ int	load_player(t_vars *vars)
 	if (!player)
 		return (1);	
 	player->pos_one = init_sprite(vars, POS_ONE_P);
-//	player->x = 0;
-//	player->y = 0;
 	vars->player = player;
 	get_player_ini_pos(vars);
 	ft_printf("player loaded :%p\n", player);

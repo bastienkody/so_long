@@ -22,6 +22,7 @@ int	load_tileset(t_vars *vars)
 		return (1);	
 	tileset->grass = init_tile(vars, GRASS_P);
 	tileset->wall = init_tile(vars, WALL_P);
+	tileset->collect = init_tile(vars, COLLECT_P);
 	vars->tileset = tileset;
 	return (0);
 }
