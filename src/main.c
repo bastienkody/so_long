@@ -6,7 +6,7 @@
 /*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:05:05 by bguillau          #+#    #+#             */
-/*   Updated: 2023/01/06 19:09:00 by bguillau         ###   ########.fr       */
+/*   Updated: 2023/01/09 13:26:00 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int	k_inputs(int keycode, t_vars *vars)
 	else if (keycode == UP || keycode == DOWN || keycode == LEFT || keycode == RIGHT)
 		printf("arrows keys");
 //	redraw(vars);
-	printf("player.x : %i\n", vars->player->x);
-	printf("player.y : %i\n", vars->player->y);
+//	printf("player.x : %i\n", vars->player->x);
+//	printf("player.y : %i\n", vars->player->y);
 	return (0);
 }
 
@@ -40,7 +40,7 @@ int	m_inputs(int button, int x, int y, t_vars *vars)
 	printf("M_button %i\n", button);
 	printf("M_x %i\n", x);
 	printf("M_y %i\n", y);
-	printf("vars:%p\n", vars);
+	printf("vars%p\n", vars);
 	if (button == LEFT_C)
 		printf("left_clic\n");
 	if (button == RIGHT_C)
@@ -59,14 +59,10 @@ int	main(int argc, char **argv)
 	if (!vars.map)
 		return (map_error(NULL));
 	print_map(vars.map);
-//	while (*(vars.map))
-//		printf("%s\n", *(vars.map)++);
-	check_map(vars.map);
-
-	return (0);
+	printf("%i\n", check_map(vars.map, &vars));
 
 	vars.mlx_ptr = mlx_init();
-	vars.mlx_win = mlx_new_window(vars.mlx_ptr, WIDTH, HEIGHT, "Hello world!");
+	vars.mlx_win = mlx_new_window(vars.mlx_ptr, vars.map_w * STEP, vars.map_h * STEP, "Hello world!");
 	vars.moves = 0;
 
 	img.img = mlx_new_image(vars.mlx_ptr, WIDTH, HEIGHT);

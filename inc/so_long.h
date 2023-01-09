@@ -6,7 +6,7 @@
 /*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 19:06:55 by bguillau          #+#    #+#             */
-/*   Updated: 2023/01/06 20:25:43 by bguillau         ###   ########.fr       */
+/*   Updated: 2023/01/09 17:36:00 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ typedef struct	s_vars
 	void		*mlx_ptr;
 	void		*mlx_win;
 	char		**map;
+	int			map_w;
+	int			map_h;
 	t_rect		*rect;
 	t_data		*img;
 	t_tileset	*tileset;
@@ -134,7 +136,8 @@ void    draw_player(t_vars *vars);
 int		map_error(char *msg);
 int		arg_error(void);
 char	**get_map(char *map_path);
-int		check_map(char **map);
+int		check_map(char **map, t_vars *vars);
 int		check_wall(char **map, int nb_line, int line_len);
 void	print_map(char **map);
+void	get_player_ini_pos(t_vars *vars);
 #endif

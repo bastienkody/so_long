@@ -6,7 +6,7 @@
 /*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 15:07:38 by bguillau          #+#    #+#             */
-/*   Updated: 2023/01/06 20:28:44 by bguillau         ###   ########.fr       */
+/*   Updated: 2023/01/09 12:38:58 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	**get_map(char *map_path)
 
 /* check for rectangle form + encadrer de murs 
 return 1 on error, 0 on success*/
-int	check_map(char **map)
+int	check_map(char **map, t_vars *vars)
 {
 	int		line_len;
 	int		nb_line;
@@ -64,6 +64,8 @@ int	check_map(char **map)
 			return (map_error("lines are not the same length"));
 		nb_line++;
 	}
+	vars->map_w = line_len;
+	vars->map_h = nb_line;
 	return (check_wall(map, nb_line, line_len));
 }
 
@@ -72,28 +74,28 @@ int	check_wall(char **map, int nb_line, int line_len)
 	int	i;
 
 	i = -1;
-	while (map[0][++i])
+	while (++i < line_len)
 	{
 		if (map[0][i] != '1')
-			return (map_error("not complety walled on left side"));
-	}
-	i = -1;
-	while (map[line_len -1][++i])
-	{
-		if (map[line_len -1][i] != '1')
-			return (map_error("not complety walled on right side"));
-	}
-	i = -1;
-	while (map[++i][0])
-	{
-		if (map[i][0] != '1')
 			return (map_error("not complety walled on first line"));
 	}
 	i = -1;
-	while (map[++i][nb_line -1])
+	while (++i < line_len)
 	{
-		if (map[i][nb_line -1] != '1')
+		if (map[nb_line -1][i] != '1')
 			return (map_error("not complety walled on last line"));
+	}
+	i = -1;
+	while (++i < nb_line)
+	{
+		if (map[i][0] != '1')
+			return (map_error("not complety walled on left side"));
+	}
+	i = -1;
+	while (++i < nb_line)
+	{
+		if (map[i][line_len- 1] != '1')
+			return (map_error("not complety walled on right side"));
 	}
 	return (0);
 }

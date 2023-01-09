@@ -6,7 +6,7 @@
 /*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 12:34:29 by bguillau          #+#    #+#             */
-/*   Updated: 2023/01/06 15:05:53 by bguillau         ###   ########.fr       */
+/*   Updated: 2023/01/09 17:37:23 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ int	load_player(t_vars *vars)
 	if (!player)
 		return (1);	
 	player->pos_one = init_sprite(vars, POS_ONE_P);
-	player->x = 0;
-	player->y = 0;
+//	player->x = 0;
+//	player->y = 0;
 	vars->player = player;
+	get_player_ini_pos(vars);
+	ft_printf("player loaded :%p\n", player);
 	return (0);
 }
 
@@ -72,3 +74,26 @@ void	move_player(int keycode, t_vars *vars)
 	vars->moves += 1;
 }
 
+/* player pos from map.ber */
+void	get_player_ini_pos(t_vars *vars)
+{
+	int	x;
+	int	y;
+
+	if (!vars->player)
+		return ;
+	y = -1;
+	while (++y < vars->map_h)
+	{
+		x = -1;
+		while (++x < vars->map_w)
+		{
+			if (vars->map[y][x] == 'P')
+			{
+				vars->player->x = x * STEP;
+				vars->player->y = y * STEP;			
+				ft_printf("player pos x:%i, y:%i\n", x, y);
+			}
+		}
+	}
+}

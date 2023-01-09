@@ -6,7 +6,7 @@
 /*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 18:49:47 by bguillau          #+#    #+#             */
-/*   Updated: 2023/01/06 13:20:28 by bguillau         ###   ########.fr       */
+/*   Updated: 2023/01/09 17:36:05 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,15 @@ void	draw_floor(t_vars *vars)
 	int	x;
 	int	y;
 
-	x = 0;
-	while (x < WIDTH)
+	y = -1;
+	while (++y < vars->map_h)
 	{
-		y = 0;
-		while (y < HEIGHT)
+		x = -1;
+		while (++x < vars->map_w)
 		{
-			mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->tileset->grass->img, x, y);
-			y += T_HEIGHT;	
+			if (vars->map[y][x] == '0' || vars->map[y][x] == 'C' || vars->map[y][x] == 'E')
+				mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->tileset->grass->img, (x * STEP), (y * STEP));
 		}
-		x += T_WIDTH;
 	}
 }
 
@@ -48,31 +47,19 @@ void	draw_walls(t_vars *vars)
 	int	x;
 	int	y;
 
-	x = 0;
-	while (x < WIDTH)
+	y = -1;
+	while (++y < vars->map_h)
 	{
-		y = 0;
-		while (y < HEIGHT)
+		x = -1;
+		while (++x < vars->map_w)
 		{
-			if (x == 0 || x == WIDTH - T_WIDTH || y == 0 || y == HEIGHT - T_HEIGHT)
-			{
-				printf("x:%i, y:%i\n", x, y);
-				mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->tileset->wall->img, x, y);
-			}
-			y += T_HEIGHT;	
+			if (vars->map[y][x] == '1')
+				mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->tileset->wall->img, (x * STEP), (y * STEP));
 		}
-		x += T_WIDTH;
 	}
 }
 
 void	draw_player(t_vars *vars)
 {
-	int	x;
-	int	y;
-
-	if (!vars->player)
-		return ;
-	x = vars->player->x;
-	y = vars->player->y;
-	mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->player->pos_one->img, x, y);
+	mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->player->pos_one->img, vars->player->x, vars->player->y);
 }
