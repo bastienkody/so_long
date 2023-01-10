@@ -17,7 +17,7 @@ CC =	cc
 
 CFLAGS =	-Wall -Wextra -Werror -g3
 
-LDFLAGS =	-lXext -lX11 -lm -L./mlx -lmlx_Linux -L./libft -lft 
+LDFLAGS =	-lXext -lX11 -lm -L./mlx -lmlx -L./libft -lft 
 
 .c.o:
 		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}

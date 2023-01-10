@@ -40,35 +40,6 @@ char	**get_map(char *map_path)
 	return (ft_split(map, '\n'));
 }
 
-/*int	main(void)
-{
-	char	**split;
-
-	split = get_map("Makefile");
-	while (*split)
-		ft_printf("%s\n", *split++);
-}*/
-
-/* check for rectangle form + encadrer de murs 
-return 1 on error, 0 on success*/
-int	check_map(char **map, t_vars *vars)
-{
-	int		line_len;
-	int		nb_line;
-
-	nb_line = 0;
-	line_len = (int) ft_strlen(*map);
-	while (map[nb_line])
-	{
-		if (line_len != (int) ft_strlen(map[nb_line]))
-			return (map_error("lines are not the same length"));
-		nb_line++;
-	}
-	vars->map_w = line_len;
-	vars->map_h = nb_line;
-	return (check_wall(map, nb_line, line_len));
-}
-
 int	check_wall(char **map, int nb_line, int line_len)
 {
 	int	i;
@@ -98,6 +69,57 @@ int	check_wall(char **map, int nb_line, int line_len)
 			return (map_error("not complety walled on right side"));
 	}
 	return (0);
+}
+
+int	check_elem(char **map, int nb_line)
+{
+	int	c;
+	int	p;
+	int	e;
+
+	c = 0;
+	p = 0;
+	e = 0;
+	while (nb_line-- > 0)
+	{
+		if (ft_strchr((const char *) map[nb_line], 'C'))
+			c += 1;
+		if (ft_strchr((const char *) map[nb_line], 'P'))
+		{
+			p+= 1;
+			if (p > 1 || (ft_strrchr((const char *) map[nb_line], 'P')  && ft_strchr((const char *) map[nb_line], 'P') != ft_strrchr((const char *) map[nb_line], 'P')))
+				return (map_error("map error : more tham one player start pos"));
+		}
+		if (ft_strchr((const char *) map[nb_line], 'E'))
+		{
+			e+= 1;
+			if (e > 1 || (ft_strrchr((const char *) map[nb_line], 'E')  && ft_strchr((const char *) map[nb_line], 'E') != ft_strrchr((const char *) map[nb_line], 'E')))
+				return (map_error("map error : more tham one exit"));
+		}
+	}
+	if (!c || !p || !e)
+		return (map_error("map error : missing collectible or player start or exit"));
+	return (0);
+}
+
+int	check_map(char **map, t_vars *vars)
+{
+	int		line_len;
+	int		nb_line;
+
+	nb_line = 0;
+	line_len = (int) ft_strlen(*map);
+	while (map[nb_line])
+	{
+		if (line_len != (int) ft_strlen(map[nb_line]))
+			return (map_error("lines are not the same length"));
+		nb_line++;
+	}
+	vars->map_w = line_len;
+	vars->map_h = nb_line;
+	if (check_elem(map, nb_line))
+		return (1);
+	return (check_wall(map, nb_line, line_len));
 }
 
 void	print_map(char **map)
