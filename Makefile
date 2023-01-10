@@ -8,6 +8,7 @@ SRCS = ${SRC_DIR}main.c\
 		${SRC_DIR}draw.c\
 		${SRC_DIR}map.c\
 		${SRC_DIR}print_error.c\
+		${SRC_DIR}collide.c\
 
 OBJS =	${SRCS:.c=.o}
 

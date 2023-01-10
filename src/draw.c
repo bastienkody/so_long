@@ -14,6 +14,7 @@
 
 int	redraw(t_vars *vars)
 {
+	player_collect(vars);
 	bg_pix_to_img(vars->img, WHITE);
 	mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->img->img, 0, 0);
 //	mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->tileset->grass->img, 0, 0);
@@ -21,7 +22,8 @@ int	redraw(t_vars *vars)
 	draw_floor(vars);
 	draw_walls(vars);
 	draw_player(vars);
-	mlx_string_put(vars->mlx_ptr, vars->mlx_win, 10, 10, GREEN, ft_itoa(vars->moves));
+	mlx_string_put(vars->mlx_ptr, vars->mlx_win, 10, 10, GREEN, ft_itoa(vars->player->moves));
+	mlx_string_put(vars->mlx_ptr, vars->mlx_win, 50, 10, GREEN, ft_itoa(vars->player->points));
 	return (0);
 }
 
@@ -63,5 +65,5 @@ void	draw_walls(t_vars *vars)
 
 void	draw_player(t_vars *vars)
 {
-	mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->player->pos_one->img, vars->player->x, vars->player->y);
+	mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->player->pos_one->img, vars->player->x *STEP, vars->player->y * STEP);
 }

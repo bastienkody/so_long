@@ -47,7 +47,5 @@ t_data	*init_tile(t_vars *vars, char *path)
 	if (!tile->img)
 		printf("xpm to img failed\n");
 	tile->addr = mlx_get_data_addr(tile->img, &tile->bits_per_pixel, &tile->line_length, &tile->endian);
-	printf("from init_tileset, tile_img:%p\n", tile->img);
 	return (tile);
 }
-

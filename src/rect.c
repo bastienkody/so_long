@@ -54,7 +54,6 @@ int	move_rect(int keycode, t_vars *vars)
 	{
 		vars->rect->x += STEP;
 	}
-	vars->moves += 1;
 	return (0);
 }
 

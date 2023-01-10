@@ -20,6 +20,8 @@ int	load_player(t_vars *vars)
 	if (!player)
 		return (1);	
 	player->pos_one = init_sprite(vars, POS_ONE_P);
+	player->points = 0;
+	player->moves = 0;
 	vars->player = player;
 	get_player_ini_pos(vars);
 	ft_printf("player loaded :%p\n", player);
@@ -53,23 +55,26 @@ t_data	*init_sprite(t_vars *vars, char *path)
 
 void	move_player(int keycode, t_vars *vars)
 {
-	if (keycode == W)
+	if (keycode == W && vars->map[vars->player->y - 1][vars->player->x] != '1')
 	{
-		vars->player->y -= STEP;
+		vars->player->y -= 1;
+		vars->player->moves += 1;
 	}
-	if (keycode == A)
+	if (keycode == A && vars->map[vars->player->y][vars->player->x - 1] != '1')
 	{
-		vars->player->x -= STEP;
+		vars->player->x -= 1;
+		vars->player->moves += 1;
 	}
-	if (keycode == S)
+	if (keycode == S && vars->map[vars->player->y + 1][vars->player->x] != '1')
 	{
-		vars->player->y += STEP;
+		vars->player->y += 1;
+		vars->player->moves += 1;
 	}
-	if (keycode == D)
+	if (keycode == D && vars->map[vars->player->y][vars->player->x + 1] != '1')
 	{
-		vars->player->x += STEP;
+		vars->player->x += 1;
+		vars->player->moves += 1;
 	}
-	vars->moves += 1;
 }
 
 /* player pos from map.ber */
@@ -88,8 +93,8 @@ void	get_player_ini_pos(t_vars *vars)
 		{
 			if (vars->map[y][x] == 'P')
 			{
-				vars->player->x = x * STEP;
-				vars->player->y = y * STEP;			
+				vars->player->x = x;
+				vars->player->y = y;			
 				ft_printf("player pos x:%i, y:%i\n", x, y);
 			}
 		}

@@ -22,16 +22,11 @@ int	close_window(t_vars *vars)
 
 int	k_inputs(int keycode, t_vars *vars)
 {
-	printf("keycode : %i\n", keycode);
+//	printf("keycode : %i\n", keycode);
 	if (keycode == ESC)
 		mlx_destroy_window(vars->mlx_ptr, vars->mlx_win);
 	else if (keycode == W || keycode == A || keycode == S || keycode == D)
 		move_player(keycode, vars);
-	else if (keycode == UP || keycode == DOWN || keycode == LEFT || keycode == RIGHT)
-		printf("arrows keys");
-//	redraw(vars);
-//	printf("player.x : %i\n", vars->player->x);
-//	printf("player.y : %i\n", vars->player->y);
 	return (0);
 }
 
@@ -53,9 +48,10 @@ int	main(int argc, char **argv)
 	t_vars	vars;
 	t_data	img;
 
-	if (argc != 2)
-		return (arg_error());
+	if (arg_error(argc, argv))
+		return (1);
 	vars.map = get_map(argv[1]);
+	printf("%i\n", argc);
 	if (!vars.map)
 		return (map_error(NULL));
 	print_map(vars.map);
@@ -63,7 +59,6 @@ int	main(int argc, char **argv)
 
 	vars.mlx_ptr = mlx_init();
 	vars.mlx_win = mlx_new_window(vars.mlx_ptr, vars.map_w * STEP, vars.map_h * STEP, "Hello world!");
-	vars.moves = 0;
 
 	img.img = mlx_new_image(vars.mlx_ptr, WIDTH, HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);

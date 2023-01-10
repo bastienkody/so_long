@@ -94,6 +94,8 @@ typedef struct	s_player
 {
 	int		x;
 	int		y;
+	int		moves;
+	int		points;
 	t_data	*pos_one;
 }				t_player;
 
@@ -108,7 +110,6 @@ typedef struct	s_vars
 	t_data		*img;
 	t_tileset	*tileset;
 	t_player	*player;
-	int			moves;
 }				t_vars;
 
 /* prototypes */
@@ -135,10 +136,11 @@ t_data	*init_sprite(t_vars *vars, char *path);
 void	move_player(int keycode, t_vars *vars);
 void    draw_player(t_vars *vars);
 int		map_error(char *msg);
-int		arg_error(void);
+int		arg_error(int argc, char **argv);
 char	**get_map(char *map_path);
 int		check_map(char **map, t_vars *vars);
 int		check_wall(char **map, int nb_line, int line_len);
 void	print_map(char **map);
 void	get_player_ini_pos(t_vars *vars);
+void	player_collect(t_vars *vars);
 #endif
