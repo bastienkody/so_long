@@ -6,7 +6,7 @@
 /*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 19:06:55 by bguillau          #+#    #+#             */
-/*   Updated: 2023/01/11 12:49:48 by bguillau         ###   ########.fr       */
+/*   Updated: 2023/01/11 14:41:43 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,14 @@
 /* player */
 #define P_WIDTH 128
 #define P_HEIGHT 128
-#define	POS_ONE_P "assets/turtle.xpm"
+#define	POS_L_1 "assets/player/player_left_1_bg.xpm"
+#define	POS_L_2 "assets/player/player_left_2_bg.xpm"
+#define	POS_L_3 "assets/player/player_left_3_bg.xpm"
+#define	POS_L_4 "assets/player/player_left_4_bg.xpm"
+#define	POS_R_1 "assets/player/player_right_1_bg.xpm"
+#define	POS_R_2 "assets/player/player_right_2_bg.xpm"
+#define	POS_R_3 "assets/player/player_right_3_bg.xpm"
+#define	POS_R_4 "assets/player/player_right_4_bg.xpm"
 
 
 /* tile */
@@ -60,7 +67,8 @@
 #define	GRASS_P "assets/grass.xpm"
 #define	WALL_P "assets/white_wall.xpm"
 #define	COLLECT_P "assets/collect_bg.xpm"
-#define	EXIT_P "assets/exit.xpm"
+#define	EXIT_P "assets/exit/exit.xpm"
+#define	EXIT_OPEN_P "assets/exit/exit_open.xpm"
 
 
 /* struct */
@@ -88,16 +96,20 @@ typedef struct	s_tileset
 	t_data	*wall;
 	t_data	*collect;
 	t_data	*obstacle;
-	t_data	*exit;
+	t_data	*exit[2];
 }				t_tileset;
 
 typedef struct	s_player
 {
 	int		x;
 	int		y;
+	char	dir;
 	int		moves;
+	int		l_moves;
+	int		r_moves;
 	int		points;
-	t_data	*pos_one;
+	t_data	*pos_left[4];
+	t_data	*pos_right[4];
 }				t_player;
 
 typedef struct	s_vars
@@ -146,4 +158,5 @@ void	get_player_ini_pos(t_vars *vars);
 void	player_collect(t_vars *vars);
 int		player_wall(t_vars *vars, int y_offset, int x_offset);
 int		player_exit(t_vars *vars);
+int		player_abt_to_exit(t_vars *vars);
 #endif

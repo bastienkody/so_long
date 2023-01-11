@@ -59,13 +59,18 @@ void	draw_walls(t_vars *vars)
 				mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->tileset->wall->img, (x * STEP), (y * STEP));
 			else if (vars->map[y][x] == 'C')
 				mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->tileset->collect->img, (x * STEP), (y * STEP));
-			else if (vars->map[y][x] == 'E')
-				mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->tileset->exit->img, (x * STEP), (y * STEP));
+			else if (vars->map[y][x] == 'E' && player_abt_to_exit(vars))
+				mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->tileset->exit[1]->img, (x * STEP), (y * STEP));
+			else if (vars->map[y][x] == 'E' && !player_abt_to_exit(vars))
+				mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->tileset->exit[0]->img, (x * STEP), (y * STEP));	
 		}
 	}
 }
 
 void	draw_player(t_vars *vars)
 {
-	mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->player->pos_one->img, vars->player->x *STEP, vars->player->y * STEP);
+	if (vars->player->dir == 'L')
+		mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->player->pos_left[vars->player->l_moves % 3]->img, vars->player->x *STEP, vars->player->y * STEP);
+	else if (vars->player->dir == 'R')
+		mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->player->pos_right[vars->player->r_moves % 3]->img, vars->player->x *STEP, vars->player->y * STEP);
 }
