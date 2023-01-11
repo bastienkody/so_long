@@ -61,29 +61,35 @@ int	backtrack(char **map_backtrack, int j, int i)
 	dep = move(map_backtrack, j, i);
 	printf("j = %d, i = %d\n", j, i);
 	if (dep == 0)
+	{
+		ft_printf("dep=0 return 0\n");
 		return (0);
+	}
 	else if (dep == 1)
 	{
-		backtrack(map_backtrack, j, i + 1);
-		return (1);
+		ft_printf("new appel en j:%i, i:%i\n", j, i+1);
+		return(backtrack(map_backtrack, j, i + 1));
 	}
 	else if (dep == 2)
 	{
-		backtrack(map_backtrack, j + 1, i);
-		return (1);
+		ft_printf("new appel en j:%i, i:%i\n", j + 1, i);
+		return(backtrack(map_backtrack, j + 1, i));
 	}
 	else if (dep == 3)
 	{
-		backtrack(map_backtrack, j, i - 1);
-		return (1);
+		ft_printf("new appel en j:%i, i:%i\n", j, i - 1);
+		return(backtrack(map_backtrack, j, i - 1));
 	}
 	else if (dep == 4)
 	{
-		backtrack(map_backtrack, j - 1, i);
-		return (1);
+		ft_printf("new appel en j:%i, i:%i\n", j - 1, i);
+		return(backtrack(map_backtrack, j - 1, i));
 	}
 	else
+	{
+		ft_printf("return 0 en bas\n");
 		return (0);
+	}
 }
 
 int	main(int argc, char **argv)

@@ -49,10 +49,6 @@ int	check_wall(char **map, int nb_line, int line_len)
 	{
 		if (map[0][i] != '1')
 			return (map_error("not complety walled on first line"));
-	}
-	i = -1;
-	while (++i < line_len)
-	{
 		if (map[nb_line -1][i] != '1')
 			return (map_error("not complety walled on last line"));
 	}
@@ -61,10 +57,6 @@ int	check_wall(char **map, int nb_line, int line_len)
 	{
 		if (map[i][0] != '1')
 			return (map_error("not complety walled on left side"));
-	}
-	i = -1;
-	while (++i < nb_line)
-	{
 		if (map[i][line_len- 1] != '1')
 			return (map_error("not complety walled on right side"));
 	}
