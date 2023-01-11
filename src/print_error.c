@@ -6,7 +6,7 @@
 /*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/06 17:24:58 by bguillau          #+#    #+#             */
-/*   Updated: 2023/01/06 18:40:55 by bguillau         ###   ########.fr       */
+/*   Updated: 2023/01/11 17:25:31 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	arg_error(int argc, char **argv)
 		return (1);
 	}
 	arg1_len = ft_strlen(argv[1]);
-	if (argv[1][arg1_len - 1] != 'r' && argv[1][arg1_len - 2] != 'e' && argv[1][arg1_len - 3] != 'b' && argv[1][arg1_len - 4] != '.')
+	if (argv[1][arg1_len - 1] != 'r' && argv[1][arg1_len - 2]
+		!= 'e' && argv[1][arg1_len - 3] != 'b' && argv[1][arg1_len - 4] != '.')
 	{
 		ft_printf("Error\nThe map must be *.ber\n");
 		return (1);

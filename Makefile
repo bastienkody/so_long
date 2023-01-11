@@ -1,6 +1,6 @@
 SRC_DIR = ./src/
 
-SRCS = ${SRC_DIR}main.c\
+SRCS = ${SRC_DIR}backtracking.c\
 		${SRC_DIR}color_img.c\
 		${SRC_DIR}player.c\
 		${SRC_DIR}tileset.c\

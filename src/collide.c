@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   collide.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/11 17:29:49 by bguillau          #+#    #+#             */
+/*   Updated: 2023/01/11 17:31:28 by bguillau         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/so_long.h"
 
 int	player_wall(t_vars *vars, int y_offset, int x_offset)
 {
 	if (vars->map[vars->player->y + y_offset][vars->player->x + x_offset] == '1')
-		return (1) ;
+		return (1);
 	return (0);
 }
 
@@ -36,3 +48,25 @@ void	player_collect(t_vars *vars)
 	}
 }
 
+/* player pos from map.ber */
+void	get_player_ini_pos(t_vars *vars)
+{
+	int	x;
+	int	y;
+
+	if (!vars->player)
+		return ;
+	y = -1;
+	while (++y < vars->map_h)
+	{
+		x = -1;
+		while (++x < vars->map_w)
+		{
+			if (vars->map[y][x] == 'P')
+			{
+				vars->player->x = x;
+				vars->player->y = y;			
+			}
+		}
+	}
+}

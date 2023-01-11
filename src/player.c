@@ -22,11 +22,9 @@ int	load_player(t_vars *vars)
 	player->pos_left[0]= init_sprite(vars, POS_L_1);
 	player->pos_left[1]= init_sprite(vars, POS_L_2);
 	player->pos_left[2]= init_sprite(vars, POS_L_3);
-	//player->pos_left[3]= init_sprite(vars, POS_L_4);
 	player->pos_right[0]= init_sprite(vars, POS_R_1);
 	player->pos_right[1]= init_sprite(vars, POS_R_2);
 	player->pos_right[2]= init_sprite(vars, POS_R_3);
-	//player->pos_right[3]= init_sprite(vars, POS_R_4);
 	player->pos_static_l[0]= init_sprite(vars, POS_SL_1);
 	player->pos_static_l[1]= init_sprite(vars, POS_SL_2);
 	player->pos_static_l[2]= init_sprite(vars, POS_SL_3);
@@ -60,6 +58,14 @@ void	unload_player(t_vars *vars)
 		free(vars->player->pos_right[i]);
 		free(vars->player->pos_left[i]);
 	}
+	i = -1;
+	while (++i < 4)
+	{
+		mlx_destroy_image(vars->mlx_ptr, vars->player->pos_static_r[i]->img);
+		mlx_destroy_image(vars->mlx_ptr, vars->player->pos_static_l[i]->img);
+		free(vars->player->pos_right[i]);
+		free(vars->player->pos_left[i]);
+	}
 	free(vars->player);
 }
 
@@ -77,7 +83,7 @@ t_data	*init_sprite(t_vars *vars, char *path)
 	sprite->img = mlx_xpm_file_to_image(vars->mlx_ptr, path, &w, &h);
 	if (!sprite->img)
 		printf("xpm to img failed\n");
-	sprite->addr = mlx_get_data_addr(sprite->img, &sprite->bits_per_pixel, &sprite->line_length, &sprite->endian);
+	//sprite->addr = mlx_get_data_addr(sprite->img, &sprite->bits_per_pixel, &sprite->line_length, &sprite->endian);
 	return (sprite);
 }
 
@@ -122,28 +128,5 @@ void	move_player(int keycode, t_vars *vars)
 		vars->player->is_static = 0;
 		vars->player->static_moves = 0;
 		vars->player->static_delay = 0;
-	}
-}
-
-/* player pos from map.ber */
-void	get_player_ini_pos(t_vars *vars)
-{
-	int	x;
-	int	y;
-
-	if (!vars->player)
-		return ;
-	y = -1;
-	while (++y < vars->map_h)
-	{
-		x = -1;
-		while (++x < vars->map_w)
-		{
-			if (vars->map[y][x] == 'P')
-			{
-				vars->player->x = x;
-				vars->player->y = y;			
-			}
-		}
 	}
 }

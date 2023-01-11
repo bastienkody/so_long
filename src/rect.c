@@ -12,28 +12,18 @@
 
 #include "../inc/so_long.h"
 
-void	init_t_rect(t_rect *rect, int x, int y, int width, int height)
+t_rect	*init_t_rect(int x, int y, int width, int height)
 {
+	t_rect	*rect;
+
+	rect = malloc(sizeof(rect));
+	if (!rect)
+		return (NULL);
 	rect->x = x;
 	rect->y = y;
 	rect->width = width;
 	rect->height = height;
-	rect->next = NULL;
-}
-
-void	rect_addback(t_rect *rect, t_vars *vars)
-{
-
-	if (!rect)
-	{
-		printf("rect add back but rect == NULL\n");
-		return ;
-	}
-	while (vars->rect)
-		vars->rect = vars->rect->next;
-	vars->rect = rect;
-	printf("rect = %p\n", rect);
-	printf("vars->rect %p\n", vars->rect);
+	return (rect);
 }
 
 int	move_rect(int keycode, t_vars *vars)
@@ -78,7 +68,7 @@ int	resize_rect(int keycode, t_vars *vars)
 	return (0);
 }
 
-void	draw_rects(t_vars *vars)
+/*void	draw_rects(t_vars *vars)
 {
 	t_rect	*tmp;
 
@@ -105,4 +95,4 @@ void	print_rects(t_vars *vars)
 		printf("y:%i\n", tmp->y);
 		tmp = tmp->next;
 	}
-}
+}*/

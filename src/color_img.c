@@ -51,7 +51,9 @@ void	rect_pix_to_img(t_data *img, t_rect *rect, int color)
 		y = rect->y;
 		while (y < rect->y + rect->height)
 		{
+			ft_printf("rect pix to image fct\n");
 			pix_to_img(img, x, y, color);
+			ft_printf("x:%i, y:%i\n");
 			y++;
 		}
 		x++;

@@ -22,6 +22,7 @@
 #define WIDTH 1280
 #define HEIGHT 1280
 #define STEP 128
+#define FONT "-schumacher-*-bold-*-normal-*-8-*-75-75-*-*-*-*"
 
 /* keycode */
 #define W 119
@@ -85,7 +86,6 @@ typedef struct	s_rect
 	int y;
 	int width;
 	int height;
-	struct s_rect	*next;
 }				t_rect;
 
 typedef struct	s_data
@@ -118,8 +118,8 @@ typedef struct	s_player
 	int		static_delay;
 	int		is_static;
 	int		points;
-	t_data	*pos_left[4];
-	t_data	*pos_right[4];
+	t_data	*pos_left[3];
+	t_data	*pos_right[3];
 	t_data	*pos_static_l[4];
 	t_data	*pos_static_r[4];
 }				t_player;
@@ -141,7 +141,7 @@ typedef struct	s_vars
 void	pix_to_img(t_data *img, int x, int y, int color);
 void	bg_pix_to_img(t_data *img, int color);
 void	rect_pix_to_img(t_data *img, t_rect *rect, int color);
-void	init_t_rect(t_rect *rect, int x, int y, int width, int height);
+t_rect	*init_t_rect(int x, int y, int width, int height);
 int		move_rect(int keycode, t_vars *vars);
 int		resize_rect(int keycode, t_vars *vars);
 int		k_inputs(int keycode, t_vars *vars);
