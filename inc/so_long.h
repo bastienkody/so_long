@@ -59,7 +59,14 @@
 #define	POS_R_2 "assets/player/player_right_2_bg.xpm"
 #define	POS_R_3 "assets/player/player_right_3_bg.xpm"
 #define	POS_R_4 "assets/player/player_right_4_bg.xpm"
-
+#define	POS_SL_1 "assets/player/static_left_1_bg.xpm"
+#define	POS_SL_2 "assets/player/static_left_2_bg.xpm"
+#define	POS_SL_3 "assets/player/static_left_3_bg.xpm"
+#define	POS_SL_4 "assets/player/static_left_4_bg.xpm"
+#define	POS_SR_1 "assets/player/static_right_1_bg.xpm"
+#define	POS_SR_2 "assets/player/static_right_2_bg.xpm"
+#define	POS_SR_3 "assets/player/static_right_3_bg.xpm"
+#define	POS_SR_4 "assets/player/static_right_4_bg.xpm"
 
 /* tile */
 #define T_WIDTH 128
@@ -107,9 +114,14 @@ typedef struct	s_player
 	int		moves;
 	int		l_moves;
 	int		r_moves;
+	int		static_moves;
+	int		static_delay;
+	int		is_static;
 	int		points;
 	t_data	*pos_left[4];
 	t_data	*pos_right[4];
+	t_data	*pos_static_l[4];
+	t_data	*pos_static_r[4];
 }				t_player;
 
 typedef struct	s_vars

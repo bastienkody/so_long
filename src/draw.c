@@ -69,7 +69,11 @@ void	draw_walls(t_vars *vars)
 
 void	draw_player(t_vars *vars)
 {
-	if (vars->player->dir == 'L')
+	if (vars->player->is_static && vars->player->dir == 'L')
+		mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->player->pos_static_l[vars->player->static_moves % 4]->img, vars->player->x *STEP, vars->player->y * STEP);
+	else if (vars->player->is_static && vars->player->dir == 'R')
+		mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->player->pos_static_r[vars->player->static_moves % 4]->img, vars->player->x *STEP, vars->player->y * STEP);
+	else if (vars->player->dir == 'L')
 		mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->player->pos_left[vars->player->l_moves % 3]->img, vars->player->x *STEP, vars->player->y * STEP);
 	else if (vars->player->dir == 'R')
 		mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->player->pos_right[vars->player->r_moves % 3]->img, vars->player->x *STEP, vars->player->y * STEP);

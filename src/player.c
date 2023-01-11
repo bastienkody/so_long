@@ -27,9 +27,22 @@ int	load_player(t_vars *vars)
 	player->pos_right[1]= init_sprite(vars, POS_R_2);
 	player->pos_right[2]= init_sprite(vars, POS_R_3);
 	//player->pos_right[3]= init_sprite(vars, POS_R_4);
+	player->pos_static_l[0]= init_sprite(vars, POS_SL_1);
+	player->pos_static_l[1]= init_sprite(vars, POS_SL_2);
+	player->pos_static_l[2]= init_sprite(vars, POS_SL_3);
+	player->pos_static_l[3]= init_sprite(vars, POS_SL_4);
+	player->pos_static_r[0]= init_sprite(vars, POS_SR_1);
+	player->pos_static_r[1]= init_sprite(vars, POS_SR_2);
+	player->pos_static_r[2]= init_sprite(vars, POS_SR_3);
+	player->pos_static_r[3]= init_sprite(vars, POS_SR_4);
 	player->points = 0;
 	player->moves = 0;
+	player->l_moves = 0;
+	player->r_moves = 0;
+	player->static_moves = 0;
+	player->static_delay = 0;
 	player->dir = 'L';
+	player->is_static = 1;
 	vars->player = player;
 	get_player_ini_pos(vars);
 	return (0);
@@ -76,6 +89,9 @@ void	move_player(int keycode, t_vars *vars)
 		vars->player->moves += 1;
 		vars->player->r_moves = 0;
 		vars->player->l_moves = 0;
+		vars->player->is_static = 0;
+		vars->player->static_moves = 0;
+		vars->player->static_delay = 0;
 	}
 	if (keycode == A && !player_wall(vars, 0, -1))
 	{
@@ -83,6 +99,9 @@ void	move_player(int keycode, t_vars *vars)
 		vars->player->dir = 'L';
 		vars->player->moves += 1;
 		vars->player->l_moves += 1;
+		vars->player->is_static = 0;
+		vars->player->static_moves = 0;
+		vars->player->static_delay = 0;
 	}
 	if (keycode == S && !player_wall(vars, 1, 0))
 	{
@@ -90,6 +109,9 @@ void	move_player(int keycode, t_vars *vars)
 		vars->player->moves += 1;
 		vars->player->r_moves = 0;
 		vars->player->l_moves = 0;
+		vars->player->is_static = 0;
+		vars->player->static_moves = 0;
+		vars->player->static_delay = 0;
 	}
 	if (keycode == D && !player_wall(vars, 0, 1))
 	{
@@ -97,6 +119,9 @@ void	move_player(int keycode, t_vars *vars)
 		vars->player->dir = 'R';
 		vars->player->moves += 1;
 		vars->player->r_moves += 1;
+		vars->player->is_static = 0;
+		vars->player->static_moves = 0;
+		vars->player->static_delay = 0;
 	}
 }
 
