@@ -38,7 +38,7 @@ void	draw_floor(t_vars *vars)
 		x = -1;
 		while (++x < vars->map_w)
 		{
-			if (vars->map[y][x] == '0' || vars->map[y][x] == 'C' || vars->map[y][x] == 'E' || vars->map[y][x] == 'P')
+			if (vars->map[y][x] == '0' || vars->map[y][x] == 'C' || vars->map[y][x] == 'P')
 				mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->tileset->grass->img, (x * STEP), (y * STEP));
 		}
 	}
@@ -59,6 +59,8 @@ void	draw_walls(t_vars *vars)
 				mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->tileset->wall->img, (x * STEP), (y * STEP));
 			else if (vars->map[y][x] == 'C')
 				mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->tileset->collect->img, (x * STEP), (y * STEP));
+			else if (vars->map[y][x] == 'E')
+				mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->tileset->exit->img, (x * STEP), (y * STEP));
 		}
 	}
 }

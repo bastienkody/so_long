@@ -24,7 +24,6 @@ int	load_player(t_vars *vars)
 	player->moves = 0;
 	vars->player = player;
 	get_player_ini_pos(vars);
-	ft_printf("player loaded :%p\n", player);
 	return (0);
 }
 
@@ -55,22 +54,22 @@ t_data	*init_sprite(t_vars *vars, char *path)
 
 void	move_player(int keycode, t_vars *vars)
 {
-	if (keycode == W && vars->map[vars->player->y - 1][vars->player->x] != '1')
+	if (keycode == W && !player_wall(vars, - 1, 0))
 	{
 		vars->player->y -= 1;
 		vars->player->moves += 1;
 	}
-	if (keycode == A && vars->map[vars->player->y][vars->player->x - 1] != '1')
+	if (keycode == A && !player_wall(vars, 0, -1))
 	{
 		vars->player->x -= 1;
 		vars->player->moves += 1;
 	}
-	if (keycode == S && vars->map[vars->player->y + 1][vars->player->x] != '1')
+	if (keycode == S && !player_wall(vars, 1, 0))
 	{
 		vars->player->y += 1;
 		vars->player->moves += 1;
 	}
-	if (keycode == D && vars->map[vars->player->y][vars->player->x + 1] != '1')
+	if (keycode == D && !player_wall(vars, 0, 1))
 	{
 		vars->player->x += 1;
 		vars->player->moves += 1;
@@ -95,7 +94,6 @@ void	get_player_ini_pos(t_vars *vars)
 			{
 				vars->player->x = x;
 				vars->player->y = y;			
-				ft_printf("player pos x:%i, y:%i\n", x, y);
 			}
 		}
 	}

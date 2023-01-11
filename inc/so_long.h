@@ -6,7 +6,7 @@
 /*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 19:06:55 by bguillau          #+#    #+#             */
-/*   Updated: 2023/01/09 18:35:44 by bguillau         ###   ########.fr       */
+/*   Updated: 2023/01/11 12:49:48 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@
 #define T_HEIGHT 128
 #define	GRASS_P "assets/grass.xpm"
 #define	WALL_P "assets/white_wall.xpm"
-#define	COLLECT_P "assets/salad.xpm"
+#define	COLLECT_P "assets/collect_bg.xpm"
+#define	EXIT_P "assets/exit.xpm"
 
 
 /* struct */
@@ -143,4 +144,6 @@ int		check_wall(char **map, int nb_line, int line_len);
 void	print_map(char **map);
 void	get_player_ini_pos(t_vars *vars);
 void	player_collect(t_vars *vars);
+int		player_wall(t_vars *vars, int y_offset, int x_offset);
+int		player_exit(t_vars *vars);
 #endif

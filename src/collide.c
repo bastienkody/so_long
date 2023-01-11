@@ -1,10 +1,18 @@
 #include "../inc/so_long.h"
 
-void	collide(void)
+int	player_wall(t_vars *vars, int y_offset, int x_offset)
 {
-	return ;
+	if (vars->map[vars->player->y + y_offset][vars->player->x + x_offset] == '1')
+		return (1) ;
+	return (0);
 }
 
+int	player_exit(t_vars *vars)
+{
+	if (vars->map[vars->player->y][vars->player->x] == 'E')
+		return (1);
+	return (0);
+}
 void	player_collect(t_vars *vars)
 {
 	if (vars->map[vars->player->y][vars->player->x] == 'C')
@@ -13,7 +21,4 @@ void	player_collect(t_vars *vars)
 		vars->map[vars->player->y][vars->player->x] = '0';
 	}
 }
-void	player_exit(void)
-{
-	return ;
-}
+

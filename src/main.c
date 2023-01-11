@@ -20,6 +20,17 @@ int	close_window(t_vars *vars)
 	return (0);
 }
 
+int	update(t_vars *vars)
+{
+	if (player_exit(vars))
+	{
+		ft_printf("you won\n");
+		close_window(vars);
+	}
+	redraw(vars);
+		return (0);
+}
+
 int	k_inputs(int keycode, t_vars *vars)
 {
 //	printf("keycode : %i\n", keycode);
@@ -51,7 +62,6 @@ int	main(int argc, char **argv)
 	if (arg_error(argc, argv))
 		return (1);
 	vars.map = get_map(argv[1]);
-	printf("%i\n", argc);
 	if (!vars.map)
 		return (map_error(NULL));
 	print_map(vars.map);
@@ -73,7 +83,7 @@ int	main(int argc, char **argv)
 	mlx_key_hook(vars.mlx_win, &k_inputs, &vars);
 	mlx_mouse_hook(vars.mlx_win, &m_inputs, &vars);
 	mlx_hook(vars.mlx_win, 17, 0, &close_window, &vars);
-	mlx_loop_hook(vars.mlx_ptr, &redraw, &vars);
+	mlx_loop_hook(vars.mlx_ptr, &update, &vars);
 	mlx_loop(vars.mlx_ptr);
 
 	unload_tileset(&vars);
