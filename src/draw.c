@@ -14,28 +14,13 @@
 
 int	redraw(t_vars *vars)
 {
-	t_rect	*rect;
-	t_data	*img_rect;
-
-
-	bg_pix_to_img(vars->img, WHITE);
-	mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->img->img, 0, 0);
 	draw_floor(vars);
 	draw_walls(vars);
 	draw_player(vars);
-
-	rect = init_t_rect(10, 10, 200, 10);
-	if (!rect)
-		return (1);
-	img_rect = mlx_new_image(vars->mlx_ptr, 500, 500);
-	rect_pix_to_img(img_rect, rect, WHITE);
-	mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, img_rect->img, 0, 0);
-	//free(rect);
-	//mlx_destroy_image(vars->mlx_ptr, img_rect->img);
-	mlx_string_put(vars->mlx_ptr, vars->mlx_win, 10, 10, BLACK, "moves:");
-	mlx_string_put(vars->mlx_ptr, vars->mlx_win, 70, 10, BLACK, ft_itoa(vars->player->moves));
-	mlx_string_put(vars->mlx_ptr, vars->mlx_win, 100, 10, BLACK, "points:");
-	mlx_string_put(vars->mlx_ptr, vars->mlx_win, 170, 10, BLACK, ft_itoa(vars->player->points));
+	mlx_string_put(vars->mlx_ptr, vars->mlx_win, 10, 15, BLACK, "moves:");
+	mlx_string_put(vars->mlx_ptr, vars->mlx_win, 70, 15, BLACK, ft_itoa(vars->player->moves));
+	mlx_string_put(vars->mlx_ptr, vars->mlx_win, 100, 15, BLACK, "points:");
+	mlx_string_put(vars->mlx_ptr, vars->mlx_win, 170, 15, BLACK, ft_itoa(vars->player->points));
 	return (0);
 }
 

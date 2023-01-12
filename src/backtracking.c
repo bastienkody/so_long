@@ -6,7 +6,7 @@
 /*   By: lgirault <lgirault@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 14:23:43 by lgirault          #+#    #+#             */
-/*   Updated: 2023/01/11 20:05:49 by bguillau         ###   ########.fr       */
+/*   Updated: 2023/01/12 14:14:40 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,38 @@ int	move(char **map_backtrack, int j, int i)
 	}
 }
 
-int	backtrack(char **map_backtrack, int j, int i)
+int	backtrack(char **map_backtrack, int j, int i, int dep)
+{
+	if (is_win(map_backtrack[j][i]) == 1)
+		return (1);
+	dep = move(map_backtrack, j, i);
+	if (dep == 1)
+	{	
+		if (backtrack(map_backtrack, j, i + 1, dep) == 1)
+			return (1);
+	}
+	dep = move(map_backtrack, j, i);
+	if (dep == 2)
+	{
+		if (backtrack(map_backtrack, j + 1, i, dep) == 1)
+			return (1);
+	}
+	dep = move(map_backtrack, j, i);
+	if (dep == 3)
+	{
+		if (backtrack(map_backtrack, j, i - 1, dep) == 1)
+			return (1);
+	}
+	dep = move(map_backtrack, j, i);
+	if (dep == 4)
+	{
+		if (backtrack(map_backtrack, j - 1, i, dep) == 1)
+			return (1);
+	}
+	return (0);
+}
+
+/*int	backtrack(char **map_backtrack, int j, int i)
 {
 	int dep;
 
@@ -61,43 +92,37 @@ int	backtrack(char **map_backtrack, int j, int i)
 	dep = move(map_backtrack, j, i);
 	printf("j = %d, i = %d\n", j, i);
 	if (dep == 0)
-	{
-		ft_printf("dep=0 return 0\n");
 		return (0);
-	}
 	else if (dep == 1)
 	{
-		ft_printf("new appel en j:%i, i:%i\n", j, i+1);
-		return(backtrack(map_backtrack, j, i + 1));
+		backtrack(map_backtrack, j, i + 1);
+		return (1);
 	}
 	else if (dep == 2)
 	{
-		ft_printf("new appel en j:%i, i:%i\n", j + 1, i);
-		return(backtrack(map_backtrack, j + 1, i));
+		backtrack(map_backtrack, j + 1, i);
+		return (1);
 	}
 	else if (dep == 3)
 	{
-		ft_printf("new appel en j:%i, i:%i\n", j, i - 1);
-		return(backtrack(map_backtrack, j, i - 1));
+		backtrack(map_backtrack, j, i - 1);
+		return (1);
 	}
 	else if (dep == 4)
 	{
-		ft_printf("new appel en j:%i, i:%i\n", j - 1, i);
-		return(backtrack(map_backtrack, j - 1, i));
+		backtrack(map_backtrack, j - 1, i);
+		return (1);
 	}
 	else
-	{
-		ft_printf("return 0 en bas\n");
 		return (0);
-	}
-}
+}*/
 
-int	main(int argc, char **argv)
+/*int	main(int argc, char **argv)
 {
 	char	**map;
 
 	if (argc != 2)
 		return (-1);
 	map = get_map(argv[1]);
-	ft_printf("%i\n", backtrack(map, 1, 1));
-}
+	ft_printf("%i\n", backtrack(map, 1, 1, -1));
+}*/

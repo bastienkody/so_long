@@ -6,7 +6,7 @@
 /*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 19:06:55 by bguillau          #+#    #+#             */
-/*   Updated: 2023/01/11 14:41:43 by bguillau         ###   ########.fr       */
+/*   Updated: 2023/01/12 16:40:06 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 #define WIDTH 1280
 #define HEIGHT 1280
 #define STEP 128
-#define FONT "-schumacher-*-bold-*-normal-*-8-*-75-75-*-*-*-*"
+#define FONT "-schumacher-*-bold-*-*-*-*-160-*-*-*-*-*-*"
 
 /* keycode */
 #define W 119
@@ -132,7 +132,7 @@ typedef struct	s_vars
 	int			map_w;
 	int			map_h;
 	t_rect		*rect;
-	t_data		*img;
+	t_data		*bg;
 	t_tileset	*tileset;
 	t_player	*player;
 }				t_vars;
@@ -144,8 +144,10 @@ void	rect_pix_to_img(t_data *img, t_rect *rect, int color);
 t_rect	*init_t_rect(int x, int y, int width, int height);
 int		move_rect(int keycode, t_vars *vars);
 int		resize_rect(int keycode, t_vars *vars);
+int		update(t_vars *vars);
 int		k_inputs(int keycode, t_vars *vars);
 int		m_inputs(int button, int x, int y, t_vars *vars);
+int		close_window(t_vars *vars);
 void	draw_rects(t_vars *vars);
 void	print_rects(t_vars *vars);
 void    rect_addback(t_rect *rect, t_vars *vars);
