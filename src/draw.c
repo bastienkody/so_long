@@ -12,15 +12,27 @@
 
 #include "../inc/so_long.h"
 
+void	draw_score(t_vars *vars)
+{
+	char	*moves;
+	char	*points;
+
+	moves = ft_itoa(vars->player->moves);
+	points = ft_itoa(vars->player->points);
+	mlx_string_put(vars->mlx_ptr, vars->mlx_win, 10, 15, BLACK, "moves:");
+	mlx_string_put(vars->mlx_ptr, vars->mlx_win, 70, 15, BLACK, moves);
+	mlx_string_put(vars->mlx_ptr, vars->mlx_win, 100, 15, BLACK, "points:");
+	mlx_string_put(vars->mlx_ptr, vars->mlx_win, 170, 15, BLACK, points);
+	free(moves);
+	free(points);
+}
+
 int	redraw(t_vars *vars)
 {
 	draw_floor(vars);
 	draw_walls(vars);
 	draw_player(vars);
-	mlx_string_put(vars->mlx_ptr, vars->mlx_win, 10, 15, BLACK, "moves:");
-	mlx_string_put(vars->mlx_ptr, vars->mlx_win, 70, 15, BLACK, ft_itoa(vars->player->moves));
-	mlx_string_put(vars->mlx_ptr, vars->mlx_win, 100, 15, BLACK, "points:");
-	mlx_string_put(vars->mlx_ptr, vars->mlx_win, 170, 15, BLACK, ft_itoa(vars->player->points));
+	draw_score(vars);
 	return (0);
 }
 

@@ -32,10 +32,15 @@ int	load_tileset(t_vars *vars)
 void	unload_tileset(t_vars *vars)
 {
 	mlx_destroy_image(vars->mlx_ptr, vars->tileset->grass->img);
+	free(vars->tileset->grass);
 	mlx_destroy_image(vars->mlx_ptr, vars->tileset->wall->img);
+	free(vars->tileset->wall);
 	mlx_destroy_image(vars->mlx_ptr, vars->tileset->collect->img);
+	free(vars->tileset->collect);
 	mlx_destroy_image(vars->mlx_ptr, vars->tileset->exit[0]->img);
+	free(vars->tileset->exit[0]);
 	mlx_destroy_image(vars->mlx_ptr, vars->tileset->exit[1]->img);
+	free(vars->tileset->exit[1]);
 	free(vars->tileset);
 }
 

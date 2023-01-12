@@ -14,6 +14,12 @@
 
 int	update(t_vars *vars)
 {
+	if (player_exit(vars))
+	{
+		ft_printf("you won\n");
+		close_window(vars);
+		return (0);
+	}
 	player_collect(vars);
 	vars->player->static_delay += 1;
 	if (vars->player->static_delay > 2500)
@@ -31,14 +37,12 @@ int	k_inputs(int keycode, t_vars *vars)
 {
 //	printf("keycode : %i\n", keycode);
 	if (keycode == ESC)
-		mlx_destroy_window(vars->mlx_ptr, vars->mlx_win);
+	{
+		close_window(vars);
+		return (1);
+	}
 	else if (keycode == W || keycode == A || keycode == S || keycode == D)
 		move_player(keycode, vars);
-	if (player_exit(vars))
-	{
-		ft_printf("you won\n");
-		close_window(vars);
-	}
 	redraw(vars);
 	return (0);
 }

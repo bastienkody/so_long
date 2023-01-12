@@ -63,8 +63,8 @@ void unload_player(t_vars *vars)
 	{
 		mlx_destroy_image(vars->mlx_ptr, vars->player->pos_static_r[i]->img);
 		mlx_destroy_image(vars->mlx_ptr, vars->player->pos_static_l[i]->img);
-		free(vars->player->pos_right[i]);
-		free(vars->player->pos_left[i]);
+		free(vars->player->pos_static_r[i]);
+		free(vars->player->pos_static_l[i]);
 	}
 	free(vars->player);
 }

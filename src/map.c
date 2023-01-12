@@ -17,6 +17,7 @@ char	**get_map(char *map_path)
 	int		fd;
 	char	*nl;
 	char	*map;
+	char	**tmp;
 
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
@@ -37,7 +38,9 @@ char	**get_map(char *map_path)
 			return (NULL);
 		nl = get_next_line(fd);
 	}
-	return (ft_split(map, '\n'));
+	tmp = ft_split(map, '\n'); //necessaire pour free map avant le retour ft_split(map)
+	free(map);
+	return (tmp);
 }
 
 int	check_wall(char **map, int nb_line, int line_len)
@@ -118,4 +121,14 @@ void	print_map(char **map)
 {
 	    while (*map)
         printf("%s\n", *(map)++);
+}
+
+void	free_map(t_vars *vars)
+{
+	int	y;
+
+	y = -1;
+	while (++y < vars->map_h)
+		free(vars->map[y]);
+	free(vars->map);
 }

@@ -6,7 +6,7 @@
 /*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 12:05:05 by bguillau          #+#    #+#             */
-/*   Updated: 2023/01/12 17:32:57 by bguillau         ###   ########.fr       */
+/*   Updated: 2023/01/12 20:22:54 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 
 int	close_window(t_vars *vars)
 {
+	unload_tileset(vars);
+	unload_player(vars);
 	mlx_destroy_window(vars->mlx_ptr, vars->mlx_win);
 	mlx_destroy_display(vars->mlx_ptr);
+	free_map(vars);
 	return (0);
 }
 
@@ -41,7 +44,8 @@ int	init_all(t_vars *vars, char *argv1)
 		printf("free-all and quit (erreur malloc player)\n");
 		return (1);
 	}
-	mlx_set_font(vars->mlx_ptr, vars->mlx_win, FONT);
+	//mlx_set_font(vars->mlx_ptr, vars->mlx_win, FONT);
+	redraw(vars);
 	return (0);
 }
 
@@ -54,15 +58,13 @@ int	main(int argc, char **argv)
 	if (init_all(&vars, argv[1]))
 		return (1);
 
+	ft_printf("vars.map_h:%i\n", vars.map_h);
+	ft_printf("vars.map_w:%i\n", vars.map_w);
+
 	mlx_key_hook(vars.mlx_win, &k_inputs, &vars);
 	mlx_mouse_hook(vars.mlx_win, &m_inputs, &vars);
 	mlx_hook(vars.mlx_win, 17, 0, &close_window, &vars);
 	mlx_loop_hook(vars.mlx_ptr, &update, &vars);
 	mlx_loop(vars.mlx_ptr);
-
-//	unload_tileset(&vars);
-//	unload_player(&vars);
-//	mlx_destroy_window(vars.mlx_ptr, vars.mlx_win);
-//	mlx_destroy_display(vars.mlx_ptr);
 	free(vars.mlx_ptr);
 }

@@ -173,4 +173,5 @@ void	player_collect(t_vars *vars);
 int		player_wall(t_vars *vars, int y_offset, int x_offset);
 int		player_exit(t_vars *vars);
 int		player_abt_to_exit(t_vars *vars);
+void	free_map(t_vars *vars);
 #endif
