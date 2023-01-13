@@ -66,6 +66,25 @@ int	check_wall(char **map, int nb_line, int line_len)
 	return (0);
 }
 
+int	check_collect(char **map, int nb_line, t_vars *vars)
+{
+	char	*tmp;
+
+	while (nb_line-- > 0)
+	{
+		tmp = ft_strchr((const char *) map[nb_line], 'C');
+		while (tmp)
+		{
+			vars->c += 1;
+			ft_printf("c+1\n");
+			tmp = ft_strchr((const char *) map[nb_line], 'C');
+		}
+	}
+	if (vars->c)
+		return (0);
+	return (1);
+}
+
 /*fonction doit etre modifiee : 
 coupee par elem? 
 permettre de checkez plusieurs elem par par lignes : str = ft_strchr et on reprend a str
@@ -80,8 +99,6 @@ int	check_elem(char **map, int nb_line, t_vars *vars)
 	e = 0;
 	while (nb_line-- > 0)
 	{
-		if (ft_strchr((const char *) map[nb_line], 'C')) //n'en compte qu'un seul par ligne
-			vars->c += 1;
 		if (ft_strchr((const char *) map[nb_line], 'P'))
 		{
 			p+= 1;
@@ -95,7 +112,7 @@ int	check_elem(char **map, int nb_line, t_vars *vars)
 				return (map_error("map error : more tham one exit"));
 		}
 	}
-	if (!vars->c || !p || !e)
+	if (check_collect(map, nb_line, vars) || !p || !e)
 		return (map_error("map error : missing collectible or player start or exit"));
 	return (0);
 }

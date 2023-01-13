@@ -49,7 +49,7 @@ int	init_all(t_vars *vars, char *argv1)
 		printf("free-all and quit (erreur malloc player)\n");
 		return (1);
 	}
-	//mlx_set_font(vars->mlx_ptr, vars->mlx_win, FONT);
+	mlx_set_font(vars->mlx_ptr, vars->mlx_win, FONT);
 	redraw(vars);
 	return (0);
 }
@@ -68,7 +68,7 @@ int	main(int argc, char **argv)
 
 	mlx_key_hook(vars.mlx_win, &k_inputs, &vars);
 	mlx_mouse_hook(vars.mlx_win, &m_inputs, &vars);
-	mlx_hook(vars.mlx_win, 17, 0, &close_window, &vars);
+	//mlx_hook(vars.mlx_win, 17, 0, &close_window, &vars);
 	mlx_loop_hook(vars.mlx_ptr, &update, &vars);
 	mlx_loop(vars.mlx_ptr);
 }
