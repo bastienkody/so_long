@@ -19,6 +19,8 @@
 #include <stdio.h>
 #include <fcntl.h>
 
+#include <X11/keysymdef.h> // utiliser les vrais codes car ca peut varier selon os
+
 #define WIDTH 1280
 #define HEIGHT 1280
 #define STEP 128
@@ -131,6 +133,7 @@ typedef struct	s_vars
 	char		**map;
 	int			map_w;
 	int			map_h;
+	int			c;
 	t_rect		*rect;
 	t_data		*bg;
 	t_tileset	*tileset;

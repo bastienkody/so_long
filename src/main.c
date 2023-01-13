@@ -12,19 +12,24 @@
 
 #include "../inc/so_long.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 int	close_window(t_vars *vars)
 {
 	unload_tileset(vars);
 	unload_player(vars);
+	//XUnloadFont(vars->mlx_ptr, FONT);
 	mlx_destroy_window(vars->mlx_ptr, vars->mlx_win);
-	mlx_destroy_display(vars->mlx_ptr);
 	free_map(vars);
-	return (0);
+	mlx_destroy_display(vars->mlx_ptr);
+	free(vars->mlx_ptr);
+	ft_printf("c:%i\n", vars->c);
+	exit(EXIT_SUCCESS);
 }
 
 int	init_all(t_vars *vars, char *argv1)
 {
+	vars->c = 0;
 	vars->map = get_map(argv1);
 	if (!vars->map)
 		return (map_error(NULL));
@@ -66,5 +71,4 @@ int	main(int argc, char **argv)
 	mlx_hook(vars.mlx_win, 17, 0, &close_window, &vars);
 	mlx_loop_hook(vars.mlx_ptr, &update, &vars);
 	mlx_loop(vars.mlx_ptr);
-	free(vars.mlx_ptr);
 }

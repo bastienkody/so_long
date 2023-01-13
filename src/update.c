@@ -39,7 +39,7 @@ int	k_inputs(int keycode, t_vars *vars)
 	if (keycode == ESC)
 	{
 		close_window(vars);
-		return (1);
+		return (0);
 	}
 	else if (keycode == W || keycode == A || keycode == S || keycode == D)
 		move_player(keycode, vars);

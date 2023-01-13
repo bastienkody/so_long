@@ -22,8 +22,8 @@ int	arg_error(int argc, char **argv)
 		return (1);
 	}
 	arg1_len = ft_strlen(argv[1]);
-	if (argv[1][arg1_len - 1] != 'r' && argv[1][arg1_len - 2]
-		!= 'e' && argv[1][arg1_len - 3] != 'b' && argv[1][arg1_len - 4] != '.')
+	if (argv[1][arg1_len - 1] != 'r' || argv[1][arg1_len - 2]
+		!= 'e' || argv[1][arg1_len - 3] != 'b' || argv[1][arg1_len - 4] != '.')
 	{
 		ft_printf("Error\nThe map must be *.ber\n");
 		return (1);
