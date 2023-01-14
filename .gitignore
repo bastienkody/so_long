@@ -1,3 +1,6 @@
+#Opened files
+*.swp
+
 # Prerequisites
 *.d
 
