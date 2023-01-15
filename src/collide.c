@@ -21,13 +21,16 @@ int	player_wall(t_vars *vars, int y_offset, int x_offset)
 
 int	player_exit(t_vars *vars)
 {
-	if (vars->map[vars->player->y][vars->player->x] == 'E')
+	if (vars->map[vars->player->y][vars->player->x] == 'E' && !vars->c)
 		return (1);
 	return (0);
 }
 
+/* not used anymore we draw the door according the collectibles left */
 int	player_abt_to_exit(t_vars *vars)
 {
+	if (vars->c > 0)
+		return (0);
 	if (vars->map[vars->player->y - 1][vars->player->x] == 'E')
 		return (1);
 	if (vars->map[vars->player->y + 1][vars->player->x] == 'E')
@@ -39,13 +42,15 @@ int	player_abt_to_exit(t_vars *vars)
 	return (0);
 }
 
-void	player_collect(t_vars *vars)
+int	player_collect(t_vars *vars)
 {
 	if (vars->map[vars->player->y][vars->player->x] == 'C')
 	{
-		vars->player->points += 1;
+		vars->c -= 1;
 		vars->map[vars->player->y][vars->player->x] = '0';
+		return (1);
 	}
+	return (0);
 }
 
 /* player pos from map.ber */

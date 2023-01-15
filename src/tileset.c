@@ -20,27 +20,35 @@ int	load_tileset(t_vars *vars)
 	tileset = malloc(1 * sizeof(t_tileset));
 	if (!tileset)
 		return (1);	
-	tileset->grass = init_tile(vars, GRASS_P);
-	tileset->wall = init_tile(vars, WALL_P);
-	tileset->collect = init_tile(vars, COLLECT_P);
-	tileset->exit[0] = init_tile(vars, EXIT_P);
-	tileset->exit[1] = init_tile(vars, EXIT_OPEN_P);
+	tileset->wfloor = init_tile(vars, WFLOOR);
+	tileset->wwall = init_tile(vars, WWALL);
+	tileset->collect[0] = init_tile(vars, COLLECT_0);
+	tileset->collect[1] = init_tile(vars, COLLECT_1);
+	tileset->collect[2] = init_tile(vars, COLLECT_2);
+	tileset->collect[3] = init_tile(vars, COLLECT_3);
+	tileset->exit[0] = init_tile(vars, DOOR_100);
+	tileset->exit[1] = init_tile(vars, DOOR_75);
+	tileset->exit[2] = init_tile(vars, DOOR_25);
+	tileset->exit[3] = init_tile(vars, DOOR_0);
 	vars->tileset = tileset;
 	return (0);
 }
 
 void	unload_tileset(t_vars *vars)
 {
-	mlx_destroy_image(vars->mlx_ptr, vars->tileset->grass->img);
-	free(vars->tileset->grass);
-	mlx_destroy_image(vars->mlx_ptr, vars->tileset->wall->img);
-	free(vars->tileset->wall);
-	mlx_destroy_image(vars->mlx_ptr, vars->tileset->collect->img);
-	free(vars->tileset->collect);
-	mlx_destroy_image(vars->mlx_ptr, vars->tileset->exit[0]->img);
-	free(vars->tileset->exit[0]);
-	mlx_destroy_image(vars->mlx_ptr, vars->tileset->exit[1]->img);
-	free(vars->tileset->exit[1]);
+	int	i;
+	mlx_destroy_image(vars->mlx_ptr, vars->tileset->wfloor->img);
+	free(vars->tileset->wfloor);
+	mlx_destroy_image(vars->mlx_ptr, vars->tileset->wwall->img);
+	free(vars->tileset->wwall);
+	i = -1;
+	while (++i < 4)
+	{
+		mlx_destroy_image(vars->mlx_ptr, vars->tileset->exit[i]->img);
+		mlx_destroy_image(vars->mlx_ptr, vars->tileset->collect[i]->img);
+		free(vars->tileset->exit[i]);
+		free(vars->tileset->collect[i]);
+	}
 	free(vars->tileset);
 }
 

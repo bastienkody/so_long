@@ -30,6 +30,7 @@ int	close_window(t_vars *vars)
 int	init_all(t_vars *vars, char *argv1)
 {
 	vars->c = 0;
+	vars->c_anim = 0;
 	vars->map = get_map(argv1);
 	if (!vars->map)
 		return (map_error(NULL));

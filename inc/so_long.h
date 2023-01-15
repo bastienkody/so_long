@@ -51,7 +51,7 @@
 #define WHITE 0xFFFFFF
 #define BLACK 0x000000
 
-/* player */
+/* player turle 
 #define P_WIDTH 128
 #define P_HEIGHT 128
 #define	POS_L_1 "assets/player/player_left_1_bg.xpm"
@@ -70,15 +70,51 @@
 #define	POS_SR_2 "assets/player/static_right_2_bg.xpm"
 #define	POS_SR_3 "assets/player/static_right_3_bg.xpm"
 #define	POS_SR_4 "assets/player/static_right_4_bg.xpm"
+*/
+
+/* player sea horse rider */
+#define P_WIDTH 128
+#define P_HEIGHT 128
+#define	P_L_1 "assets/player_seahorse/player_floor_L1_128.xpm"
+#define	P_L_2 "assets/player_seahorse/player_floor_L2_128.xpm"
+#define	P_L_3 "assets/player_seahorse/player_floor_L3_128.xpm"
+#define	P_L_4 "assets/player_seahorse/player_floor_L4_128.xpm"
+#define	P_R_1 "assets/player_seahorse/player_floor_R1_128.xpm"
+#define	P_R_2 "assets/player_seahorse/player_floor_R2_128.xpm"
+#define	P_R_3 "assets/player_seahorse/player_floor_R3_128.xpm"
+#define	P_R_4 "assets/player_seahorse/player_floor_R4_128.xpm"
+#define	P_U_1 "assets/player_seahorse/player_floor_U1_128.xpm"
+#define	P_U_2 "assets/player_seahorse/player_floor_U2_128.xpm"
+#define	P_U_3 "assets/player_seahorse/player_floor_U3_128.xpm"
+#define	P_U_4 "assets/player_seahorse/player_floor_U4_128.xpm"
+#define	P_D_1 "assets/player_seahorse/player_floor_D1_128.xpm"
+#define	P_D_2 "assets/player_seahorse/player_floor_D2_128.xpm"
+#define	P_D_3 "assets/player_seahorse/player_floor_D3_128.xpm"
+#define	P_D_4 "assets/player_seahorse/player_floor_D4_128.xpm"
 
 /* tile */
 #define T_WIDTH 128
 #define T_HEIGHT 128
+/* for turltle set 
 #define	GRASS_P "assets/grass.xpm"
 #define	WALL_P "assets/white_wall.xpm"
-#define	COLLECT_P "assets/collect_bg.xpm"
+*/
+#define	WFLOOR "assets/waterfloor128.xpm"
+#define	WWALL "assets/waterwall128.xpm" 
+
+
+#define	COLLECT_0 "assets/schrimp/schrimp_collect_0_128.xpm"
+#define	COLLECT_1 "assets/schrimp/schrimp_collect_1_128.xpm"
+#define	COLLECT_2 "assets/schrimp/schrimp_collect_2_128.xpm"
+#define	COLLECT_3 "assets/schrimp/schrimp_collect_3_128.xpm"
+
+
 #define	EXIT_P "assets/exit/exit.xpm"
 #define	EXIT_OPEN_P "assets/exit/exit_open.xpm"
+#define DOOR_0 "assets/exit/door_0_wfloor_128.xpm"
+#define DOOR_25 "assets/exit/door_25_wfloor_128.xpm"
+#define DOOR_75 "assets/exit/door_75_wfloor_128.xpm"
+#define DOOR_100 "assets/exit/door_100_wfloor_128.xpm"
 
 
 /* struct */
@@ -101,11 +137,10 @@ typedef struct	s_data
 
 typedef struct	s_tileset
 {
-	t_data	*grass;
-	t_data	*wall;
-	t_data	*collect;
-	t_data	*obstacle;
-	t_data	*exit[2];
+	t_data	*wfloor;
+	t_data	*wwall;
+	t_data	*collect[4];
+	t_data	*exit[4];
 }				t_tileset;
 
 typedef struct	s_player
@@ -114,16 +149,14 @@ typedef struct	s_player
 	int		y;
 	char	dir;
 	int		moves;
-	int		l_moves;
-	int		r_moves;
 	int		static_moves;
 	int		static_delay;
 	int		is_static;
 	int		points;
-	t_data	*pos_left[3];
-	t_data	*pos_right[3];
-	t_data	*pos_static_l[4];
-	t_data	*pos_static_r[4];
+	t_data	*pos_left[4];
+	t_data	*pos_right[4];
+	t_data	*pos_up[4];
+	t_data	*pos_down[4];
 }				t_player;
 
 typedef struct	s_vars
@@ -134,6 +167,7 @@ typedef struct	s_vars
 	int			map_w;
 	int			map_h;
 	int			c;
+	int			c_anim;
 	t_rect		*rect;
 	t_data		*bg;
 	t_tileset	*tileset;
@@ -158,8 +192,8 @@ int		load_tileset(t_vars *vars);
 void	unload_tileset(t_vars *vars);
 t_data	*init_tile(t_vars *vars, char *path);
 int		redraw(t_vars *vars);
-void	draw_floor(t_vars *vars);
-void	draw_walls(t_vars *vars);
+void	draw_floor_wall(t_vars *vars);
+void	draw_collect_door(t_vars *vars);
 int		load_player(t_vars *vars);
 void	unload_player(t_vars *vars);
 t_data	*init_sprite(t_vars *vars, char *path);
@@ -172,9 +206,10 @@ int		check_map(char **map, t_vars *vars);
 int		check_wall(char **map, int nb_line, int line_len);
 void	print_map(char **map);
 void	get_player_ini_pos(t_vars *vars);
-void	player_collect(t_vars *vars);
+int		player_collect(t_vars *vars);
 int		player_wall(t_vars *vars, int y_offset, int x_offset);
 int		player_exit(t_vars *vars);
 int		player_abt_to_exit(t_vars *vars);
 void	free_map(t_vars *vars);
+void	draw_score(t_vars *vars);
 #endif

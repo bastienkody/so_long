@@ -20,15 +20,20 @@ int	update(t_vars *vars)
 		close_window(vars);
 		return (0);
 	}
-	player_collect(vars);
+	if (player_collect(vars))
+		draw_score(vars);
 	vars->player->static_delay += 1;
-	if (vars->player->static_delay > 2500)
+	if (vars->player->static_delay > 20)
 	{
 		vars->player->static_delay = 0;
 		vars->player->static_moves += 1;
 	}
 	if (vars->player->static_moves > 2)
 		vars->player->is_static = 1;
+	vars->c_anim += 1;
+	if (vars->c_anim > 200)
+		vars->c_anim = 0;
+	draw_collect_door(vars);
 	draw_player(vars);
 	return (0);
 }

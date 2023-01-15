@@ -76,8 +76,8 @@ int	check_collect(char **map, int nb_line, t_vars *vars)
 		while (tmp)
 		{
 			vars->c += 1;
-			ft_printf("c+1\n");
-			tmp = ft_strchr((const char *) map[nb_line], 'C');
+			tmp++;
+			tmp = ft_strchr((const char *) tmp, 'C');
 		}
 	}
 	if (vars->c)
@@ -90,7 +90,7 @@ coupee par elem?
 permettre de checkez plusieurs elem par par lignes : str = ft_strchr et on reprend a str
 
 */
-int	check_elem(char **map, int nb_line, t_vars *vars)
+int	check_elem(char **map, int nb_line)
 {
 	int	p;
 	int	e;
@@ -112,8 +112,8 @@ int	check_elem(char **map, int nb_line, t_vars *vars)
 				return (map_error("map error : more tham one exit"));
 		}
 	}
-	if (check_collect(map, nb_line, vars) || !p || !e)
-		return (map_error("map error : missing collectible or player start or exit"));
+	if (!p || !e)
+		return (map_error("map error : missing player start or exit"));
 	return (0);
 }
 
@@ -132,9 +132,9 @@ int	check_map(char **map, t_vars *vars)
 	}
 	vars->map_w = line_len;
 	vars->map_h = nb_line;
-	if (check_elem(map, nb_line, vars))
+	if (check_wall(map, nb_line, line_len) || check_elem(map, nb_line) || check_collect(map, nb_line, vars))
 		return (1);
-	return (check_wall(map, nb_line, line_len));
+	return (0);
 }
 
 void	print_map(char **map)
