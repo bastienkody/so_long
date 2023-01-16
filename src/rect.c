@@ -26,66 +26,66 @@ t_rect	*init_t_rect(int x, int y, int width, int height)
 	return (rect);
 }
 
-int	move_rect(int keycode, t_vars *vars)
+int	move_rect(int keycode, t_v *v)
 {
 	if (keycode == W)
 	{
-		vars->rect->y -= STEP;
+		v->rect->y -= STEP;
 	}
 	if (keycode == A)
 	{
-		vars->rect->x -= STEP;
+		v->rect->x -= STEP;
 	}
 	if (keycode == S)
 	{
-		vars->rect->y += STEP;
+		v->rect->y += STEP;
 	}
 	if (keycode == D)
 	{
-		vars->rect->x += STEP;
+		v->rect->x += STEP;
 	}
 	return (0);
 }
 
-int	resize_rect(int keycode, t_vars *vars)
+int	resize_rect(int keycode, t_v *v)
 {
 	if (keycode == UP)
 	{
-		vars->rect->height -= STEP;
+		v->rect->height -= STEP;
 	}
 	if (keycode == LEFT)
 	{
-		vars->rect->width -= STEP;
+		v->rect->width -= STEP;
 	}
 	if (keycode == DOWN)
 	{
-		vars->rect->height += STEP;
+		v->rect->height += STEP;
 	}
 	if (keycode == RIGHT)
 	{
-		vars->rect->width += STEP;
+		v->rect->width += STEP;
 	}
 	return (0);
 }
 
-/*void	draw_rects(t_vars *vars)
+/*void	draw_rects(t_v *v)
 {
 	t_rect	*tmp;
 
-	tmp = vars->rect;
+	tmp = v->rect;
 	while (tmp)
 	{
-		rect_pix_to_img(vars->img, tmp, BLUE);
+		rect_pix_to_img(v->img, tmp, BLUE);
 		tmp = tmp->next;
 	}
-	mlx_put_image_to_window(vars->mlx_ptr, vars->mlx_win, vars->img->img, 0, 0);
+	mlx_put_image_to_window(v->mlx_ptr, v->mlx_win, v->img->img, 0, 0);
 }
 
-void	print_rects(t_vars *vars)
+void	print_rects(t_v *v)
 {
 	t_rect	*tmp;
 
-	tmp = vars->rect;
+	tmp = v->rect;
 	if (!tmp)
 		printf("prit_rect : no rect");
 	while (tmp)

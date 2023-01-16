@@ -12,42 +12,27 @@
 
 #include "../inc/so_long.h"
 
-int	player_wall(t_vars *vars, int y_offset, int x_offset)
+int	player_wall(t_v *v, int y_oset, int x_oset)
 {
-	if (vars->map[vars->player->y + y_offset][vars->player->x + x_offset] == '1')
+	if (v->map[v->player->y + y_oset][v->player->x + x_oset] == '1')
 		return (1);
 	return (0);
 }
 
-int	player_exit(t_vars *vars)
+int	player_exit(t_v *v)
 {
-	if (vars->map[vars->player->y][vars->player->x] == 'E' && vars->current_c == vars->ini_c)
+	if (v->map[v->player->y][v->player->x] == 'E'
+		&& v->current_c == v->ini_c)
 		return (1);
 	return (0);
 }
 
-/* not used anymore we draw the door according the collectibles left
-int	player_abt_to_exit(t_vars *vars)
+int	player_collect(t_v *v)
 {
-	if (vars->c > 0)
-		return (0);
-	if (vars->map[vars->player->y - 1][vars->player->x] == 'E')
-		return (1);
-	if (vars->map[vars->player->y + 1][vars->player->x] == 'E')
-		return (1);
-	if (vars->map[vars->player->y][vars->player->x - 1] == 'E')
-		return (1);
-	if (vars->map[vars->player->y][vars->player->x + 1] == 'E')
-		return (1);
-	return (0);
-} */
-
-int	player_collect(t_vars *vars)
-{
-	if (vars->map[vars->player->y][vars->player->x] == 'C')
+	if (v->map[v->player->y][v->player->x] == 'C')
 	{
-		vars->current_c += 1;
-		vars->map[vars->player->y][vars->player->x] = '0';
+		v->current_c += 1;
+		v->map[v->player->y][v->player->x] = '0';
 		return (1);
 	}
 	return (0);

@@ -12,6 +12,8 @@
 
 #include "../inc/so_long.h"
 
+/* ecrire les erreurs sur la sortie d'erreur */
+
 int	arg_error(int argc, char **argv)
 {
 	size_t	arg1_len;

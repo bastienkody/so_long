@@ -11,7 +11,8 @@
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
-
+ 
+ /* tmp necessaire pour free map avant le retour ft_split(map) */
 char	**get_map(char *map_path)
 {
 	int			fd;
@@ -36,12 +37,12 @@ char	**get_map(char *map_path)
 			return (NULL);
 		nl = get_next_line(fd);
 	}
-	tmp = ft_split(map, '\n'); //necessaire pour free map avant le retour ft_split(map)
+	tmp = ft_split(map, '\n');
 	free(map);
 	return (tmp);
 }
 
-int	check_map(char **map, t_vars *vars)
+int	check_map(char **map, t_v *v)
 {
 	int		line_len;
 	int		nb_line;
@@ -51,28 +52,28 @@ int	check_map(char **map, t_vars *vars)
 	while (map[nb_line])
 	{
 		if (line_len != (int) ft_strlen(map[nb_line]))
-			return (map_error("lines are not the same length"));
+			return (map_error("Lines are not the same length"));
 		nb_line++;
 	}
-	vars->map_w = line_len;
-	vars->map_h = nb_line;
-	if (check_wall(vars) || check_E(vars) || check_C(vars) || check_P(vars))
+	v->map_w = line_len;
+	v->map_h = nb_line;
+	if (check_wall(v) || check_e(v) || check_c(v) || check_p(v))
 		return (1);
 	return (0);
 }
 
 void	print_map(char **map)
 {
-	    while (*map)
-        printf("%s\n", *(map)++);
+	while (*map)
+		printf("%s\n", *(map)++);
 }
 
-void	free_map(t_vars *vars)
+void	free_map(t_v *v)
 {
 	int	y;
 
 	y = -1;
-	while (++y < vars->map_h)
-		free(vars->map[y]);
-	free(vars->map);
+	while (++y < v->map_h)
+		free(v->map[y]);
+	free(v->map);
 }

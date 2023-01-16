@@ -19,16 +19,16 @@ void	pix_to_img(t_data *img, int x, int y, int color)
 	if (color == 0x00FFFF)
 		return ;
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+	*(unsigned int *) dst = color;
 }
 
 void	bg_pix_to_img(t_data *img, int color)
 {
 	int	x;
-	int y;
+	int	y;
 
 	x = 0;
-	while(x < WIDTH)
+	while (x < WIDTH)
 	{
 		y = 0;
 		while (y < HEIGHT)
@@ -43,10 +43,10 @@ void	bg_pix_to_img(t_data *img, int color)
 void	rect_pix_to_img(t_data *img, t_rect *rect, int color)
 {
 	int	x;
-	int y;
+	int	y;
 
 	x = rect->x;
-	while(x < rect->x + rect->width)
+	while (x < rect->x + rect->width)
 	{
 		y = rect->y;
 		while (y < rect->y + rect->height)

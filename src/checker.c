@@ -20,66 +20,66 @@ int	check_char(char *line)
 	while (*line)
 	{
 		if (!ft_strchr(valid_char, *line++))
-			return(map_error("Unrecognized character"));
+			return (map_error("Unrecognized character"));
 	}
 	return (0);
 }
 
-int	check_wall(t_vars *vars)
+int	check_wall(t_v *v)
 {
 	int	i;
 
 	i = -1;
-	while (++i < vars->map_w)
+	while (++i < v->map_w)
 	{
-		if (vars->map[0][i] != '1')
+		if (v->map[0][i] != '1')
 			return (map_error("Map not complety walled on first line"));
-		if (vars->map[vars->map_h - 1][i] != '1')
+		if (v->map[v->map_h - 1][i] != '1')
 			return (map_error("Map not complety walled on last line"));
 	}
 	i = -1;
-	while (++i < vars->map_h)
+	while (++i < v->map_h)
 	{
-		if (vars->map[i][0] != '1')
+		if (v->map[i][0] != '1')
 			return (map_error("Map not complety walled on left side"));
-		if (vars->map[i][vars->map_w - 1] != '1')
+		if (v->map[i][v->map_w - 1] != '1')
 			return (map_error("Map not complety walled on right side"));
 	}
 	return (0);
 }
 
-int	check_C(t_vars *vars)
+int	check_c(t_v *v)
 {
 	char	*tmp;
 	int		i;
 
-	i = vars->map_h;
+	i = v->map_h;
 	while (i-- > 0)
 	{
-		tmp = ft_strchr((const char *) vars->map[i], 'C');
+		tmp = ft_strchr((const char *) v->map[i], 'C');
 		while (tmp)
 		{
-			vars->ini_c += 1;
+			v->ini_c += 1;
 			tmp++;
 			tmp = ft_strchr((const char *) tmp, 'C');
 		}
 	}
-	if (!vars->ini_c)
+	if (!v->ini_c)
 		return (map_error("Missing collectible"));
 	return (0);
 }
 
-int	check_P(t_vars *vars)
+int	check_p(t_v *v)
 {
 	char	*tmp;
 	int		i;
 	int		p;
 
-	i = vars->map_h;
+	i = v->map_h;
 	p = 0;
 	while (i-- > 0)
 	{
-		tmp = ft_strchr((const char *) vars->map[i], 'P');
+		tmp = ft_strchr((const char *) v->map[i], 'P');
 		while (tmp)
 		{
 			p += 1;
@@ -92,17 +92,17 @@ int	check_P(t_vars *vars)
 	return (0);
 }
 
-int	check_E(t_vars *vars)
+int	check_e(t_v *v)
 {
 	char	*tmp;
 	int		i;
 	int		e;
 
-	i = vars->map_h;
+	i = v->map_h;
 	e = 0;
 	while (i-- > 0)
 	{
-		tmp = ft_strchr((const char *) vars->map[i], 'E');
+		tmp = ft_strchr((const char *) v->map[i], 'E');
 		while (tmp)
 		{
 			e += 1;

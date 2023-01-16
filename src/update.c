@@ -12,52 +12,52 @@
 
 #include "../inc/so_long.h"
 
-int	update(t_vars *vars)
+int	update(t_v *v)
 {
-	if (player_exit(vars))
+	if (player_exit(v))
 	{
 		ft_printf("you won\n");
-		close_window(vars);
+		close_window(v);
 		return (0);
 	}
-	if (player_collect(vars))
-		draw_score(vars);
-	vars->player->static_delay += 1;
-	if (vars->player->static_delay > 2000)
+	if (player_collect(v))
+		draw_score(v);
+	v->player->static_delay += 1;
+	if (v->player->static_delay > 2000)
 	{
-		vars->player->static_delay = 0;
-		vars->player->static_moves += 1;
+		v->player->static_delay = 0;
+		v->player->static_moves += 1;
 	}
-	if (vars->player->static_moves > 2)
-		vars->player->is_static = 1;
-	vars->c_anim += 1;
-	if (vars->c_anim > 4000)
-		vars->c_anim = 0;
-	draw_collect_door(vars);
-	draw_player(vars);
+	if (v->player->static_moves > 2)
+		v->player->is_static = 1;
+	v->c_anim += 1;
+	if (v->c_anim > 4000)
+		v->c_anim = 0;
+	draw_collect_door(v);
+	draw_player(v);
 	return (0);
 }
 
-int	k_inputs(int keycode, t_vars *vars)
+int	k_inputs(int keycode, t_v *v)
 {
 //	printf("keycode : %i\n", keycode);
 	if (keycode == ESC)
 	{
-		close_window(vars);
+		close_window(v);
 		return (0);
 	}
 	else if (keycode == W || keycode == A || keycode == S || keycode == D)
-		move_player(keycode, vars);
-	redraw(vars);
+		move_player(keycode, v);
+	redraw(v);
 	return (0);
 }
 
-int	m_inputs(int button, int x, int y, t_vars *vars)
+int	m_inputs(int button, int x, int y, t_v *v)
 {
 	printf("M_button %i\n", button);
 	printf("M_x %i\n", x);
 	printf("M_y %i\n", y);
-	printf("vars%p\n", vars);
+	printf("v%p\n", v);
 	if (button == LEFT_C)
 		printf("left_clic\n");
 	if (button == RIGHT_C)

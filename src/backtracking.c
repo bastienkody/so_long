@@ -82,41 +82,6 @@ int	backtrack(char **map_backtrack, int j, int i, int dep)
 	return (0);
 }
 
-/*int	backtrack(char **map_backtrack, int j, int i)
-{
-	int dep;
-
-	dep = -1;
-	if (is_win(map_backtrack[j][i]) == 1)
-		return (1);
-	dep = move(map_backtrack, j, i);
-	printf("j = %d, i = %d\n", j, i);
-	if (dep == 0)
-		return (0);
-	else if (dep == 1)
-	{
-		backtrack(map_backtrack, j, i + 1);
-		return (1);
-	}
-	else if (dep == 2)
-	{
-		backtrack(map_backtrack, j + 1, i);
-		return (1);
-	}
-	else if (dep == 3)
-	{
-		backtrack(map_backtrack, j, i - 1);
-		return (1);
-	}
-	else if (dep == 4)
-	{
-		backtrack(map_backtrack, j - 1, i);
-		return (1);
-	}
-	else
-		return (0);
-}*/
-
 /*int	main(int argc, char **argv)
 {
 	char	**map;
