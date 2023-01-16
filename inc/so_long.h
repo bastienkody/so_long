@@ -6,7 +6,7 @@
 /*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 19:06:55 by bguillau          #+#    #+#             */
-/*   Updated: 2023/01/12 16:40:06 by bguillau         ###   ########.fr       */
+/*   Updated: 2023/01/16 16:10:27 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@
 #define	WALL_P "assets/white_wall.xpm"
 */
 #define	WFLOOR "assets/waterfloor128.xpm"
-#define	WWALL "assets/waterwall128.xpm" 
+#define	WWALL "assets/waterwall_green128.xpm" 
 
 
 #define	COLLECT_0 "assets/schrimp/schrimp_collect_0_128.xpm"
@@ -161,12 +161,13 @@ typedef struct	s_player
 
 typedef struct	s_vars
 {
-	void		*mlx_ptr;
-	void		*mlx_win;
+	void		*ptr;
+	void		*win;
 	char		**map;
 	int			map_w;
 	int			map_h;
-	int			c;
+	int			ini_c;
+	int			current_c;
 	int			c_anim;
 	t_rect		*rect;
 	t_data		*bg;
@@ -203,7 +204,11 @@ int		map_error(char *msg);
 int		arg_error(int argc, char **argv);
 char	**get_map(char *map_path);
 int		check_map(char **map, t_vars *vars);
-int		check_wall(char **map, int nb_line, int line_len);
+int		check_char(char *line);
+int		check_wall(t_vars *vars);
+int		check_C(t_vars *vars);
+int		check_P(t_vars *vars);
+int		check_E(t_vars *vars);
 void	print_map(char **map);
 void	get_player_ini_pos(t_vars *vars);
 int		player_collect(t_vars *vars);

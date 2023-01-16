@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../inc/so_long.h"
 
 int	load_tileset(t_vars *vars)
@@ -19,7 +18,7 @@ int	load_tileset(t_vars *vars)
 
 	tileset = malloc(1 * sizeof(t_tileset));
 	if (!tileset)
-		return (1);	
+		return (1);
 	tileset->wfloor = init_tile(vars, WFLOOR);
 	tileset->wwall = init_tile(vars, WWALL);
 	tileset->collect[0] = init_tile(vars, COLLECT_0);
@@ -37,15 +36,16 @@ int	load_tileset(t_vars *vars)
 void	unload_tileset(t_vars *vars)
 {
 	int	i;
-	mlx_destroy_image(vars->mlx_ptr, vars->tileset->wfloor->img);
+
+	mlx_destroy_image(vars->ptr, vars->tileset->wfloor->img);
 	free(vars->tileset->wfloor);
-	mlx_destroy_image(vars->mlx_ptr, vars->tileset->wwall->img);
+	mlx_destroy_image(vars->ptr, vars->tileset->wwall->img);
 	free(vars->tileset->wwall);
 	i = -1;
 	while (++i < 4)
 	{
-		mlx_destroy_image(vars->mlx_ptr, vars->tileset->exit[i]->img);
-		mlx_destroy_image(vars->mlx_ptr, vars->tileset->collect[i]->img);
+		mlx_destroy_image(vars->ptr, vars->tileset->exit[i]->img);
+		mlx_destroy_image(vars->ptr, vars->tileset->collect[i]->img);
 		free(vars->tileset->exit[i]);
 		free(vars->tileset->collect[i]);
 	}
@@ -55,15 +55,14 @@ void	unload_tileset(t_vars *vars)
 t_data	*init_tile(t_vars *vars, char *path)
 {
 	t_data	*tile;
-	int	w;	
-	int	h;
+	int		w;	
+	int		h;
 
 	w = T_WIDTH;
 	h = T_HEIGHT;
 	tile = malloc(1 * sizeof(t_data));
-	tile->img = mlx_xpm_file_to_image(vars->mlx_ptr, path, &w, &h);
+	tile->img = mlx_xpm_file_to_image(vars->ptr, path, &w, &h);
 	if (!tile->img)
-		printf("xpm to img failed\n");
-	tile->addr = mlx_get_data_addr(tile->img, &tile->bits_per_pixel, &tile->line_length, &tile->endian);
+		printf("xpm to img failed\n");// malloc needs to be protected later on
 	return (tile);
 }

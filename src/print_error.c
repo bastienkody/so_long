@@ -18,16 +18,18 @@ int	arg_error(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_printf("Error\nYou must give only one argument : the map path\n");
+		ft_printf("Error\nYou must only provide one argument : the map path\n");
 		return (1);
 	}
 	arg1_len = ft_strlen(argv[1]);
 	if (argv[1][arg1_len - 1] != 'r' || argv[1][arg1_len - 2]
 		!= 'e' || argv[1][arg1_len - 3] != 'b' || argv[1][arg1_len - 4] != '.')
 	{
-		ft_printf("Error\nThe map must be *.ber\n");
+		map_error("The map must be *.ber");
 		return (1);
 	}
+	if (arg1_len < 5)
+		return (map_error("The map must be <name>.ber"));
 	return (0);
 }
 

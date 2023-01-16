@@ -6,7 +6,7 @@
 /*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:23:52 by bguillau          #+#    #+#             */
-/*   Updated: 2023/01/12 16:27:23 by bguillau         ###   ########.fr       */
+/*   Updated: 2023/01/16 11:03:59 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	update(t_vars *vars)
 	if (player_collect(vars))
 		draw_score(vars);
 	vars->player->static_delay += 1;
-	if (vars->player->static_delay > 20)
+	if (vars->player->static_delay > 2000)
 	{
 		vars->player->static_delay = 0;
 		vars->player->static_moves += 1;
@@ -31,7 +31,7 @@ int	update(t_vars *vars)
 	if (vars->player->static_moves > 2)
 		vars->player->is_static = 1;
 	vars->c_anim += 1;
-	if (vars->c_anim > 200)
+	if (vars->c_anim > 4000)
 		vars->c_anim = 0;
 	draw_collect_door(vars);
 	draw_player(vars);

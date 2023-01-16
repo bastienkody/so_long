@@ -14,25 +14,23 @@
 
 char	**get_map(char *map_path)
 {
-	int		fd;
-	char	*nl;
-	char	*map;
-	char	**tmp;
+	int			fd;
+	char		*nl;
+	static char	*map = NULL;
+	char		**tmp;
 
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
-	{
-		printf("err on map opening with path %s\n", map_path);
 		return (NULL);
-	}
 	nl = get_next_line(fd);
-	map = NULL;
 	if (nl)
 		map = ft_strdup("");
 	if (!map)
 		return (NULL);
 	while (nl)
 	{
+		if (ft_strlen(nl) < 3 || check_char(nl))
+			return (NULL);
 		map = strj(map, nl);
 		if (!map)
 			return (NULL);
@@ -41,80 +39,6 @@ char	**get_map(char *map_path)
 	tmp = ft_split(map, '\n'); //necessaire pour free map avant le retour ft_split(map)
 	free(map);
 	return (tmp);
-}
-
-int	check_wall(char **map, int nb_line, int line_len)
-{
-	int	i;
-
-	i = -1;
-	while (++i < line_len)
-	{
-		if (map[0][i] != '1')
-			return (map_error("not complety walled on first line"));
-		if (map[nb_line -1][i] != '1')
-			return (map_error("not complety walled on last line"));
-	}
-	i = -1;
-	while (++i < nb_line)
-	{
-		if (map[i][0] != '1')
-			return (map_error("not complety walled on left side"));
-		if (map[i][line_len- 1] != '1')
-			return (map_error("not complety walled on right side"));
-	}
-	return (0);
-}
-
-int	check_collect(char **map, int nb_line, t_vars *vars)
-{
-	char	*tmp;
-
-	while (nb_line-- > 0)
-	{
-		tmp = ft_strchr((const char *) map[nb_line], 'C');
-		while (tmp)
-		{
-			vars->c += 1;
-			tmp++;
-			tmp = ft_strchr((const char *) tmp, 'C');
-		}
-	}
-	if (vars->c)
-		return (0);
-	return (1);
-}
-
-/*fonction doit etre modifiee : 
-coupee par elem? 
-permettre de checkez plusieurs elem par par lignes : str = ft_strchr et on reprend a str
-
-*/
-int	check_elem(char **map, int nb_line)
-{
-	int	p;
-	int	e;
-
-	p = 0;
-	e = 0;
-	while (nb_line-- > 0)
-	{
-		if (ft_strchr((const char *) map[nb_line], 'P'))
-		{
-			p+= 1;
-			if (p > 1 || (ft_strrchr((const char *) map[nb_line], 'P')  && ft_strchr((const char *) map[nb_line], 'P') != ft_strrchr((const char *) map[nb_line], 'P')))
-				return (map_error("map error : more tham one player start pos"));
-		}
-		if (ft_strchr((const char *) map[nb_line], 'E'))
-		{
-			e+= 1;
-			if (e > 1 || (ft_strrchr((const char *) map[nb_line], 'E')  && ft_strchr((const char *) map[nb_line], 'E') != ft_strrchr((const char *) map[nb_line], 'E')))
-				return (map_error("map error : more tham one exit"));
-		}
-	}
-	if (!p || !e)
-		return (map_error("map error : missing player start or exit"));
-	return (0);
 }
 
 int	check_map(char **map, t_vars *vars)
@@ -132,7 +56,7 @@ int	check_map(char **map, t_vars *vars)
 	}
 	vars->map_w = line_len;
 	vars->map_h = nb_line;
-	if (check_wall(map, nb_line, line_len) || check_elem(map, nb_line) || check_collect(map, nb_line, vars))
+	if (check_wall(vars) || check_E(vars) || check_C(vars) || check_P(vars))
 		return (1);
 	return (0);
 }

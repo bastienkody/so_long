@@ -12,9 +12,37 @@
 
 #include "../inc/so_long.h"
 
-int load_player(t_vars *vars)
+void	init_player(t_vars *vars)
 {
-	t_player *player;
+	int	x;
+	int	y;
+
+	if (!vars->player)
+		return ;
+	vars->player->points = 0;
+	vars->player->moves = 0;
+	vars->player->static_moves = 0;
+	vars->player->static_delay = 0;
+	vars->player->dir = 'D';
+	vars->player->is_static = 1;
+	y = -1;
+	while (++y < vars->map_h)
+	{
+		x = -1;
+		while (++x < vars->map_w)
+		{
+			if (vars->map[y][x] == 'P')
+			{
+				vars->player->x = x;
+				vars->player->y = y;
+			}
+		}
+	}
+}
+
+int	load_player(t_vars *vars)
+{
+	t_player	*player;
 
 	player = malloc(1 * sizeof(t_player));
 	if (!player)
@@ -35,28 +63,23 @@ int load_player(t_vars *vars)
 	player->pos_down[1] = init_tile(vars, P_D_2);
 	player->pos_down[2] = init_tile(vars, P_D_3);
 	player->pos_down[3] = init_tile(vars, P_D_4);
-	player->points = 0;
-	player->moves = 0;
-	player->static_moves = 0;
-	player->static_delay = 0;
-	player->dir = 'D';
-	player->is_static = 1;
+	//check des mallocs de initi_tile nedded here
 	vars->player = player;
-	get_player_ini_pos(vars);
+	init_player(vars);
 	return (0);
 }
 
-void unload_player(t_vars *vars)
+void	unload_player(t_vars *vars)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < 4)
 	{
-		mlx_destroy_image(vars->mlx_ptr, vars->player->pos_right[i]->img);
-		mlx_destroy_image(vars->mlx_ptr, vars->player->pos_left[i]->img);
-		mlx_destroy_image(vars->mlx_ptr, vars->player->pos_up[i]->img);
-		mlx_destroy_image(vars->mlx_ptr, vars->player->pos_down[i]->img);
+		mlx_destroy_image(vars->ptr, vars->player->pos_right[i]->img);
+		mlx_destroy_image(vars->ptr, vars->player->pos_left[i]->img);
+		mlx_destroy_image(vars->ptr, vars->player->pos_up[i]->img);
+		mlx_destroy_image(vars->ptr, vars->player->pos_down[i]->img);
 		free(vars->player->pos_right[i]);
 		free(vars->player->pos_left[i]);
 		free(vars->player->pos_up[i]);
@@ -65,7 +88,7 @@ void unload_player(t_vars *vars)
 	free(vars->player);
 }
 
-void move_player(int keycode, t_vars *vars)
+void	move_player(int keycode, t_vars *vars)
 {
 	vars->player->moves += 1;
 	vars->player->is_static = 0;
