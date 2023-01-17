@@ -20,7 +20,7 @@ int	check_char(char *line)
 	while (*line)
 	{
 		if (!ft_strchr(valid_char, *line++))
-			return (map_error("Unrecognized character"));
+			return (ft_printf("Unrecognized character\n"));
 	}
 	return (0);
 }

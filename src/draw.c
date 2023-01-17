@@ -91,15 +91,15 @@ void	draw_collect(t_v *v)
 			if (v->map[y][x] == 'C' && v->c_anim < 1000)
 				mlx_put_image_to_window(v->ptr, v->win,
 					v->tileset->collect[0]->img, x * STEP, y * STEP);
-			else if (v->map[y][x] == 'C' && v->c_anim > 1000 && v->c_anim < 2000)
+			else if (v->map[y][x] == 'C' && v->c_anim < 2000)
 				mlx_put_image_to_window(v->ptr, v->win,
 					v->tileset->collect[1]->img, x * STEP, y * STEP);
-			else if (v->map[y][x] == 'C' && v->c_anim > 2000 && v->c_anim < 3000)
+			else if (v->map[y][x] == 'C' && v->c_anim < 3000)
 				mlx_put_image_to_window(v->ptr, v->win,
 					v->tileset->collect[2]->img, x * STEP, y * STEP);
 			else if (v->map[y][x] == 'C' && v->c_anim > 3000)
 				mlx_put_image_to_window(v->ptr, v->win,
-					v->tileset->collect[3]->img, x * STEP, y * STEP);	
+					v->tileset->collect[3]->img, x * STEP, y * STEP);
 		}
 	}
 }

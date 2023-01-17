@@ -12,13 +12,14 @@
 
 #include "../inc/so_long.h"
 
-void	init_player(t_v *v)
+void	init_player(t_player *player, t_v *v)
 {
 	int	x;
 	int	y;
 
-	if (!v->player)
+	if (!player || !v)
 		return ;
+	v->player = player;
 	v->player->points = 0;
 	v->player->moves = 0;
 	v->player->static_moves = 0;
@@ -38,6 +39,20 @@ void	init_player(t_v *v)
 			}
 		}
 	}
+}
+
+int	check_load_player(t_player *player)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 4)
+	{
+		if (!player->pos_l[i] || !player->pos_r[i] || !player->pos_u[i]
+			|| !player->pos_d[i])
+			return (1);
+	}
+	return (0);
 }
 
 int	load_player(t_v *v)
@@ -63,9 +78,9 @@ int	load_player(t_v *v)
 	player->pos_d[1] = init_tile(v, P_D_2);
 	player->pos_d[2] = init_tile(v, P_D_3);
 	player->pos_d[3] = init_tile(v, P_D_4);
-	//check des mallocs de initi_tile nedded here
-	v->player = player;
-	init_player(v);
+	init_player(player, v);
+	if (check_load_player(player))
+		return (1);
 	return (0);
 }
 
@@ -74,16 +89,26 @@ void	unload_player(t_v *v)
 	int	i;
 
 	i = -1;
+	if (!v->player)
+		return ;
 	while (++i < 4)
 	{
-		mlx_destroy_image(v->ptr, v->player->pos_r[i]->img);
-		mlx_destroy_image(v->ptr, v->player->pos_l[i]->img);
-		mlx_destroy_image(v->ptr, v->player->pos_u[i]->img);
-		mlx_destroy_image(v->ptr, v->player->pos_d[i]->img);
-		free(v->player->pos_r[i]);
-		free(v->player->pos_l[i]);
-		free(v->player->pos_u[i]);
-		free(v->player->pos_d[i]);
+		if (v->player->pos_r[i] && v->player->pos_r[i]->img)
+			mlx_destroy_image(v->ptr, v->player->pos_r[i]->img);
+		if (v->player->pos_l[i] && v->player->pos_l[i]->img)
+			mlx_destroy_image(v->ptr, v->player->pos_l[i]->img);
+		if (v->player->pos_u[i] && v->player->pos_u[i]->img)
+			mlx_destroy_image(v->ptr, v->player->pos_u[i]->img);
+		if (v->player->pos_d[i] && v->player->pos_d[i]->img)
+			mlx_destroy_image(v->ptr, v->player->pos_d[i]->img);
+		if (v->player->pos_r[i])
+			free(v->player->pos_r[i]);
+		if (v->player->pos_l[i])
+			free(v->player->pos_l[i]);
+		if (v->player->pos_u[i])
+			free(v->player->pos_u[i]);
+		if (v->player->pos_d[i])
+			free(v->player->pos_d[i]);
 	}
 	free(v->player);
 }

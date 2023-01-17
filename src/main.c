@@ -34,24 +34,19 @@ int	init_all(t_v *v, char *argv1)
 	v->current_c = 0;
 	v->c_anim = 0;
 	v->map = get_map(argv1);
+	v->tileset = NULL;
+	v->player = NULL;
 	if (!v->map)
 		return (map_error(NULL));
 	if (check_map(v->map, v))
 		return (1);
 	v->ptr = mlx_init();
-	v->win = mlx_new_window(v->ptr, v->map_w * STEP, 
+	v->win = mlx_new_window(v->ptr, v->map_w * STEP,
 			v->map_h * STEP, "slg");
 	if (load_tileset(v))
-	{
-		printf("free-all and quit (erreur malloc tileset)\n");
-		return (1);
-	}	
+		return (close_window(v));
 	if (load_player(v))
-	{
-		printf("free-all and quit (erreur malloc player)\n");
-		return (1);
-	}
-	//mlx_set_font(v->mlx_ptr, v->mlx_win, FONT);
+		return (close_window(v));
 	redraw(v);
 	return (0);
 }
@@ -64,7 +59,6 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_all(&v, argv[1]))
 		return (1);
-
 	mlx_key_hook(v.win, &k_inputs, &v);
 	mlx_mouse_hook(v.win, &m_inputs, &v);
 	mlx_hook(v.win, 17, 0, &close_window, &v);

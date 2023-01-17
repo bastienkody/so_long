@@ -11,7 +11,16 @@
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
- 
+
+char	**err_on_read(char *map, char *nl)
+{
+	if (ft_strlen(nl) < 4)
+		ft_printf("Line lenght is lower than 3 (line feed excluded)\n");
+	free(map);
+	free(nl);
+	return (NULL);
+}
+
  /* tmp necessaire pour free map avant le retour ft_split(map) */
 char	**get_map(char *map_path)
 {
@@ -30,12 +39,8 @@ char	**get_map(char *map_path)
 		return (NULL);
 	while (nl)
 	{
-		if (ft_strlen(nl) < 3 || check_char(nl))
-		{
-			free(map);
-			free(nl);
-			return (NULL); // free map et free nl must be needed? 
-		}
+		if (ft_strlen(nl) < 4 || check_char(nl))
+			return (err_on_read(map, nl));
 		map = strj(map, nl);
 		if (!map)
 			return (NULL);
