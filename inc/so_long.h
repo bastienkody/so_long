@@ -92,6 +92,24 @@
 #define	P_D_3 "assets/player_seahorse/player_floor_D3_128.xpm"
 #define	P_D_4 "assets/player_seahorse/player_floor_D4_128.xpm"
 
+/* shark enemy */
+#define	S_L_1 "assets/shark/shark_l_1_128.xpm"
+#define	S_L_2 "assets/shark/shark_l_2_128.xpm"
+#define	S_L_3 "assets/shark/shark_l_3_128.xpm"
+#define	S_L_4 "assets/shark/shark_l_4_128.xpm"
+#define	S_R_1 "assets/shark/shark_r_1_128.xpm"
+#define	S_R_2 "assets/shark/shark_r_2_128.xpm"
+#define	S_R_3 "assets/shark/shark_r_3_128.xpm"
+#define	S_R_4 "assets/shark/shark_r_4_128.xpm"
+#define	S_U_1 "assets/shark/shark_u_1_128.xpm"
+#define	S_U_2 "assets/shark/shark_u_2_128.xpm"
+#define	S_U_3 "assets/shark/shark_u_3_128.xpm"
+#define	S_U_4 "assets/shark/shark_u_4_128.xpm"
+#define	S_D_1 "assets/shark/shark_d_1_128.xpm"
+#define	S_D_2 "assets/shark/shark_d_2_128.xpm"
+#define	S_D_3 "assets/shark/shark_d_3_128.xpm"
+#define	S_D_4 "assets/shark/shark_d_4_128.xpm"
+
 /* tile */
 #define T_WIDTH 128
 #define T_HEIGHT 128
@@ -169,10 +187,12 @@ typedef struct	s_v
 	int			ini_c;
 	int			current_c;
 	int			c_anim;
+	int			nb_enemies;
 	t_rect		*rect;
 	t_data		*bg;
 	t_tileset	*tileset;
 	t_player	*player;
+	t_player	*shark;
 }				t_v;
 
 /* prototypes */
@@ -218,4 +238,5 @@ void	free_map(t_v *v);
 void	draw_score(t_v *v);
 void	draw_door(t_v *v);
 void	draw_collect(t_v *v);
+int		load_shark(t_v *v);
 #endif

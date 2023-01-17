@@ -16,7 +16,7 @@ int	check_char(char *line)
 {
 	const char	*valid_char;
 
-	valid_char = "01PEC\n";
+	valid_char = "01PECS\n";
 	while (*line)
 	{
 		if (!ft_strchr(valid_char, *line++))
@@ -88,7 +88,7 @@ int	check_p(t_v *v)
 		}
 	}
 	if (p != 1)
-		return (map_error("You must provide exactly one player start pos"));
+		return (map_error("You must provide exactly one player pos"));
 	return (0);
 }
 

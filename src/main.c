@@ -28,11 +28,12 @@ int	close_window(t_v *v)
 	exit(EXIT_SUCCESS);
 }
 
-int	init_all(t_v *v, char *argv1)
+int	init_basics(t_v *v, char *argv1)
 {
 	v->ini_c = 0;
 	v->current_c = 0;
 	v->c_anim = 0;
+	v->nb_enemies = 0;
 	v->map = get_map(argv1);
 	v->tileset = NULL;
 	v->player = NULL;
@@ -42,7 +43,7 @@ int	init_all(t_v *v, char *argv1)
 		return (1);
 	v->ptr = mlx_init();
 	v->win = mlx_new_window(v->ptr, v->map_w * STEP,
-			v->map_h * STEP, "slg");
+			v->map_h * STEP, "So_long");
 	if (load_tileset(v))
 		return (close_window(v));
 	if (load_player(v))
@@ -51,14 +52,24 @@ int	init_all(t_v *v, char *argv1)
 	return (0);
 }
 
+int	init_enemies(t_v *v)
+{
+	if (!get_enemies_from_map(v))
+		return (0);
+	if (load_shark(v))
+		return (close_window(v));
+}
+
 int	main(int argc, char **argv)
 {
 	t_v	v;
 
 	if (arg_error(argc, argv))
 		return (1);
-	if (init_all(&v, argv[1]))
+	if (init_basics(&v, argv[1]))
 		return (1);
+	/*if (init_enemies(&v))
+		return (1);*/
 	mlx_key_hook(v.win, &k_inputs, &v);
 	mlx_mouse_hook(v.win, &m_inputs, &v);
 	mlx_hook(v.win, 17, 0, &close_window, &v);
