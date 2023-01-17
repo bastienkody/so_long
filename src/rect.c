@@ -16,7 +16,7 @@ t_rect	*init_t_rect(int x, int y, int width, int height)
 {
 	t_rect	*rect;
 
-	rect = malloc(sizeof(rect));
+	rect = malloc(sizeof(t_rect));
 	if (!rect)
 		return (NULL);
 	rect->x = x;

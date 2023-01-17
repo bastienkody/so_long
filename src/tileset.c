@@ -12,6 +12,22 @@
 
 #include "../inc/so_long.h"
 
+
+int	check_laod(t_tileset *tileset)
+{
+	int	i;
+
+	if (!tileset->wfloor || !tileset->wwall)
+		return (1);
+	i = -1;
+	while (++i < 4)
+	{
+		if (!tileset->collect[i] || !tileset->exit[i])
+			return (1);
+	}
+	return (0);
+}
+
 int	load_tileset(t_v *v)
 {
 	t_tileset	*tileset;
@@ -29,6 +45,8 @@ int	load_tileset(t_v *v)
 	tileset->exit[1] = init_tile(v, DOOR_75);
 	tileset->exit[2] = init_tile(v, DOOR_25);
 	tileset->exit[3] = init_tile(v, DOOR_0);
+	if (check_laod(tileset))
+		return (1);
 	v->tileset = tileset;
 	return (0);
 }

@@ -16,11 +16,12 @@
 
 int	close_window(t_v *v)
 {
-	unload_tileset(v);
-	unload_player(v);
-	//XUnloadFont(v->mlx_ptr, FONT);
-	mlx_destroy_window(v->ptr, v->win);
 	free_map(v);
+	if (v->tileset)
+		unload_tileset(v);
+	if (v->player)
+		unload_player(v);
+	mlx_destroy_window(v->ptr, v->win);
 	mlx_destroy_display(v->ptr);
 	free(v->ptr);
 	ft_printf("c:%i\n", v->current_c);
@@ -63,9 +64,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_all(&v, argv[1]))
 		return (1);
-	ft_printf("v.map_h:%i\n", v.map_h);
-	ft_printf("v.map_w:%i\n", v.map_w);
-	ft_printf("v.ini_c:%i\n", v.ini_c);
+
 	mlx_key_hook(v.win, &k_inputs, &v);
 	mlx_mouse_hook(v.win, &m_inputs, &v);
 	mlx_hook(v.win, 17, 0, &close_window, &v);

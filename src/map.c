@@ -31,7 +31,11 @@ char	**get_map(char *map_path)
 	while (nl)
 	{
 		if (ft_strlen(nl) < 3 || check_char(nl))
-			return (NULL);
+		{
+			free(map);
+			free(nl);
+			return (NULL); // free map et free nl must be needed? 
+		}
 		map = strj(map, nl);
 		if (!map)
 			return (NULL);

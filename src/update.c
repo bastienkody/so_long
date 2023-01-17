@@ -12,6 +12,15 @@
 
 #include "../inc/so_long.h"
 
+int	redraw(t_v *v)
+{
+	draw_floor_wall(v);
+	draw_door(v);
+	draw_player(v);
+	draw_score(v);
+	return (0);
+}
+
 int	update(t_v *v)
 {
 	if (player_exit(v))
@@ -21,9 +30,9 @@ int	update(t_v *v)
 		return (0);
 	}
 	if (player_collect(v))
-		draw_score(v);
+		redraw(v);
 	v->player->static_delay += 1;
-	if (v->player->static_delay > 2000)
+	if (v->player->static_delay > 700)
 	{
 		v->player->static_delay = 0;
 		v->player->static_moves += 1;
@@ -33,8 +42,8 @@ int	update(t_v *v)
 	v->c_anim += 1;
 	if (v->c_anim > 4000)
 		v->c_anim = 0;
-	draw_collect_door(v);
 	draw_player(v);
+	draw_collect(v);
 	return (0);
 }
 

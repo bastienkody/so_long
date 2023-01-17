@@ -194,7 +194,6 @@ void	unload_tileset(t_v *v);
 t_data	*init_tile(t_v *v, char *path);
 int		redraw(t_v *v);
 void	draw_floor_wall(t_v *v);
-void	draw_collect_door(t_v *v);
 int		load_player(t_v *v);
 void	unload_player(t_v *v);
 t_data	*init_sprite(t_v *v, char *path);
@@ -217,4 +216,6 @@ int		player_exit(t_v *v);
 int		player_abt_to_exit(t_v *v);
 void	free_map(t_v *v);
 void	draw_score(t_v *v);
+void	draw_door(t_v *v);
+void	draw_collect(t_v *v);
 #endif

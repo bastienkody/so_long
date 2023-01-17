@@ -16,8 +16,6 @@ void	pix_to_img(t_data *img, int x, int y, int color)
 {
 	char	*dst;
 
-	if (color == 0x00FFFF)
-		return ;
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *) dst = color;
 }
