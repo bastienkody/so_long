@@ -21,13 +21,16 @@ int	close_window(t_v *v)
 		unload_tileset(v);
 	if (v->player)
 		unload_player(v);
-	//if (v->shark)
-	//	unload_shark
+	while(v->nb_enemies)
+	{
+		v->nb_enemies--;
+		unload_shark(v, v->nb_enemies);
+	}
+	if (v->shark)
+		free (v->shark);
 	mlx_destroy_window(v->ptr, v->win);
 	mlx_destroy_display(v->ptr);
 	free(v->ptr);
-	ft_printf("enemies nb:%i\n", v->nb_enemies);
-	print_shark(v);
 	exit(EXIT_SUCCESS);
 }
 
@@ -40,6 +43,7 @@ int	init_basics(t_v *v, char *argv1)
 	v->map = get_map(argv1);
 	v->tileset = NULL;
 	v->player = NULL;
+	v->shark = NULL;
 	if (!v->map)
 		return (map_error(NULL));
 	if (check_map(v->map, v))

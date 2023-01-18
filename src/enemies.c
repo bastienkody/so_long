@@ -12,7 +12,6 @@
 
 #include "../inc/so_long.h"
 
-/* ajouter recup des pos x,y aussi en + du nb */
 int	get_enemies_from_map(t_v *v)
 {
 	char	*tmp;
@@ -75,6 +74,35 @@ int	check_load_shark(t_v *v)
 	return (0);
 }
 
+void	unload_shark(t_v *v, int nb)
+{
+	int	i;
+
+	i = -1;
+	if (!v->shark[nb])
+		return ;
+	while (++i < 4)
+	{
+		if (v->shark[nb]->pos_r[i] && v->shark[nb]->pos_r[i]->img)
+			mlx_destroy_image(v->ptr, v->shark[nb]->pos_r[i]->img);
+		if (v->shark[nb]->pos_l[i] && v->shark[nb]->pos_l[i]->img)
+			mlx_destroy_image(v->ptr, v->shark[nb]->pos_l[i]->img);
+		if (v->shark[nb]->pos_u[i] && v->shark[nb]->pos_u[i]->img)
+			mlx_destroy_image(v->ptr, v->shark[nb]->pos_u[i]->img);
+		if (v->shark[nb]->pos_d[i] && v->shark[nb]->pos_d[i]->img)
+			mlx_destroy_image(v->ptr, v->shark[nb]->pos_d[i]->img);
+		if (v->shark[nb]->pos_r[i])
+			free(v->shark[nb]->pos_r[i]);
+		if (v->shark[nb]->pos_l[i])
+			free(v->shark[nb]->pos_l[i]);
+		if (v->shark[nb]->pos_u[i])
+			free(v->shark[nb]->pos_u[i]);
+		if (v->shark[nb]->pos_d[i])
+			free(v->shark[nb]->pos_d[i]);
+	}
+	free(v->shark[nb]);
+}
+
 t_player	*load_shark(t_v *v)
 {
 	t_player	*shark;
@@ -98,6 +126,9 @@ t_player	*load_shark(t_v *v)
 	shark->pos_d[1] = init_tile(v, S_D_2);
 	shark->pos_d[2] = init_tile(v, S_D_3);
 	shark->pos_d[3] = init_tile(v, S_D_4);
+	shark->dir = 'L';
+	shark->moves = 0;
+	shark->static_delay = 0;
 	return (shark);
 }
 
@@ -107,50 +138,70 @@ int	init_sharks(t_v *v)
 	int			nb;
 
 	nb = v->nb_enemies;
-	ft_printf("enemies nb:%i\n", nb);
+	//ft_printf("enemies nb:%i\n", nb);
 	sharks = malloc(nb * sizeof(t_player));
 	if (!sharks)
 		return (1);
 	while (--nb > -1)
 		sharks[nb] = load_shark(v);
 	v->shark = sharks;
-	get_shark_pos(v);
 	if (check_load_shark(v))
 		return (1);
+	get_shark_pos(v);
 	return 0;
 }
 
-/*void	unload_shark(t_v *v)
+void	move_shark(t_v *v, int i)
 {
-	int	i;
-
-	i = -1;
-	if (!v->shark)
-		return ;
-	while (++i < 4)
+	v->shark[i]->moves += 1;
+	if (v->shark[i]->y > v->player->y)
 	{
-		if (v->shark->pos_r[i] && v->shark->pos_r[i]->img)
-			mlx_destroy_image(v->ptr, v->shark->pos_r[i]->img);
-		if (v->shark->pos_l[i] && v->shark->pos_l[i]->img)
-			mlx_destroy_image(v->ptr, v->shark->pos_l[i]->img);
-		if (v->shark->pos_u[i] && v->shark->pos_u[i]->img)
-			mlx_destroy_image(v->ptr, v->shark->pos_u[i]->img);
-		if (v->shark->pos_d[i] && v->shark->pos_d[i]->img)
-			mlx_destroy_image(v->ptr, v->shark->pos_d[i]->img);
-		if (v->shark->pos_r[i])
-			free(v->shark->pos_r[i]);
-		if (v->shark->pos_l[i])
-			free(v->shark->pos_l[i]);
-		if (v->shark->pos_u[i])
-			free(v->shark->pos_u[i]);
-		if (v->shark->pos_d[i])
-			free(v->shark->pos_d[i]);
+		v->shark[i]->dir = 'U';
+		if (!shark_can_move(v, i, -1, 0))
+		{
+			v->shark[i]->y -= 1;
+			redraw(v);
+			ft_printf("can move up\n");
+			return ;
+		}
 	}
-	free(v->player);
-}*/
-
-
-
+	else if (v->shark[i]->x > v->player->x) 
+	{
+		v->shark[i]->dir = 'L';
+		if (!shark_can_move(v, i, 0, -1))
+		{
+			v->shark[i]->x -= 1;
+			redraw(v);
+		ft_printf("can move left\n");
+		return ;
+		}
+	}
+	else if (v->shark[i]->y < v->player->y)
+	{
+		v->shark[i]->dir = 'D';
+		if (!shark_can_move(v, i, 1, 0))
+		{
+			v->shark[i]->y += 1;
+			redraw(v);
+			ft_printf("can move down\n");
+			return ;
+		}
+	}
+	else if (v->shark[i]->x < v->player->x)
+	{
+		v->shark[i]->dir = 'R';
+		if(!shark_can_move(v, i, 0, 1))
+		{
+			v->shark[i]->x += 1;
+			redraw(v);
+			ft_printf("can move right\n");
+			return ;
+		}
+	}
+	else
+		ft_printf("cant move anywhere\n\n\n");
+	redraw(v);
+}
 
 void	print_shark(t_v *v)
 {

@@ -54,11 +54,11 @@ void	unload_tileset(t_v *v)
 {
 	int	i;
 
-	if (v->tileset->wfloor->img)
+	if (v->tileset->wfloor && v->tileset->wfloor->img)
 		mlx_destroy_image(v->ptr, v->tileset->wfloor->img);
 	if (v->tileset->wfloor)
 		free(v->tileset->wfloor);
-	if (v->tileset->wwall->img)
+	if (v->tileset->wwall && v->tileset->wwall->img)
 		mlx_destroy_image(v->ptr, v->tileset->wwall->img);
 	if (v->tileset->wwall)
 		free(v->tileset->wwall);

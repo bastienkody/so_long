@@ -37,3 +37,16 @@ int	player_collect(t_v *v)
 	}
 	return (0);
 }
+
+int	shark_can_move(t_v *v, int i, int y_oset, int x_oset)
+{
+	const char	*ko;
+	char		c;
+
+	ko = "1ES";
+	c = v->map[v->shark[i]->y + y_oset][v->shark[i]->x + x_oset];
+	if (ft_strchr(ko, c))
+		return (1);
+	return (0);
+}
+	

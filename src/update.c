@@ -22,6 +22,30 @@ int	redraw(t_v *v)
 	return (0);
 }
 
+void	update_shark(t_v *v)
+{
+	int	nb;
+
+	if (!v->shark)
+		return ;
+	nb = v->nb_enemies;
+	while(--nb > -1)
+	{
+		v->shark[nb]->static_delay += 1;
+		if (v->shark[nb]->static_delay > 5000)
+		{
+			move_shark(v, nb); 
+			v->shark[nb]->static_delay = 0;
+		}
+	}
+	nb = v->nb_enemies;
+	while(--nb > -1)
+	{
+			draw_enemy(v, nb);
+	}
+	//ft_printf("sharkpos : x=%i, y=%i\n", v->shark[0]->x, v->shark[0]->y);
+}
+
 int	update(t_v *v)
 {
 	if (player_exit(v))
@@ -30,8 +54,9 @@ int	update(t_v *v)
 		close_window(v);
 		return (0);
 	}
-	if (player_collect(v))
-		redraw(v);
+	//if (
+	player_collect(v);
+		//redraw(v);
 	v->player->static_delay += 1;
 	if (v->player->static_delay > 3500)
 	{
@@ -45,8 +70,8 @@ int	update(t_v *v)
 		v->c_anim = 0;
 	if (!(v->c_anim % 1000))
 		draw_collect(v);
+	update_shark(v);
 	draw_player(v);
-	draw_enemy(v, 1);
 	return (0);
 }
 

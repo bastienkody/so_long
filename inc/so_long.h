@@ -127,8 +127,8 @@
 #define	COLLECT_3 "assets/schrimp/schrimp_collect_3_128.xpm"
 
 
-#define	EXIT_P "assets/exit/exit.xpm"
-#define	EXIT_OPEN_P "assets/exit/exit_open.xpm"
+//#define	EXIT_P "assets/exit/exit.xpm"
+//#define	EXIT_OPEN_P "assets/exit/exit_open.xpm"
 #define DOOR_0 "assets/exit/door_0_wfloor_128.xpm"
 #define DOOR_25 "assets/exit/door_25_wfloor_128.xpm"
 #define DOOR_75 "assets/exit/door_75_wfloor_128.xpm"
@@ -196,51 +196,47 @@ typedef struct	s_v
 }				t_v;
 
 /* prototypes */
-void	pix_to_img(t_data *img, int x, int y, int color);
-void	bg_pix_to_img(t_data *img, int color);
-void	rect_pix_to_img(t_data *img, t_rect *rect, int color);
-t_rect	*init_t_rect(int x, int y, int width, int height);
-int		move_rect(int keycode, t_v *v);
-int		resize_rect(int keycode, t_v *v);
-int		update(t_v *v);
-int		k_inputs(int keycode, t_v *v);
-int		m_inputs(int button, int x, int y, t_v *v);
-int		close_window(t_v *v);
-void	draw_rects(t_v *v);
-void	print_rects(t_v *v);
-void    rect_addback(t_rect *rect, t_v *v);
-int		load_tileset(t_v *v);
-void	unload_tileset(t_v *v);
-t_data	*init_tile(t_v *v, char *path);
-int		redraw(t_v *v);
-void	draw_floor_wall(t_v *v);
-int		load_player(t_v *v);
-void	unload_player(t_v *v);
-t_data	*init_sprite(t_v *v, char *path);
-void	move_player(int keycode, t_v *v);
-void    draw_player(t_v *v);
-int		map_error(char *msg);
-int		arg_error(int argc, char **argv);
-char	**get_map(char *map_path);
-int		check_map(char **map, t_v *v);
-int		check_char(char *line);
-int		check_wall(t_v *v);
-int		check_c(t_v *v);
-int		check_p(t_v *v);
-int		check_e(t_v *v);
-void	print_map(char **map);
-void	get_player_ini_pos(t_v *v);
-int		player_collect(t_v *v);
-int		player_wall(t_v *v, int y_oset, int x_oset);
-int		player_exit(t_v *v);
-int		player_abt_to_exit(t_v *v);
-void	free_map(t_v *v);
-void	draw_score(t_v *v);
-void	draw_door(t_v *v);
-void	draw_collect(t_v *v);
+void		pix_to_img(t_data *img, int x, int y, int color);
+int			resize_rect(int keycode, t_v *v);
+int			update(t_v *v);
+int			k_inputs(int keycode, t_v *v);
+int			m_inputs(int button, int x, int y, t_v *v);
+int			close_window(t_v *v);
+int			load_tileset(t_v *v);
+void		unload_tileset(t_v *v);
+t_data		*init_tile(t_v *v, char *path);
+int			redraw(t_v *v);
+void		draw_floor_wall(t_v *v);
+int			load_player(t_v *v);
+void		unload_player(t_v *v);
+t_data		*init_sprite(t_v *v, char *path);
+void		move_player(int keycode, t_v *v);
+void		draw_player(t_v *v);
+int			map_error(char *msg);
+int			arg_error(int argc, char **argv);
+char		**get_map(char *map_path);
+int			check_map(char **map, t_v *v);
+int			check_char(char *line);
+int			check_wall(t_v *v);
+int			check_c(t_v *v);
+int			check_p(t_v *v);
+int			check_e(t_v *v);
+void		print_map(char **map);
+void		get_player_ini_pos(t_v *v);
+int			player_collect(t_v *v);
+int			player_wall(t_v *v, int y_oset, int x_oset);
+int			player_exit(t_v *v);
+int			player_abt_to_exit(t_v *v);
+void		free_map(t_v *v);
+void		draw_score(t_v *v);
+void		draw_door(t_v *v);
+void		draw_collect(t_v *v);
 t_player	*load_shark(t_v *v);
-int		get_enemies_from_map(t_v *v);
-void	print_shark(t_v *v);
-int		init_sharks(t_v *v);
-void	draw_enemy(t_v *v, int i);
+int			get_enemies_from_map(t_v *v);
+void		print_shark(t_v *v);
+int			init_sharks(t_v *v);
+void		draw_enemy(t_v *v, int i);
+void		unload_shark(t_v *v, int nb);
+int			shark_can_move(t_v *v, int i, int y_oset, int x_oset);
+void		move_shark(t_v *v, int i);
 #endif

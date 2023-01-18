@@ -82,8 +82,6 @@ void	draw_collect(t_v *v)
 	int	x;
 	int	y;
 
-//	if (v->c_anim % 1000)
-		//return ;
 	y = -1;
 	while (++y < v->map_h)
 	{
@@ -138,11 +136,11 @@ void	draw_enemy(t_v *v, int i)
 	int	y;
 	int	moves;
 
+	if (!v->shark || !v->shark[i])
+		return ;
 	x = v->shark[i]->x * STEP;
 	y = v->shark[i]->y * STEP;
 	moves = v->shark[i]->moves;
-	if (v->shark[i]->is_static)
-		moves = v->shark[i]->static_moves;
 	if (v->shark[i]->dir == 'L')
 		mlx_put_image_to_window(v->ptr, v->win,
 			v->shark[i]->pos_l[moves % 4]->img, x, y);
