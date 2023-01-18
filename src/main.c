@@ -21,10 +21,13 @@ int	close_window(t_v *v)
 		unload_tileset(v);
 	if (v->player)
 		unload_player(v);
+	//if (v->shark)
+	//	unload_shark
 	mlx_destroy_window(v->ptr, v->win);
 	mlx_destroy_display(v->ptr);
 	free(v->ptr);
-	ft_printf("c:%i\n", v->current_c);
+	ft_printf("enemies nb:%i\n", v->nb_enemies);
+	print_shark(v);
 	exit(EXIT_SUCCESS);
 }
 
@@ -48,16 +51,16 @@ int	init_basics(t_v *v, char *argv1)
 		return (close_window(v));
 	if (load_player(v))
 		return (close_window(v));
-	redraw(v);
 	return (0);
 }
 
 int	init_enemies(t_v *v)
 {
-	if (!get_enemies_from_map(v))
+	if (get_enemies_from_map(v))
 		return (0);
-	if (load_shark(v))
+	if (init_sharks(v))
 		return (close_window(v));
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -68,8 +71,9 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_basics(&v, argv[1]))
 		return (1);
-	/*if (init_enemies(&v))
-		return (1);*/
+	if (init_enemies(&v))
+		return (1);
+	redraw(&v);
 	mlx_key_hook(v.win, &k_inputs, &v);
 	mlx_mouse_hook(v.win, &m_inputs, &v);
 	mlx_hook(v.win, 17, 0, &close_window, &v);

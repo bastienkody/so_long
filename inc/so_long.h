@@ -192,7 +192,7 @@ typedef struct	s_v
 	t_data		*bg;
 	t_tileset	*tileset;
 	t_player	*player;
-	t_player	*shark;
+	t_player	**shark;
 }				t_v;
 
 /* prototypes */
@@ -238,5 +238,9 @@ void	free_map(t_v *v);
 void	draw_score(t_v *v);
 void	draw_door(t_v *v);
 void	draw_collect(t_v *v);
-int		load_shark(t_v *v);
+t_player	*load_shark(t_v *v);
+int		get_enemies_from_map(t_v *v);
+void	print_shark(t_v *v);
+int		init_sharks(t_v *v);
+void	draw_enemy(t_v *v, int i);
 #endif

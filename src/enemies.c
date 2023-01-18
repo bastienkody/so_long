@@ -13,7 +13,7 @@
 #include "../inc/so_long.h"
 
 /* ajouter recup des pos x,y aussi en + du nb */
-void	get_enemies_from_map(t_v *v)
+int	get_enemies_from_map(t_v *v)
 {
 	char	*tmp;
 	int		i;
@@ -34,27 +34,54 @@ void	get_enemies_from_map(t_v *v)
 	return (0);
 }
 
-int	check_load_shark(t_player *shark)
+void	get_shark_pos(t_v *v)
 {
+	int	nb;
+	int	y;
+	int	x;
+
+	nb = v->nb_enemies - 1;
+	y = -1;
+	while (++y < v->map_h)
+	{
+		x = -1;
+		while (++x < v->map_w)
+		{
+			if (v->map[y][x] == 'S')
+			{
+				v->shark[nb]->x = x;
+				v->shark[nb--]->y = y;
+			}
+		}
+	}
+}
+
+int	check_load_shark(t_v *v)
+{
+	int	nb;
 	int	i;
 
-	i = -1;
-	while (++i < 4)
+	nb = v->nb_enemies;
+	while (--nb > -1)
 	{
-		if (!shark->pos_l[i] || !shark->pos_r[i] || !shark->pos_u[i]
-			|| !shark->pos_d[i])
-			return (1);
+		i = -1;
+		while (++i < 4)
+		{
+			if (!v->shark[nb]->pos_l[i] || !v->shark[nb]->pos_r[i]
+				|| !v->shark[nb]->pos_u[i] || !v->shark[nb]->pos_d[i])
+				return (1);
+		}
 	}
 	return (0);
 }
 
-int	load_shark(t_v *v)
+t_player	*load_shark(t_v *v)
 {
 	t_player	*shark;
 
 	shark = malloc(1 * sizeof(t_player));
 	if (!shark)
-		return (1);
+		return (NULL);
 	shark->pos_l[0] = init_tile(v, S_L_1);
 	shark->pos_l[1] = init_tile(v, S_L_2);
 	shark->pos_l[2] = init_tile(v, S_L_3);
@@ -71,13 +98,29 @@ int	load_shark(t_v *v)
 	shark->pos_d[1] = init_tile(v, S_D_2);
 	shark->pos_d[2] = init_tile(v, S_D_3);
 	shark->pos_d[3] = init_tile(v, S_D_4);
-
-	if (check_load_shark(shark))
-		return (1);
-	return (0);
+	return (shark);
 }
 
-void	unload_shark(t_v *v)
+int	init_sharks(t_v *v)
+{
+	t_player	**sharks;
+	int			nb;
+
+	nb = v->nb_enemies;
+	ft_printf("enemies nb:%i\n", nb);
+	sharks = malloc(nb * sizeof(t_player));
+	if (!sharks)
+		return (1);
+	while (--nb > -1)
+		sharks[nb] = load_shark(v);
+	v->shark = sharks;
+	get_shark_pos(v);
+	if (check_load_shark(v))
+		return (1);
+	return 0;
+}
+
+/*void	unload_shark(t_v *v)
 {
 	int	i;
 
@@ -104,4 +147,18 @@ void	unload_shark(t_v *v)
 			free(v->shark->pos_d[i]);
 	}
 	free(v->player);
+}*/
+
+
+
+
+void	print_shark(t_v *v)
+{
+	int	nb;
+
+	nb = v->nb_enemies;
+	while (--nb > -1)
+	{
+		ft_printf("shark%i: x=%i, y=%i\n", nb, v->shark[nb]->x, v->shark[nb]->y);
+	}
 }

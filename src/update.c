@@ -18,6 +18,7 @@ int	redraw(t_v *v)
 	draw_door(v);
 	draw_player(v);
 	draw_score(v);
+	draw_collect(v);
 	return (0);
 }
 
@@ -32,24 +33,25 @@ int	update(t_v *v)
 	if (player_collect(v))
 		redraw(v);
 	v->player->static_delay += 1;
-	if (v->player->static_delay > 700)
+	if (v->player->static_delay > 3500)
 	{
 		v->player->static_delay = 0;
 		v->player->static_moves += 1;
 	}
-	if (v->player->static_moves > 2)
+	if (v->player->static_moves > 1)
 		v->player->is_static = 1;
 	v->c_anim += 1;
-	if (v->c_anim > 4000)
+	if (v->c_anim > 40000)
 		v->c_anim = 0;
+	if (!(v->c_anim % 1000))
+		draw_collect(v);
 	draw_player(v);
-	draw_collect(v);
+	draw_enemy(v, 1);
 	return (0);
 }
 
 int	k_inputs(int keycode, t_v *v)
 {
-//	printf("keycode : %i\n", keycode);
 	if (keycode == ESC)
 	{
 		close_window(v);
