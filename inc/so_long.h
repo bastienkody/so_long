@@ -18,13 +18,19 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <X11/keysymdef.h> // utiliser les vrais codes car ca peut varier selon os ?
 
-#include <X11/keysymdef.h> // utiliser les vrais codes car ca peut varier selon os
-
-#define WIDTH 1280
-#define HEIGHT 1280
+/* main stuff */
 #define STEP 128
 #define FONT "-schumacher-*-bold-*-*-*-*-160-*-*-*-*-*-*"
+#define SHARK_TIMER_MAC 55
+#define SHARK_TIMER_UBU 5000
+#define PLAY_S_DELAY_MAC 55
+#define PLAY_S_DELAY_UBU 3500
+#define C_ANIM_MAC 400
+#define C_STEP_MAC 100
+#define C_ANIM_UBU 40000
+#define C_STEP_UBU 10000
 
 /* keycode */
 #define W 119
@@ -54,6 +60,9 @@
 /* player turle 
 #define P_WIDTH 128
 #define P_HEIGHT 128
+// floor for turtle player 
+#define	GRASS_P "assets/grass.xpm"
+#define	WALL_P "assets/white_wall.xpm"
 #define	POS_L_1 "assets/player/player_left_1_bg.xpm"
 #define	POS_L_2 "assets/player/player_left_2_bg.xpm"
 #define	POS_L_3 "assets/player/player_left_3_bg.xpm"
@@ -69,8 +78,7 @@
 #define	POS_SR_1 "assets/player/static_right_1_bg.xpm"
 #define	POS_SR_2 "assets/player/static_right_2_bg.xpm"
 #define	POS_SR_3 "assets/player/static_right_3_bg.xpm"
-#define	POS_SR_4 "assets/player/static_right_4_bg.xpm"
-*/
+#define	POS_SR_4 "assets/player/static_right_4_bg.xpm" */
 
 /* player sea horse rider */
 #define P_WIDTH 128
@@ -113,27 +121,18 @@
 /* tile */
 #define T_WIDTH 128
 #define T_HEIGHT 128
-/* for turltle set 
-#define	GRASS_P "assets/grass.xpm"
-#define	WALL_P "assets/white_wall.xpm"
-*/
-#define	WFLOOR "assets/waterfloor128.xpm"
 #define	WWALL "assets/waterwall_green128.xpm" 
-
-
-#define	COLLECT_0 "assets/schrimp/schrimp_collect_0_128.xpm"
-#define	COLLECT_1 "assets/schrimp/schrimp_collect_1_128.xpm"
-#define	COLLECT_2 "assets/schrimp/schrimp_collect_2_128.xpm"
-#define	COLLECT_3 "assets/schrimp/schrimp_collect_3_128.xpm"
-
-
-//#define	EXIT_P "assets/exit/exit.xpm"
-//#define	EXIT_OPEN_P "assets/exit/exit_open.xpm"
+#define	WFLOOR "assets/waterfloor128.xpm"
 #define DOOR_0 "assets/exit/door_0_wfloor_128.xpm"
 #define DOOR_25 "assets/exit/door_25_wfloor_128.xpm"
 #define DOOR_75 "assets/exit/door_75_wfloor_128.xpm"
 #define DOOR_100 "assets/exit/door_100_wfloor_128.xpm"
 
+/* schrimp collectibles */
+#define	COLLECT_0 "assets/schrimp/schrimp_collect_0_128.xpm"
+#define	COLLECT_1 "assets/schrimp/schrimp_collect_1_128.xpm"
+#define	COLLECT_2 "assets/schrimp/schrimp_collect_2_128.xpm"
+#define	COLLECT_3 "assets/schrimp/schrimp_collect_3_128.xpm"
 
 /* struct */
 typedef struct	s_rect
@@ -177,6 +176,20 @@ typedef struct	s_player
 	t_data	*pos_d[4];
 }				t_player;
 
+typedef struct	s_shark
+{
+	int		x;
+	int		y;
+	char	dir;
+	int		moves;
+	int		delay;
+	int		is_alive;
+	t_data	*pos_l[4];
+	t_data	*pos_r[4];
+	t_data	*pos_u[4];
+	t_data	*pos_d[4];
+}				t_shark;
+
 typedef struct	s_v
 {
 	void		*ptr;
@@ -188,11 +201,9 @@ typedef struct	s_v
 	int			current_c;
 	int			c_anim;
 	int			nb_enemies;
-	t_rect		*rect;
-	t_data		*bg;
 	t_tileset	*tileset;
 	t_player	*player;
-	t_player	**shark;
+	t_shark		**shark;
 }				t_v;
 
 /* prototypes */
@@ -226,17 +237,17 @@ void		get_player_ini_pos(t_v *v);
 int			player_collect(t_v *v);
 int			player_wall(t_v *v, int y_oset, int x_oset);
 int			player_exit(t_v *v);
-int			player_abt_to_exit(t_v *v);
 void		free_map(t_v *v);
 void		draw_score(t_v *v);
 void		draw_door(t_v *v);
 void		draw_collect(t_v *v);
-t_player	*load_shark(t_v *v);
+t_shark		*load_shark(t_v *v);
 int			get_enemies_from_map(t_v *v);
 void		print_shark(t_v *v);
 int			init_sharks(t_v *v);
 void		draw_enemy(t_v *v, int i);
 void		unload_shark(t_v *v, int nb);
 int			shark_can_move(t_v *v, int i, int y_oset, int x_oset);
-void		move_shark(t_v *v, int i);
+int			move_shark(t_v *v, int i);
+int			shark_player(t_v *v);
 #endif

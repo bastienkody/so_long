@@ -26,10 +26,10 @@ void	bg_pix_to_img(t_data *img, int color)
 	int	y;
 
 	x = 0;
-	while (x < WIDTH)
+	while (x < 120)
 	{
 		y = 0;
-		while (y < HEIGHT)
+		while (y < 120)
 		{
 			pix_to_img(img, x, y, color);
 			y++;

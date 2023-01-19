@@ -49,4 +49,17 @@ int	shark_can_move(t_v *v, int i, int y_oset, int x_oset)
 		return (1);
 	return (0);
 }
+
+int	shark_player(t_v *v)
+{
+	int	nb;
+
+	nb = v->nb_enemies;
+	while (--nb > -1)
+	{
+		if (v->shark[nb]->x == v->player->x && v->shark[nb]->y == v->player->y)
+			return (1);
+	}
+	return (0);
+}
 	

@@ -103,9 +103,9 @@ void	unload_shark(t_v *v, int nb)
 	free(v->shark[nb]);
 }
 
-t_player	*load_shark(t_v *v)
+t_shark	*load_shark(t_v *v)
 {
-	t_player	*shark;
+	t_shark	*shark;
 
 	shark = malloc(1 * sizeof(t_player));
 	if (!shark)
@@ -128,18 +128,17 @@ t_player	*load_shark(t_v *v)
 	shark->pos_d[3] = init_tile(v, S_D_4);
 	shark->dir = 'L';
 	shark->moves = 0;
-	shark->static_delay = 0;
+	shark->delay = 0;
 	return (shark);
 }
 
 int	init_sharks(t_v *v)
 {
-	t_player	**sharks;
+	t_shark	**sharks;
 	int			nb;
 
 	nb = v->nb_enemies;
-	//ft_printf("enemies nb:%i\n", nb);
-	sharks = malloc(nb * sizeof(t_player));
+	sharks = malloc(nb * sizeof(t_shark));
 	if (!sharks)
 		return (1);
 	while (--nb > -1)
@@ -151,7 +150,7 @@ int	init_sharks(t_v *v)
 	return 0;
 }
 
-void	move_shark(t_v *v, int i)
+int	move_shark(t_v *v, int i)
 {
 	v->shark[i]->moves += 1;
 	if (v->shark[i]->y > v->player->y)
@@ -160,47 +159,45 @@ void	move_shark(t_v *v, int i)
 		if (!shark_can_move(v, i, -1, 0))
 		{
 			v->shark[i]->y -= 1;
-			redraw(v);
-			ft_printf("can move up\n");
-			return ;
+			ft_printf("move up\n");
 		}
+		ft_printf("just turned up\n");
+		return (1);
 	}
-	else if (v->shark[i]->x > v->player->x) 
+	if (v->shark[i]->x > v->player->x) 
 	{
 		v->shark[i]->dir = 'L';
 		if (!shark_can_move(v, i, 0, -1))
 		{
 			v->shark[i]->x -= 1;
-			redraw(v);
-		ft_printf("can move left\n");
-		return ;
+			ft_printf("move left\n");
 		}
+		ft_printf("just turned left\n");
+		return (1);
 	}
-	else if (v->shark[i]->y < v->player->y)
+	if (v->shark[i]->y < v->player->y)
 	{
 		v->shark[i]->dir = 'D';
 		if (!shark_can_move(v, i, 1, 0))
 		{
 			v->shark[i]->y += 1;
-			redraw(v);
-			ft_printf("can move down\n");
-			return ;
+			ft_printf("move down\n");
 		}
+		ft_printf("just turned down\n");
+		return (1);
 	}
-	else if (v->shark[i]->x < v->player->x)
+	if (v->shark[i]->x < v->player->x)
 	{
 		v->shark[i]->dir = 'R';
 		if(!shark_can_move(v, i, 0, 1))
 		{
 			v->shark[i]->x += 1;
-			redraw(v);
-			ft_printf("can move right\n");
-			return ;
+			ft_printf("move right\n");
 		}
+		ft_printf("just turned right\n");
+		return (1);
 	}
-	else
-		ft_printf("cant move anywhere\n\n\n");
-	redraw(v);
+	return (0);
 }
 
 void	print_shark(t_v *v)

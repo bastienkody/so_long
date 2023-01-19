@@ -14,11 +14,18 @@
 
 int	redraw(t_v *v)
 {
+	int	nb;
+
 	draw_floor_wall(v);
 	draw_door(v);
-	draw_player(v);
-	draw_score(v);
 	draw_collect(v);
+	draw_score(v);
+	nb = v->nb_enemies;
+	while(--nb > -1)
+	{
+			draw_enemy(v, nb);
+	}
+	draw_player(v);
 	return (0);
 }
 
@@ -31,34 +38,33 @@ void	update_shark(t_v *v)
 	nb = v->nb_enemies;
 	while(--nb > -1)
 	{
-		v->shark[nb]->static_delay += 1;
-		if (v->shark[nb]->static_delay > 5000)
+		v->shark[nb]->delay += 1;
+		if (v->shark[nb]->delay > SHARK_TIMER_MAC)
 		{
-			move_shark(v, nb); 
-			v->shark[nb]->static_delay = 0;
+			v->shark[nb]->delay = 0;
+			if (move_shark(v, nb))
+				redraw(v); 
 		}
-	}
-	nb = v->nb_enemies;
-	while(--nb > -1)
-	{
-			draw_enemy(v, nb);
 	}
 	//ft_printf("sharkpos : x=%i, y=%i\n", v->shark[0]->x, v->shark[0]->y);
 }
 
 int	update(t_v *v)
 {
+	if (shark_player(v))
+	{
+		ft_printf("Shark ate you. You loose\n");
+		close_window(v);
+	}
 	if (player_exit(v))
 	{
-		ft_printf("you won\n");
+		ft_printf("You ate all schrimps and left. You won\n");
 		close_window(v);
 		return (0);
 	}
-	//if (
 	player_collect(v);
-		//redraw(v);
 	v->player->static_delay += 1;
-	if (v->player->static_delay > 3500)
+	if (v->player->static_delay > PLAY_S_DELAY_MAC)
 	{
 		v->player->static_delay = 0;
 		v->player->static_moves += 1;
@@ -66,9 +72,9 @@ int	update(t_v *v)
 	if (v->player->static_moves > 1)
 		v->player->is_static = 1;
 	v->c_anim += 1;
-	if (v->c_anim > 40000)
+	if (v->c_anim > C_ANIM_MAC)
 		v->c_anim = 0;
-	if (!(v->c_anim % 1000))
+	if (!(v->c_anim % C_STEP_MAC))
 		draw_collect(v);
 	update_shark(v);
 	draw_player(v);

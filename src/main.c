@@ -36,14 +36,14 @@ int	close_window(t_v *v)
 
 int	init_basics(t_v *v, char *argv1)
 {
+	v->tileset = NULL;
+	v->player = NULL;
+	v->shark = NULL;
 	v->ini_c = 0;
 	v->current_c = 0;
 	v->c_anim = 0;
 	v->nb_enemies = 0;
 	v->map = get_map(argv1);
-	v->tileset = NULL;
-	v->player = NULL;
-	v->shark = NULL;
 	if (!v->map)
 		return (map_error(NULL));
 	if (check_map(v->map, v))
