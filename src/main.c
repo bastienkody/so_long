@@ -67,7 +67,7 @@ int	init_enemies(t_v *v)
 	return (0);
 }
 
-int	main(int argc, char **argv)
+/*int	main(int argc, char **argv)
 {
 	t_v	v;
 
@@ -84,3 +84,4 @@ int	main(int argc, char **argv)
 	mlx_loop_hook(v.ptr, &update, &v);
 	mlx_loop(v.ptr);
 }
+*/
