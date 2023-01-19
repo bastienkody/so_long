@@ -20,79 +20,6 @@ typedef struct	s_moves
 	int	down;
 }				t_moves;
 
-int	is_win(char pos)
-{
-	if (pos == 'E')
-	{
-		printf("is win\n");
-		return (1);
-	}
-	return (0);
-}
-
-int	move(char **map_backtrack, int j, int i)
-{
-	if (map_backtrack[j][i + 1] != '1')
-	{
-		map_backtrack[j][i] = '1';
-		return (1);
-	}
-	else if (map_backtrack[j + 1][i] != '1')
-	{
-		map_backtrack[j][i] = '1';
-		return (2);
-	}
-	else if (map_backtrack[j][i - 1] != '1')
-	{
-		map_backtrack[j][i] = '1';
-		return (3);
-	}
-	else if (map_backtrack[j - 1][i] != '1')
-	{
-		map_backtrack[j][i] = '1';
-		return (4);
-	}
-	else
-	{
-		map_backtrack[j][i] = '1';
-		return (0);
-	}
-}
-
-int	backtrack(char **map_backtrack, int j, int i)
-{
-	int	dep;
-
-	ft_printf("y=%i, x=%i\n", j, i);
-	if (is_win(map_backtrack[j][i]) == 1)
-		return (1);
-	dep = move(map_backtrack, j, i);
-	if (dep == 1)
-	{	
-		if (backtrack(map_backtrack, j, i + 1))
-			return (1);
-	}
-	dep = move(map_backtrack, j, i);
-	if (dep == 2)
-	{
-		if (backtrack(map_backtrack, j + 1, i))
-			return (1);
-	}
-	dep = move(map_backtrack, j, i);
-	if (dep == 3)
-	{
-		if (backtrack(map_backtrack, j, i - 1))
-			return (1);
-	}
-	dep = move(map_backtrack, j, i);
-	if (dep == 4)
-	{
-		if (backtrack(map_backtrack, j - 1, i))
-			return (1);
-	}
-	return (0);
-}
-
 void	can_move(t_moves *moves, char **map, int y, int x)
 {
 	moves->right = 0;
@@ -107,25 +34,24 @@ void	can_move(t_moves *moves, char **map, int y, int x)
 		moves->left = 1;
 	if (map[y - 1][x] != '1')
 		moves->up = 1;
+	map[y][x] = '1';
 }
 
-int	backtrack2(char **map, int y, int x)
+int	backtrack(char **map, int y, int x)
 {
 	t_moves	moves;
 
-	ft_printf("y=%i, x=%i\n", y, x);
-	
-	if (is_win(map[y][x]))
+	//ft_printf("y=%i, x=%i\n", y, x);
+	if (map[y][x] == 'E')
 		return (1);
-
 	can_move(&moves, map, y, x);
 	if (moves.right && backtrack(map, y, x + 1))
 		return (1);
-	if (moves.down && backtrack2(map, y + 1, x))
+	if (moves.down && backtrack(map, y + 1, x))
 		return (1);
-	if (moves.left && backtrack2(map, y, x - 1))
+	if (moves.left && backtrack(map, y, x - 1))
 		return (1);
-	if (moves.up && backtrack2(map, y - 1, x))
+	if (moves.up && backtrack(map, y - 1, x))
 		return (1);
 	return (0);
 }
@@ -147,7 +73,7 @@ int	main(int argc, char **argv)
 		while (++y < 6)
 		{
 			if (map[y][x] == 'P')
-				ft_printf("%i\n", backtrack2(map, y, x));
+				ft_printf("%i\n", backtrack(map, y, x));
 		}	
 	}
 }
