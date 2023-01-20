@@ -37,43 +37,43 @@ void	can_move(t_moves *moves, char **map, int y, int x)
 	map[y][x] = '1';
 }
 
-int	backtrack(char **map, int y, int x)
+int	backtrack(char **map, char search, int y, int x)
 {
 	t_moves	moves;
 
 	//ft_printf("y=%i, x=%i\n", y, x);
-	if (map[y][x] == 'E')
+	if (map[y][x] == search)
 		return (1);
 	can_move(&moves, map, y, x);
-	if (moves.right && backtrack(map, y, x + 1))
+	if (moves.right && backtrack(map, search, y, x + 1))
 		return (1);
-	if (moves.down && backtrack(map, y + 1, x))
+	if (moves.down && backtrack(map, search, y + 1, x))
 		return (1);
-	if (moves.left && backtrack(map, y, x - 1))
+	if (moves.left && backtrack(map, search,  y, x - 1))
 		return (1);
-	if (moves.up && backtrack(map, y - 1, x))
+	if (moves.up && backtrack(map, search, y - 1, x))
 		return (1);
 	return (0);
 }
 
-// 6 * 10
-int	main(int argc, char **argv)
+int	backtrack_launch(t_v *v)
 {
 	char	**map;
 	int		x;
 	int 	y;
 
-	if (argc != 2)
-		return (-1);
-	map = get_map(argv[1]);
+	map = v->map;
 	x = -1;
-	while (++x < 10)
+	while (++x < v->map_w)
 	{
 		y = -1;
-		while (++y < 6)
+		while (++y < v->map_h)
 		{
 			if (map[y][x] == 'P')
-				ft_printf("%i\n", backtrack(map, y, x));
+				ft_printf("%i\n", backtrack(map, 'E', y, x));
+			if (map[y][x] == 'C')
+				ft_printf("%i\n", backtrack(map, 'P', y, x)); // add 4th parameter to backtrack??
+
 		}	
 	}
 }
