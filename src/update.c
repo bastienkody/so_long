@@ -12,23 +12,6 @@
 
 #include "../inc/so_long.h"
 
-int	redraw(t_v *v)
-{
-	int	nb;
-
-	draw_floor_wall(v);
-	draw_door(v);
-	draw_collect(v);
-	draw_score(v);
-	nb = v->nb_enemies;
-	while(--nb > -1)
-	{
-			draw_enemy(v, nb);
-	}
-	draw_player(v);
-	return (0);
-}
-
 void	update_shark(t_v *v)
 {
 	int	nb;
@@ -36,17 +19,32 @@ void	update_shark(t_v *v)
 	if (!v->shark)
 		return ;
 	nb = v->nb_enemies;
-	while(--nb > -1)
+	while (--nb > -1)
 	{
+		if (!v->shark[nb]->is_alive)
+			continue ;
 		v->shark[nb]->delay += 1;
-		if (v->shark[nb]->delay > SHARK_TIMER_MAC)
+		if (v->shark[nb]->delay > SHARK_TIMER_UBU)
 		{
 			v->shark[nb]->delay = 0;
 			if (move_shark(v, nb))
-				redraw(v); 
+				redraw(v);
 		}
 	}
-	//ft_printf("sharkpos : x=%i, y=%i\n", v->shark[0]->x, v->shark[0]->y);
+}
+
+void	update_anim(t_v *v)
+{
+	v->player->static_delay += 1;
+	if (v->player->static_delay > PLAY_S_DELAY_UBU)
+	{
+		v->player->is_static = 1;
+		v->player->static_delay = 0;
+		v->player->static_moves += 1;
+	}
+	v->c_anim += 1;
+	if (v->c_anim > C_ANIM_UBU)
+		v->c_anim = 0;
 }
 
 int	update(t_v *v)
@@ -62,19 +60,8 @@ int	update(t_v *v)
 		close_window(v);
 		return (0);
 	}
-	player_collect(v);
-	v->player->static_delay += 1;
-	if (v->player->static_delay > PLAY_S_DELAY_MAC)
-	{
-		v->player->static_delay = 0;
-		v->player->static_moves += 1;
-	}
-	if (v->player->static_moves > 1)
-		v->player->is_static = 1;
-	v->c_anim += 1;
-	if (v->c_anim > C_ANIM_MAC)
-		v->c_anim = 0;
-	if (!(v->c_anim % C_STEP_MAC))
+	update_anim(v);
+	if (!(v->c_anim % C_STEP_UBU))
 		draw_collect(v);
 	update_shark(v);
 	draw_player(v);
@@ -90,19 +77,29 @@ int	k_inputs(int keycode, t_v *v)
 	}
 	else if (keycode == W || keycode == A || keycode == S || keycode == D)
 		move_player(keycode, v);
+	player_collect(v);
 	redraw(v);
 	return (0);
 }
 
-int	m_inputs(int button, int x, int y, t_v *v)
+int	m_inputs(int but, int x, int y, t_v *v)
 {
-	printf("M_button %i\n", button);
-	printf("M_x %i\n", x);
-	printf("M_y %i\n", y);
-	printf("v%p\n", v);
-	if (button == LEFT_C)
-		printf("left_clic\n");
-	if (button == RIGHT_C)
-		printf("right_clic\n");
+	int	nb;
+
+	nb = v->nb_enemies;
+	x /= STEP;
+	y /= STEP;
+	while (--nb > -1)
+	{
+		if (v->shark[nb]->is_alive)
+		{
+			if (but == LEFT_C && x == v->shark[nb]->x && y == v->shark[nb]->y)
+			{
+				ft_printf("One shark has been killed\n");
+				v->shark[nb]->is_alive = 0;
+			}
+		}
+	}
+	redraw(v);
 	return (0);
 }

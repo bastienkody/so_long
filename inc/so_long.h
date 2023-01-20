@@ -24,9 +24,9 @@
 #define STEP 128
 #define FONT "-schumacher-*-bold-*-*-*-*-160-*-*-*-*-*-*"
 #define SHARK_TIMER_MAC 55
-#define SHARK_TIMER_UBU 5000
+#define SHARK_TIMER_UBU 7000
 #define PLAY_S_DELAY_MAC 55
-#define PLAY_S_DELAY_UBU 3500
+#define PLAY_S_DELAY_UBU 5500
 #define C_ANIM_MAC 400
 #define C_STEP_MAC 100
 #define C_ANIM_UBU 40000
@@ -237,7 +237,7 @@ void		get_player_ini_pos(t_v *v);
 int			player_collect(t_v *v);
 int			player_wall(t_v *v, int y_oset, int x_oset);
 int			player_exit(t_v *v);
-void		free_map(t_v *v);
+void		free_map(t_v *v, char **map);
 void		draw_score(t_v *v);
 void		draw_door(t_v *v);
 void		draw_collect(t_v *v);
@@ -245,9 +245,11 @@ t_shark		*load_shark(t_v *v);
 int			get_enemies_from_map(t_v *v);
 void		print_shark(t_v *v);
 int			init_sharks(t_v *v);
-void		draw_enemy(t_v *v, int i);
+void		draw_shark(t_v *v, int i);
 void		unload_shark(t_v *v, int nb);
 int			shark_can_move(t_v *v, int i, int y_oset, int x_oset);
 int			move_shark(t_v *v, int i);
 int			shark_player(t_v *v);
+int			backtrack_player(t_v *v, char *path);
+int			backtrack_collect(t_v *v, char *path);
 #endif

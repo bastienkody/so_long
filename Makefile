@@ -11,7 +11,8 @@ SRCS =	${SRC_DIR}main.c\
 		${SRC_DIR}collide.c\
 		${SRC_DIR}update.c\
 		${SRC_DIR}checker.c\
-		${SRC_DIR}enemies.c
+		${SRC_DIR}enemies.c\
+		${SRC_DIR}enemies_loading.c
 
 OBJS =	${SRCS:.c=.o}
 

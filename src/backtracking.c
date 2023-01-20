@@ -12,7 +12,7 @@
 
 #include "../inc/so_long.h"
 
-typedef struct	s_moves
+typedef struct s_moves
 {
 	int	left;
 	int	right;
@@ -41,7 +41,6 @@ int	backtrack(char **map, char search, int y, int x)
 {
 	t_moves	moves;
 
-	//ft_printf("y=%i, x=%i\n", y, x);
 	if (map[y][x] == search)
 		return (1);
 	can_move(&moves, map, y, x);
@@ -49,20 +48,20 @@ int	backtrack(char **map, char search, int y, int x)
 		return (1);
 	if (moves.down && backtrack(map, search, y + 1, x))
 		return (1);
-	if (moves.left && backtrack(map, search,  y, x - 1))
+	if (moves.left && backtrack(map, search, y, x - 1))
 		return (1);
 	if (moves.up && backtrack(map, search, y - 1, x))
 		return (1);
 	return (0);
 }
 
-int	backtrack_launch(t_v *v)
+int	backtrack_player(t_v *v, char *path)
 {
 	char	**map;
 	int		x;
-	int 	y;
+	int		y;
 
-	map = v->map;
+	map = get_map(path);
 	x = -1;
 	while (++x < v->map_w)
 	{
@@ -70,10 +69,44 @@ int	backtrack_launch(t_v *v)
 		while (++y < v->map_h)
 		{
 			if (map[y][x] == 'P')
-				ft_printf("%i\n", backtrack(map, 'E', y, x));
-			if (map[y][x] == 'C')
-				ft_printf("%i\n", backtrack(map, 'P', y, x)); // add 4th parameter to backtrack??
-
+			{
+				if (!backtrack(map, 'E', y, x))
+				{	
+					free_map(v, map);
+					return (map_error("No way to exit"));
+				}
+			}
 		}	
 	}
+	free_map(v, map);
+	return (0);
+}
+
+int	backtrack_collect(t_v *v, char *path)
+{
+	char	**map;
+	int		x;
+	int		y;
+
+	map = get_map(path);
+	x = -1;
+	while (++x < v->map_w)
+	{
+		y = -1;
+		while (++y < v->map_h)
+		{
+			if (map[y][x] == 'C')
+			{
+				free_map(v, map);
+				map = get_map(path);
+				if (!backtrack(map, 'P', y, x))
+				{
+					free_map(v, map);
+					return (map_error("A collect is not reachable"));
+				}
+			}
+		}	
+	}
+	free_map(v, map);
+	return (0);
 }

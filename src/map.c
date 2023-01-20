@@ -21,7 +21,6 @@ char	**err_on_read(char *map, char *nl)
 	return (NULL);
 }
 
- /* tmp necessaire pour free map avant le retour ft_split(map) */
 char	**get_map(char *map_path)
 {
 	int			fd;
@@ -77,12 +76,12 @@ void	print_map(char **map)
 		printf("%s\n", *(map)++);
 }
 
-void	free_map(t_v *v)
+void	free_map(t_v *v, char **map)
 {
 	int	y;
 
 	y = -1;
 	while (++y < v->map_h)
-		free(v->map[y]);
-	free(v->map);
+		free(map[y]);
+	free(map);
 }

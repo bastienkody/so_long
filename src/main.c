@@ -14,23 +14,43 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int	redraw(t_v *v)
+{
+	int	nb;
+
+	draw_floor_wall(v);
+	draw_door(v);
+	draw_collect(v);
+	draw_score(v);
+	nb = v->nb_enemies;
+	while (--nb > -1)
+	{
+		draw_shark(v, nb);
+	}
+	draw_player(v);
+	return (0);
+}
+
 int	close_window(t_v *v)
 {
-	free_map(v);
+	free_map(v, v->map);
 	if (v->tileset)
 		unload_tileset(v);
 	if (v->player)
 		unload_player(v);
-	while(v->nb_enemies)
+	while (v->nb_enemies)
 	{
 		v->nb_enemies--;
 		unload_shark(v, v->nb_enemies);
 	}
 	if (v->shark)
 		free (v->shark);
-	mlx_destroy_window(v->ptr, v->win);
-	mlx_destroy_display(v->ptr);
-	free(v->ptr);
+	if (v->ptr)
+	{
+		mlx_destroy_window(v->ptr, v->win);
+		mlx_destroy_display(v->ptr);
+		free(v->ptr);
+	}
 	exit(EXIT_SUCCESS);
 }
 
@@ -49,6 +69,8 @@ int	init_basics(t_v *v, char *argv1)
 	if (check_map(v->map, v))
 		return (1);
 	v->ptr = mlx_init();
+	if (!v->ptr)
+		return (close_window(v));
 	v->win = mlx_new_window(v->ptr, v->map_w * STEP,
 			v->map_h * STEP, "So_long");
 	if (load_tileset(v))
@@ -77,6 +99,8 @@ int	main(int argc, char **argv)
 		return (1);
 	if (init_enemies(&v))
 		return (1);
+	if (backtrack_player(&v, argv[1]) || backtrack_collect(&v, argv[1]))
+		return (close_window(&v));
 	redraw(&v);
 	mlx_key_hook(v.win, &k_inputs, &v);
 	mlx_mouse_hook(v.win, &m_inputs, &v);

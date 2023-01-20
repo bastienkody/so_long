@@ -88,16 +88,16 @@ void	draw_collect(t_v *v)
 		x = -1;
 		while (++x < v->map_w)
 		{
-			if (v->map[y][x] == 'C' && v->c_anim < C_STEP_MAC)
+			if (v->map[y][x] == 'C' && v->c_anim < C_STEP_UBU)
 				mlx_put_image_to_window(v->ptr, v->win,
 					v->tileset->collect[0]->img, x * STEP, y * STEP);
-			else if (v->map[y][x] == 'C' && v->c_anim < 2* C_STEP_MAC)
+			else if (v->map[y][x] == 'C' && v->c_anim < 2 * C_STEP_UBU)
 				mlx_put_image_to_window(v->ptr, v->win,
 					v->tileset->collect[1]->img, x * STEP, y * STEP);
-			else if (v->map[y][x] == 'C' && v->c_anim < 3 * C_STEP_MAC)
+			else if (v->map[y][x] == 'C' && v->c_anim < 3 * C_STEP_UBU)
 				mlx_put_image_to_window(v->ptr, v->win,
 					v->tileset->collect[2]->img, x * STEP, y * STEP);
-			else if (v->map[y][x] == 'C' && v->c_anim > 3 * C_STEP_MAC)
+			else if (v->map[y][x] == 'C' && v->c_anim > 3 * C_STEP_UBU)
 				mlx_put_image_to_window(v->ptr, v->win,
 					v->tileset->collect[3]->img, x * STEP, y * STEP);
 		}
@@ -127,30 +127,4 @@ void	draw_player(t_v *v)
 	else if (v->player->dir == 'D')
 		mlx_put_image_to_window(v->ptr, v->win,
 			v->player->pos_d[moves % 4]->img, x, y);
-}
-
-/* draw single enemy with i */
-void	draw_enemy(t_v *v, int i)
-{
-	int	x;
-	int	y;
-	int	moves;
-
-	if (!v->shark || !v->shark[i])
-		return ;
-	x = v->shark[i]->x * STEP;
-	y = v->shark[i]->y * STEP;
-	moves = v->shark[i]->moves;
-	if (v->shark[i]->dir == 'L')
-		mlx_put_image_to_window(v->ptr, v->win,
-			v->shark[i]->pos_l[moves % 4]->img, x, y);
-	else if (v->shark[i]->dir == 'R')
-		mlx_put_image_to_window(v->ptr, v->win,
-			v->shark[i]->pos_r[moves % 4]->img, x, y);
-	else if (v->shark[i]->dir == 'U')
-		mlx_put_image_to_window(v->ptr, v->win,
-			v->shark[i]->pos_u[moves % 4]->img, x, y);
-	else if (v->player->dir == 'D')
-		mlx_put_image_to_window(v->ptr, v->win,
-			v->shark[i]->pos_d[moves % 4]->img, x, y);
 }

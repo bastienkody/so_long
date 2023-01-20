@@ -124,17 +124,17 @@ void	move_player(int keycode, t_v *v)
 		v->player->y -= 1;
 		v->player->dir = 'U';
 	}
-	if (keycode == S && !player_wall(v, 1, 0))
+	else if (keycode == S && !player_wall(v, 1, 0))
 	{
 		v->player->y += 1;
 		v->player->dir = 'D';
 	}
-	if (keycode == A && !player_wall(v, 0, -1))
+	else if (keycode == A && !player_wall(v, 0, -1))
 	{
 		v->player->x -= 1;
 		v->player->dir = 'L';
 	}
-	if (keycode == D && !player_wall(v, 0, 1))
+	else if (keycode == D && !player_wall(v, 0, 1))
 	{
 		v->player->x += 1;
 		v->player->dir = 'R';
