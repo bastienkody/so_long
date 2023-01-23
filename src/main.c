@@ -22,11 +22,6 @@ int	redraw(t_v *v)
 	draw_door(v);
 	draw_collect(v);
 	draw_score(v);
-	nb = v->nb_enemies;
-	while (--nb > -1)
-	{
-		draw_shark(v, nb);
-	}
 	draw_player(v);
 	return (0);
 }
@@ -38,11 +33,6 @@ int	close_window(t_v *v)
 		unload_tileset(v);
 	if (v->player)
 		unload_player(v);
-	while (v->nb_enemies)
-	{
-		v->nb_enemies--;
-		unload_shark(v, v->nb_enemies);
-	}
 	if (v->shark)
 		free (v->shark);
 	if (v->ptr)
@@ -58,11 +48,8 @@ int	init_basics(t_v *v, char *argv1)
 {
 	v->tileset = NULL;
 	v->player = NULL;
-	v->shark = NULL;
 	v->ini_c = 0;
 	v->current_c = 0;
-	v->c_anim = 0;
-	v->nb_enemies = 0;
 	v->map = get_map(argv1);
 	if (!v->map)
 		return (map_error(NULL));
@@ -80,15 +67,6 @@ int	init_basics(t_v *v, char *argv1)
 	return (0);
 }
 
-int	init_enemies(t_v *v)
-{
-	if (get_enemies_from_map(v))
-		return (0);
-	if (init_sharks(v))
-		return (close_window(v));
-	return (0);
-}
-
 int	main(int argc, char **argv)
 {
 	t_v	v;
@@ -96,8 +74,6 @@ int	main(int argc, char **argv)
 	if (arg_error(argc, argv))
 		return (1);
 	if (init_basics(&v, argv[1]))
-		return (1);
-	if (init_enemies(&v))
 		return (1);
 	if (backtrack_player(&v, argv[1]) || backtrack_collect(&v, argv[1]))
 		return (close_window(&v));

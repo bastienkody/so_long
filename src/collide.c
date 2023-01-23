@@ -37,29 +37,3 @@ int	player_collect(t_v *v)
 	}
 	return (0);
 }
-
-int	shark_can_move(t_v *v, int i, int y_oset, int x_oset)
-{
-	const char	*ko;
-	char		c;
-
-	ko = "1E";
-	c = v->map[v->shark[i]->y + y_oset][v->shark[i]->x + x_oset];
-	if (ft_strchr(ko, c))
-		return (1);
-	return (0);
-}
-
-int	shark_player(t_v *v)
-{
-	int	nb;
-
-	nb = v->nb_enemies;
-	while (--nb > -1)
-	{
-		if (v->shark[nb]->is_alive && v->shark[nb]->x == v->player->x
-			&& v->shark[nb]->y == v->player->y)
-			return (1);
-	}
-	return (0);
-}
