@@ -68,15 +68,15 @@ int	update(t_v *v)
 	return (0);
 }
 
-int	k_inputs(int keycode, t_v *v)
+int	k_inputs(int kcode, t_v *v)
 {
-	if (keycode == XK_Escape)
+	if (kcode == XK_Escape)
 	{
 		close_window(v);
 		return (0);
 	}
-	else if (keycode == XK_w || keycode == XK_a || keycode == XK_s || keycode == XK_d)
-		move_player(keycode, v);
+	else if (kcode == XK_w || kcode == XK_a || kcode == XK_s || kcode == XK_d)
+		move_player(kcode, v);
 	player_collect(v);
 	redraw(v);
 	return (0);
