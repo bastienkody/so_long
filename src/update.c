@@ -51,12 +51,12 @@ int	update(t_v *v)
 {
 	if (shark_player(v))
 	{
-		ft_printf("Shark ate you. You loose\n");
+		ft_fprintf(1, "Shark ate you. You loose\n");
 		close_window(v);
 	}
 	if (player_exit(v))
 	{
-		ft_printf("You ate all schrimps and left. You won\n");
+		ft_fprintf(1, "You ate all schrimps and left. You won\n");
 		close_window(v);
 		return (0);
 	}
@@ -70,12 +70,12 @@ int	update(t_v *v)
 
 int	k_inputs(int keycode, t_v *v)
 {
-	if (keycode == ESC)
+	if (keycode == XK_Escape)
 	{
 		close_window(v);
 		return (0);
 	}
-	else if (keycode == W || keycode == A || keycode == S || keycode == D)
+	else if (keycode == XK_w || keycode == XK_a || keycode == XK_s || keycode == XK_d)
 		move_player(keycode, v);
 	player_collect(v);
 	redraw(v);
@@ -95,7 +95,7 @@ int	m_inputs(int but, int x, int y, t_v *v)
 		{
 			if (but == LEFT_C && x == v->shark[nb]->x && y == v->shark[nb]->y)
 			{
-				ft_printf("One shark has been killed\n");
+				ft_fprintf(1, "One shark has been killed\n");
 				v->shark[nb]->is_alive = 0;
 			}
 		}

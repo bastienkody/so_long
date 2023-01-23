@@ -90,7 +90,7 @@ void	print_shark(t_v *v)
 	nb = v->nb_enemies;
 	while (--nb > -1)
 	{
-		ft_printf("shark%i: dir =%c, x=%i, y=%i\n", nb, v->shark[nb]->dir,
+		ft_fprintf(2, "shark%i: dir =%c, x=%i, y=%i\n", nb, v->shark[nb]->dir,
 			v->shark[nb]->x, v->shark[nb]->y);
 	}
 }

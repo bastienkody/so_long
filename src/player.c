@@ -119,22 +119,22 @@ void	move_player(int keycode, t_v *v)
 	v->player->is_static = 0;
 	v->player->static_moves = 0;
 	v->player->static_delay = 0;
-	if (keycode == W && !player_wall(v, -1, 0))
+	if (keycode == XK_w && !player_wall(v, -1, 0))
 	{
 		v->player->y -= 1;
 		v->player->dir = 'U';
 	}
-	else if (keycode == S && !player_wall(v, 1, 0))
+	else if (keycode == XK_s && !player_wall(v, 1, 0))
 	{
 		v->player->y += 1;
 		v->player->dir = 'D';
 	}
-	else if (keycode == A && !player_wall(v, 0, -1))
+	else if (keycode == XK_a && !player_wall(v, 0, -1))
 	{
 		v->player->x -= 1;
 		v->player->dir = 'L';
 	}
-	else if (keycode == D && !player_wall(v, 0, 1))
+	else if (keycode == XK_d && !player_wall(v, 0, 1))
 	{
 		v->player->x += 1;
 		v->player->dir = 'R';

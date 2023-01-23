@@ -41,12 +41,12 @@ SRC =	ft_isalnum.c \
 		ft_lstclear.c \
 		ft_lstiter.c \
 		ft_lstmap.c \
-		ft_printf/ft_printf.c \
-		ft_printf/ft_printf_printer.c \
-		ft_printf/ft_printf_hexa.c \
-		ft_printf/ft_printf_utils.c \
 		gnl/get_next_line.c \
 		gnl/get_next_line_utils.c \
+		ft_fprintf/ft_fprintf.c \
+		ft_fprintf/ft_fprintf_printer.c \
+		ft_fprintf/ft_fprintf_hexa.c \
+		ft_fprintf/ft_fprintf_utils.c
 
 OBJ =		${SRC:.c=.o}
 

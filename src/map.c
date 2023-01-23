@@ -15,7 +15,7 @@
 char	**err_on_read(char *map, char *nl)
 {
 	if (ft_strlen(nl) < 4)
-		ft_printf("Line lenght is lower than 3 (line feed excluded)\n");
+		ft_fprintf(2, "Line lenght is lower than 3 (line feed excluded)\n");
 	free(map);
 	free(nl);
 	return (NULL);

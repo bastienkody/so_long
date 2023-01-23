@@ -20,7 +20,7 @@ int	arg_error(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_printf("Error\nYou must only provide one argument : the map path\n");
+		ft_fprintf(2, "Error\nYou must only provide 1 arg : map path\n");
 		return (1);
 	}
 	arg1_len = ft_strlen(argv[1]);
@@ -38,8 +38,8 @@ int	arg_error(int argc, char **argv)
 int	map_error(char *msg)
 {
 	if (!msg)
-		ft_printf("Error\nMap error\n");
+		ft_fprintf(2, "Error\nMap error\n");
 	else
-		ft_printf("Error\n%s\n", msg);
+		ft_fprintf(2, "Error\n%s\n", msg);
 	return (1);
 }

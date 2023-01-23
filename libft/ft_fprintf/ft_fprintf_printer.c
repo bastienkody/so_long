@@ -10,30 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_fprintf.h"
 
-int	print_char(va_list init)
+int	print_char(int fd, va_list init)
 {
 	int				i;
 	unsigned char	c;
 
 	i = (int) va_arg(init, int);
 	c = (unsigned char) i;
-	return (write(STD_OUT, &c, 1));
+	return (write(fd, &c, 1));
 }
 
-int	print_str(va_list init)
+int	print_str(int fd, va_list init)
 {
 	char	*str;
 
 	str = (char *) va_arg(init, char *);
 	if (!str)
-		return (write(STD_OUT, STR_NULL, 6));
-	ft_putstr_fd(str, STD_OUT);
+		return (write(fd, STR_NULL, 6));
+	ft_putstr_fd(str, fd);
 	return (ft_strlen(str));
 }
 
-int	print_ptr(va_list init)
+int	print_ptr(int fd, va_list init)
 {
 	void				*ptr;
 	uintptr_t			num;
@@ -42,22 +42,22 @@ int	print_ptr(va_list init)
 	len = 0;
 	ptr = (void *) va_arg(init, void *);
 	if (!ptr)
-		return (write(STD_OUT, PTR_NULL, 5));
+		return (write(fd, PTR_NULL, 5));
 	num = (uintptr_t) ptr;
-	len = write(STD_OUT, "0x", 2);
+	len = write(fd, "0x", 2);
 	if (!num)
-		return (len + write(STD_OUT, "0", 1));
+		return (len + write(fd, "0", 1));
 	else
-		return (ptr_hexa(num, &len, 'x'));
+		return (ptr_hexa(fd, num, &len));
 }
 
-int	print_deci(va_list init)
+int	print_deci(int fd, va_list init)
 {
 	int		n;
 	int		len;
 
 	n = (int) va_arg(init, int);
-	ft_putnbr_fd(n, STD_OUT);
+	ft_putnbr_fd(n, fd);
 	if (n == 0)
 		return (1);
 	if (n < 0)
@@ -72,13 +72,13 @@ int	print_deci(va_list init)
 	return (len);
 }
 
-int	print_unsigned(va_list init)
+int	print_unsigned(int fd, va_list init)
 {
 	unsigned int		n;
 	int					len;
 
 	n = (unsigned int) va_arg(init, unsigned int);
-	ft_putunbr_fd(n, STD_OUT);
+	ft_putunbr_fd(n, fd);
 	len = 0;
 	if (n == 0)
 		return (1);
