@@ -11,9 +11,7 @@ SRCS =	${SRC_DIR}main.c\
 		${SRC_DIR}print_error.c\
 		${SRC_DIR}collide.c\
 		${SRC_DIR}update.c\
-		${SRC_DIR}checker.c\
-		${SRC_DIR}enemies.c\
-		${SRC_DIR}enemies_loading.c
+		${SRC_DIR}checker.c
 
 BNSRCS =	${BNSRC_DIR}main_bonus.c\
 		${BNSRC_DIR}backtracking_bonus.c\
@@ -36,34 +34,34 @@ NAME =	so_long
 
 CC =	cc
 
-CFLAGS =	-Wall -Wextra -Werror
+CFLAGS =	-Wall -Wextra -Werror -g3
 
 LDFLAGS =	-lXext -lX11 -L./mlx -lmlx -L./libft -lft 
 
 .c.o:
 		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
-${NAME}:	libft mlx ${OBJS}
+all:	${NAME}
+
+${NAME}:	${OBJS}
+			make -C libft/
+			make -C mlx/
 			${CC} -o ${NAME} ${OBJS} ${LDFLAGS}
 
-bonus:		libft mlx ${BNOBJS}
+bonus:		${BNOBJS}
+			make -C libft/
+			make -C mlx/
 			${CC} -o ${NAME} ${BNOBJS} ${LDFLAGS} 
-
-all:		${NAME}
-
-libft:
-		make -C libft/
-
-mlx:
-		make -C mlx/
 
 clean:
 		rm -rf ${OBJS}
 		make clean -C libft/
+		make clean -C mlx/
 
 cleanbonus:
 		rm -rf ${BNOBJS}
 		make clean -C libft/
+		make clean -C mlx/
 
 fclean:		clean
 		rm -rf ${NAME}
@@ -78,5 +76,4 @@ re:		fclean all
 
 rebonus:		fcleanbonus bonus
 
-.PHONY:	all clean cleanbonus fclean fcleanbonus re rebonus libft mlx
-
+.PHONY:	all clean cleanbonus fclean fcleanbonus re rebonus

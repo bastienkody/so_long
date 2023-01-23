@@ -16,12 +16,16 @@
 
 int	redraw(t_v *v)
 {
-	int	nb;
-
+	draw_score(v);
+	if (player_exit(v))
+	{
+		ft_fprintf(1, "You ate all schrimps and left. You won\n");
+		close_window(v);
+		return (0);
+	}
 	draw_floor_wall(v);
 	draw_door(v);
 	draw_collect(v);
-	draw_score(v);
 	draw_player(v);
 	return (0);
 }
@@ -33,8 +37,6 @@ int	close_window(t_v *v)
 		unload_tileset(v);
 	if (v->player)
 		unload_player(v);
-	if (v->shark)
-		free (v->shark);
 	if (v->ptr)
 	{
 		mlx_destroy_window(v->ptr, v->win);
@@ -77,10 +79,10 @@ int	main(int argc, char **argv)
 		return (1);
 	if (backtrack_player(&v, argv[1]) || backtrack_collect(&v, argv[1]))
 		return (close_window(&v));
+	ft_fprintf(1, "here\n");
 	redraw(&v);
 	mlx_key_hook(v.win, &k_inputs, &v);
-	mlx_mouse_hook(v.win, &m_inputs, &v);
 	mlx_hook(v.win, 17, 0, &close_window, &v);
-	mlx_loop_hook(v.ptr, &update, &v);
+	mlx_loop_hook(v.ptr, &update, &v); // no need?
 	mlx_loop(v.ptr);
 }

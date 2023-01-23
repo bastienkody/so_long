@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bguillau <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 19:06:55 by bguillau          #+#    #+#             */
-/*   Updated: 2023/01/16 16:10:27 by bguillau         ###   ########.fr       */
+/*   Updated: 2023/01/23 15:37:31 by bguillau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,93 +22,26 @@
 
 /* main stuff */
 # define STEP 128
-# define FONT "-schumacher-*-bold-*-*-*-*-160-*-*-*-*-*-*"
-# define SHARK_TIMER_MAC 55
-# define SHARK_TIMER_UBU 7000
-# define PLAY_S_DELAY_MAC 55
-# define PLAY_S_DELAY_UBU 5500
-# define C_ANIM_MAC 400
-# define C_STEP_MAC 100
-# define C_ANIM_UBU 40000
-# define C_STEP_UBU 10000
-
-/* mouse button */
-# define LEFT_C 1
-# define RIGHT_C 2
-# define SCROLL 3
-# define SCROLL_U 4
-# define SCROLL_D 5
-
-/* colors */
-# define RED 0xFF0000
-# define GREEN 0x00FF00
-# define BLUE 0x0000FF
-# define WHITE 0xFFFFFF
-# define BLACK 0x000000
 
 /* player sea horse rider */
 # define P_WIDTH 128
 # define P_HEIGHT 128
-# define P_L_1 "assets/player_seahorse/player_floor_L1_128.xpm"
-# define P_L_2 "assets/player_seahorse/player_floor_L2_128.xpm"
-# define P_L_3 "assets/player_seahorse/player_floor_L3_128.xpm"
-# define P_L_4 "assets/player_seahorse/player_floor_L4_128.xpm"
-# define P_R_1 "assets/player_seahorse/player_floor_R1_128.xpm"
-# define P_R_2 "assets/player_seahorse/player_floor_R2_128.xpm"
-# define P_R_3 "assets/player_seahorse/player_floor_R3_128.xpm"
-# define P_R_4 "assets/player_seahorse/player_floor_R4_128.xpm"
-# define P_U_1 "assets/player_seahorse/player_floor_U1_128.xpm"
-# define P_U_2 "assets/player_seahorse/player_floor_U2_128.xpm"
-# define P_U_3 "assets/player_seahorse/player_floor_U3_128.xpm"
-# define P_U_4 "assets/player_seahorse/player_floor_U4_128.xpm"
-# define P_D_1 "assets/player_seahorse/player_floor_D1_128.xpm"
-# define P_D_2 "assets/player_seahorse/player_floor_D2_128.xpm"
-# define P_D_3 "assets/player_seahorse/player_floor_D3_128.xpm"
-# define P_D_4 "assets/player_seahorse/player_floor_D4_128.xpm"
-
-/* shark enemy */
-# define S_L_1 "assets/shark/shark_l_1_128.xpm"
-# define S_L_2 "assets/shark/shark_l_2_128.xpm"
-# define S_L_3 "assets/shark/shark_l_3_128.xpm"
-# define S_L_4 "assets/shark/shark_l_4_128.xpm"
-# define S_R_1 "assets/shark/shark_r_1_128.xpm"
-# define S_R_2 "assets/shark/shark_r_2_128.xpm"
-# define S_R_3 "assets/shark/shark_r_3_128.xpm"
-# define S_R_4 "assets/shark/shark_r_4_128.xpm"
-# define S_U_1 "assets/shark/shark_u_1_128.xpm"
-# define S_U_2 "assets/shark/shark_u_2_128.xpm"
-# define S_U_3 "assets/shark/shark_u_3_128.xpm"
-# define S_U_4 "assets/shark/shark_u_4_128.xpm"
-# define S_D_1 "assets/shark/shark_d_1_128.xpm"
-# define S_D_2 "assets/shark/shark_d_2_128.xpm"
-# define S_D_3 "assets/shark/shark_d_3_128.xpm"
-# define S_D_4 "assets/shark/shark_d_4_128.xpm"
+# define P_L "assets/player_seahorse/player_floor_L1_128.xpm"
+# define P_R "assets/player_seahorse/player_floor_R1_128.xpm"
+# define P_U "assets/player_seahorse/player_floor_U1_128.xpm"
+# define P_D "assets/player_seahorse/player_floor_D1_128.xpm"
 
 /* tile */
 # define T_WIDTH 128
 # define T_HEIGHT 128
 # define WWALL "assets/waterwall_green128.xpm" 
 # define WFLOOR "assets/waterfloor128.xpm"
-# define DOOR_0 "assets/exit/door_0_wfloor_128.xpm"
-# define DOOR_25 "assets/exit/door_25_wfloor_128.xpm"
-# define DOOR_75 "assets/exit/door_75_wfloor_128.xpm"
-# define DOOR_100 "assets/exit/door_100_wfloor_128.xpm"
+# define DOOR "assets/exit/door_100_wfloor_128.xpm"
 
 /* schrimp collectibles */
-# define COLLECT_0 "assets/schrimp/schrimp_collect_0_128.xpm"
-# define COLLECT_1 "assets/schrimp/schrimp_collect_1_128.xpm"
-# define COLLECT_2 "assets/schrimp/schrimp_collect_2_128.xpm"
-# define COLLECT_3 "assets/schrimp/schrimp_collect_3_128.xpm"
+# define COLLECT "assets/schrimp/schrimp_collect_0_128.xpm"
 
 /* struct */
-typedef struct s_rect
-{
-	int	x;
-	int	y;
-	int	width;
-	int	height;
-}				t_rect;
-
 typedef struct s_data
 {
 	void	*img;
@@ -122,8 +55,8 @@ typedef struct s_tileset
 {
 	t_data	*wfloor;
 	t_data	*wwall;
-	t_data	*collect[4];
-	t_data	*exit[4];
+	t_data	*collect;
+	t_data	*exit;
 }				t_tileset;
 
 typedef struct s_player
@@ -132,14 +65,11 @@ typedef struct s_player
 	int		y;
 	char	dir;
 	int		moves;
-	int		static_moves;
-	int		static_delay;
-	int		is_static;
 	int		points;
-	t_data	*pos_l[4];
-	t_data	*pos_r[4];
-	t_data	*pos_u[4];
-	t_data	*pos_d[4];
+	t_data	*pos_l;
+	t_data	*pos_r;
+	t_data	*pos_u;
+	t_data	*pos_d;
 }				t_player;
 
 typedef struct s_shark
@@ -150,10 +80,10 @@ typedef struct s_shark
 	int		moves;
 	int		delay;
 	int		is_alive;
-	t_data	*pos_l[4];
-	t_data	*pos_r[4];
-	t_data	*pos_u[4];
-	t_data	*pos_d[4];
+	t_data	*pos_l;
+	t_data	*pos_r;
+	t_data	*pos_u;
+	t_data	*pos_d;
 }				t_shark;
 
 typedef struct s_v
