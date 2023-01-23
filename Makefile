@@ -32,6 +32,8 @@ BNOBJS =	${BNSRCS:.c=.o}
 
 NAME =	so_long
 
+BNNAME = so_long_bonus
+
 CC =	cc
 
 CFLAGS =	-Wall -Wextra -Werror
@@ -48,18 +50,15 @@ ${NAME}:	${OBJS}
 			make -C mlx/
 			${CC} -o ${NAME} ${OBJS} ${LDFLAGS}
 
-bonus:		${BNOBJS}
+bonus:		${BNNAME}
+
+${BNNAME}:	${BNOBJS}
 			make -C libft/
 			make -C mlx/
-			${CC} -o ${NAME} ${BNOBJS} ${LDFLAGS} 
+			${CC} -o ${BNNAME} ${BNOBJS} ${LDFLAGS} 
 
 clean:
 		rm -rf ${OBJS}
-		make clean -C libft/
-		make clean -C mlx/
-
-cleanbonus:
-		rm -rf ${BNOBJS}
 		make clean -C libft/
 		make clean -C mlx/
 
@@ -67,13 +66,17 @@ fclean:		clean
 		rm -rf ${NAME}
 		make fclean -C libft/
 
-fcleanbonus:	cleanbonus
-			rm -rf ${NAME}
-			make fclean -C libft/
-
-
 re:		fclean all
+
+cleanbonus:
+		rm -rf ${BNOBJS}
+		make clean -C libft/
+		make clean -C mlx/
+
+fcleanbonus:	cleanbonus
+			rm -rf ${BNNAME}
+			make fclean -C libft/
 
 rebonus:		fcleanbonus bonus
 
-.PHONY:	all clean cleanbonus fclean fcleanbonus re rebonus
+.PHONY:	all clean bonus cleanbonus fclean fcleanbonus re rebonus

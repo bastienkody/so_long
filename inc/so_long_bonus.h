@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#ifndef SO_LONG_BONUS_H
+# define SO_LONG_BONUS_H
 
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"
@@ -173,8 +173,6 @@ typedef struct s_v
 }				t_v;
 
 /* prototypes */
-void		pix_to_img(t_data *img, int x, int y, int color);
-int			resize_rect(int keycode, t_v *v);
 int			update(t_v *v);
 int			k_inputs(int keycode, t_v *v);
 int			m_inputs(int button, int x, int y, t_v *v);

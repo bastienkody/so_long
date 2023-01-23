@@ -12,26 +12,28 @@
 
 #include "../inc/so_long_bonus.h"
 
-/* ecrire les erreurs sur la sortie d'erreur */
-
 int	arg_error(int argc, char **argv)
 {
 	size_t	arg1_len;
+	char	*tmp;
 
 	if (argc != 2)
 	{
-		ft_fprintf(2, "Error\nYou must only provide 1 arg : map path\n");
+		ft_fprintf(2, "Error\nYou must (only) provide 1 arg : map path\n");
 		return (1);
 	}
-	arg1_len = ft_strlen(argv[1]);
-	if (argv[1][arg1_len - 1] != 'r' || argv[1][arg1_len - 2]
-		!= 'e' || argv[1][arg1_len - 3] != 'b' || argv[1][arg1_len - 4] != '.')
+	tmp = argv[1];
+	if (ft_strrchr(argv[1], '/'))
+		tmp = ft_strrchr(argv[1], '/');
+	arg1_len = ft_strlen(tmp);
+	if (arg1_len < 5)
+		return (map_error("The map must be <name>.ber"));
+	if (tmp[arg1_len - 1] != 'r' || tmp[arg1_len - 2]
+		!= 'e' || tmp[arg1_len - 3] != 'b' || tmp[arg1_len - 4] != '.')
 	{
 		map_error("The map must be *.ber");
 		return (1);
 	}
-	if (arg1_len < 5)
-		return (map_error("The map must be <name>.ber"));
 	return (0);
 }
 
