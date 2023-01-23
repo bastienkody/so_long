@@ -34,7 +34,7 @@ NAME =	so_long
 
 CC =	cc
 
-CFLAGS =	-Wall -Wextra -Werror -g3
+CFLAGS =	-Wall -Wextra -Werror
 
 LDFLAGS =	-lXext -lX11 -L./mlx -lmlx -L./libft -lft 
 

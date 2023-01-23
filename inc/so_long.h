@@ -65,26 +65,11 @@ typedef struct s_player
 	int		y;
 	char	dir;
 	int		moves;
-	int		points;
 	t_data	*pos_l;
 	t_data	*pos_r;
 	t_data	*pos_u;
 	t_data	*pos_d;
 }				t_player;
-
-typedef struct s_shark
-{
-	int		x;
-	int		y;
-	char	dir;
-	int		moves;
-	int		delay;
-	int		is_alive;
-	t_data	*pos_l;
-	t_data	*pos_r;
-	t_data	*pos_u;
-	t_data	*pos_d;
-}				t_shark;
 
 typedef struct s_v
 {
@@ -99,15 +84,11 @@ typedef struct s_v
 	int			nb_enemies;
 	t_tileset	*tileset;
 	t_player	*player;
-	t_shark		**shark;
 }				t_v;
 
 /* prototypes */
-void		pix_to_img(t_data *img, int x, int y, int color);
-int			resize_rect(int keycode, t_v *v);
 int			update(t_v *v);
 int			k_inputs(int keycode, t_v *v);
-int			m_inputs(int button, int x, int y, t_v *v);
 int			close_window(t_v *v);
 int			load_tileset(t_v *v);
 void		unload_tileset(t_v *v);
@@ -137,15 +118,6 @@ void		free_map(t_v *v, char **map);
 void		draw_score(t_v *v);
 void		draw_door(t_v *v);
 void		draw_collect(t_v *v);
-t_shark		*load_shark(t_v *v);
-int			get_enemies_from_map(t_v *v);
-void		print_shark(t_v *v);
-int			init_sharks(t_v *v);
-void		draw_shark(t_v *v, int i);
-void		unload_shark(t_v *v, int nb);
-int			shark_can_move(t_v *v, int i, int y_oset, int x_oset);
-int			move_shark(t_v *v, int i);
-int			shark_player(t_v *v);
 int			backtrack_player(t_v *v, char *path);
 int			backtrack_collect(t_v *v, char *path);
 #endif

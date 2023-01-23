@@ -20,7 +20,6 @@ void	init_player(t_player *player, t_v *v)
 	if (!player || !v)
 		return ;
 	v->player = player;
-	v->player->points = 0;
 	v->player->moves = 0;
 	v->player->dir = 'D';
 	y = -1;
@@ -40,7 +39,7 @@ void	init_player(t_player *player, t_v *v)
 
 int	check_load_player(t_player *player)
 {
-	if (!player->pos_l || !player->pos_r || !player->pos_u|| !player->pos_d)
+	if (!player->pos_l || !player->pos_r || !player->pos_u || !player->pos_d)
 		return (1);
 	return (0);
 }

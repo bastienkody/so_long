@@ -83,6 +83,6 @@ int	main(int argc, char **argv)
 	redraw(&v);
 	mlx_key_hook(v.win, &k_inputs, &v);
 	mlx_hook(v.win, 17, 0, &close_window, &v);
-	mlx_loop_hook(v.ptr, &update, &v); // no need?
+	mlx_loop_hook(v.ptr, &update, &v);
 	mlx_loop(v.ptr);
 }
