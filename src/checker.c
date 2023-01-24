@@ -16,11 +16,12 @@ int	check_char(char *line)
 {
 	const char	*valid_char;
 
-	valid_char = "01PECS\n";
+	valid_char = "01PEC\n";
 	while (*line)
 	{
-		if (!ft_strchr(valid_char, *line++))
-			return (ft_fprintf(2, "Unrecognized character\n"));
+		if (!ft_strchr(valid_char, *line))
+			return (ft_fprintf(2, "Unrecognized character : %c\n", *line));
+		line++;
 	}
 	return (0);
 }

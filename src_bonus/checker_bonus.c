@@ -19,8 +19,9 @@ int	check_char(char *line)
 	valid_char = "01PECS\n";
 	while (*line)
 	{
-		if (!ft_strchr(valid_char, *line++))
-			return (ft_fprintf(2, "Unrecognized character\n"));
+		if (!ft_strchr(valid_char, *line))
+			return (ft_fprintf(2, "Unrecognized character : %c\n", *line));
+		line++;
 	}
 	return (0);
 }
