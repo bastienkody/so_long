@@ -27,10 +27,7 @@ int	update(t_v *v)
 int	k_inputs(int kcode, t_v *v)
 {
 	if (kcode == XK_Escape)
-	{
 		close_window(v);
-		return (0);
-	}
 	else if (kcode == XK_w || kcode == XK_a || kcode == XK_s || kcode == XK_d)
 		move_player(kcode, v);
 	player_collect(v);
