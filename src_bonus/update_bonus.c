@@ -58,7 +58,6 @@ int	update(t_v *v)
 	{
 		ft_fprintf(1, "You ate all schrimps and left. You won\n");
 		close_window(v);
-		return (0);
 	}
 	update_anim(v);
 	if (!(v->c_anim % C_STEP_UBU))

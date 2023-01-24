@@ -18,7 +18,6 @@ int	update(t_v *v)
 	{
 		ft_fprintf(1, "You ate all schrimps and left. You won\n");
 		close_window(v);
-		return (0);
 	}
 	draw_collect(v);
 	draw_player(v);
