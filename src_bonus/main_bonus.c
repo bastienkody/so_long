@@ -56,8 +56,6 @@ int	close_window(t_v *v)
 
 int	init_basics(t_v *v, char *argv1)
 {
-	v->ptr = NULL;
-	v->win = NULL;
 	v->tileset = NULL;
 	v->player = NULL;
 	v->shark = NULL;
@@ -69,6 +67,8 @@ int	init_basics(t_v *v, char *argv1)
 	if (!v->map)
 		return (map_error(NULL));
 	if (check_map(v->map, v))
+		return (1);
+	if (backtrack_player(v, argv1) || backtrack_collect(v, argv1))
 		return (1);
 	v->ptr = mlx_init();
 	if (!v->ptr)
@@ -95,14 +95,14 @@ int	main(int argc, char **argv)
 {
 	t_v	v;
 
+	v.ptr = NULL;
+	v.win = NULL;
 	if (arg_error(argc, argv))
 		return (1);
 	if (init_basics(&v, argv[1]))
 		return (close_window(&v));
 	if (init_enemies(&v))
 		return (1);
-	if (backtrack_player(&v, argv[1]) || backtrack_collect(&v, argv[1]))
-		return (close_window(&v));
 	redraw(&v);
 	mlx_key_hook(v.win, &k_inputs, &v);
 	mlx_mouse_hook(v.win, &m_inputs, &v);

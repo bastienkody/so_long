@@ -61,6 +61,8 @@ int	init_basics(t_v *v, char *argv1)
 		return (map_error(NULL));
 	if (check_map(v->map, v))
 		return (1);
+	if (backtrack_player(v, argv1) || backtrack_collect(v, argv1))
+		return (1);
 	v->ptr = mlx_init();
 	if (!v->ptr)
 		return (1);
@@ -80,8 +82,6 @@ int	main(int argc, char **argv)
 	if (arg_error(argc, argv))
 		return (1);
 	if (init_basics(&v, argv[1]))
-		return (close_window(&v));
-	if (backtrack_player(&v, argv[1]) || backtrack_collect(&v, argv[1]))
 		return (close_window(&v));
 	redraw(&v);
 	mlx_key_hook(v.win, &k_inputs, &v);
