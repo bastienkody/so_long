@@ -30,10 +30,7 @@ int	arg_error(int argc, char **argv)
 		return (map_error("The map must be <name>.ber"));
 	if (tmp[arg1_len - 1] != 'r' || tmp[arg1_len - 2]
 		!= 'e' || tmp[arg1_len - 3] != 'b' || tmp[arg1_len - 4] != '.')
-	{
-		map_error("The map must be *.ber");
-		return (1);
-	}
+		map_error("The map must be <name>.ber");
 	return (0);
 }
 

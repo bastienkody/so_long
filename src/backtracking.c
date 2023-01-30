@@ -12,14 +12,6 @@
 
 #include "../inc/so_long.h"
 
-typedef struct s_moves
-{
-	int	left;
-	int	right;
-	int	up;
-	int	down;
-}				t_moves;
-
 void	can_move(t_moves *moves, char **map, int y, int x)
 {
 	moves->right = 0;

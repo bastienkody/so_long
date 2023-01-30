@@ -24,16 +24,15 @@ int	redraw(t_v *v)
 	draw_score(v);
 	nb = v->nb_enemies;
 	while (--nb > -1)
-	{
 		draw_shark(v, nb);
-	}
 	draw_player(v);
 	return (0);
 }
 
 int	close_window(t_v *v)
 {
-	free_map(v, v->map);
+	if (v->map)
+		free_map(v, v->map);
 	if (v->tileset)
 		unload_tileset(v);
 	if (v->player)
@@ -47,7 +46,8 @@ int	close_window(t_v *v)
 		free (v->shark);
 	if (v->ptr)
 	{
-		mlx_destroy_window(v->ptr, v->win);
+		if (v->win)
+			mlx_destroy_window(v->ptr, v->win);
 		mlx_destroy_display(v->ptr);
 		free(v->ptr);
 	}
@@ -56,6 +56,8 @@ int	close_window(t_v *v)
 
 int	init_basics(t_v *v, char *argv1)
 {
+	v->ptr = NULL;
+	v->win = NULL;
 	v->tileset = NULL;
 	v->player = NULL;
 	v->shark = NULL;
@@ -70,13 +72,13 @@ int	init_basics(t_v *v, char *argv1)
 		return (1);
 	v->ptr = mlx_init();
 	if (!v->ptr)
-		return (close_window(v));
+		return (1);
 	v->win = mlx_new_window(v->ptr, v->map_w * STEP,
 			v->map_h * STEP, "So_long");
 	if (load_tileset(v))
-		return (close_window(v));
+		return (1);
 	if (load_player(v))
-		return (close_window(v));
+		return (1);
 	return (0);
 }
 
@@ -96,7 +98,7 @@ int	main(int argc, char **argv)
 	if (arg_error(argc, argv))
 		return (1);
 	if (init_basics(&v, argv[1]))
-		return (1);
+		return (close_window(&v));
 	if (init_enemies(&v))
 		return (1);
 	if (backtrack_player(&v, argv[1]) || backtrack_collect(&v, argv[1]))

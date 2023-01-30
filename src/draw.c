@@ -23,7 +23,7 @@ void	draw_floor_wall(t_v *v)
 	int		y;
 	char	*str;
 
-	str = "CP0S";
+	str = "CP0";
 	y = -1;
 	while (++y < v->map_h)
 	{

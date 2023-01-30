@@ -101,6 +101,14 @@
 # define COLLECT_3 "assets/schrimp/schrimp_collect_3_128.xpm"
 
 /* struct */
+typedef struct s_moves
+{
+	int	left;
+	int	right;
+	int	up;
+	int	down;
+}				t_moves;
+
 typedef struct s_rect
 {
 	int	x;
