@@ -54,17 +54,21 @@ int	check_map(char **map, t_v *v)
 {
 	int		line_len;
 	int		nb_line;
+	int		line_len_ko;
 
+	line_len_ko = 0;
 	nb_line = 0;
 	line_len = (int) ft_strlen(*map);
 	while (map[nb_line])
 	{
 		if (line_len != (int) ft_strlen(map[nb_line]))
-			return (map_error("Lines are not the same length"));
+			line_len_ko = 1;
 		nb_line++;
 	}
 	v->map_w = line_len;
 	v->map_h = nb_line;
+	if (line_len_ko)
+		return (map_error("Lines are not the same length"));
 	if (check_wall(v) || check_e(v) || check_c(v) || check_p(v))
 		return (1);
 	return (0);
