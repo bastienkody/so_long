@@ -16,7 +16,6 @@
 
 int	redraw(t_v *v)
 {
-	draw_score(v);
 	if (player_exit(v))
 	{
 		ft_fprintf(1, "You ate all schrimps and left. You won\n");

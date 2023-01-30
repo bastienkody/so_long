@@ -87,6 +87,7 @@ void	unload_player(t_v *v)
 void	move_player(int keycode, t_v *v)
 {
 	v->player->moves += 1;
+	draw_score(v);
 	if (keycode == XK_w && !player_wall(v, -1, 0))
 	{
 		v->player->y -= 1;
