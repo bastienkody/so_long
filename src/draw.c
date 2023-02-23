@@ -14,7 +14,8 @@
 
 void	draw_score(t_v *v)
 {
-	ft_fprintf(1, "moves : %i\n", v->player->moves);
+	if (v->player->moves != v->player->old_moves)
+		ft_fprintf(1, "moves : %i\n", v->player->moves);
 }
 
 void	draw_floor_wall(t_v *v)

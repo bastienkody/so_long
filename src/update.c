@@ -29,7 +29,10 @@ int	k_inputs(int kcode, t_v *v)
 	if (kcode == XK_Escape)
 		close_window(v);
 	else if (kcode == XK_w || kcode == XK_a || kcode == XK_s || kcode == XK_d)
+	{
 		move_player(kcode, v);
+		draw_score(v);
+	}
 	player_collect(v);
 	redraw(v);
 	return (0);

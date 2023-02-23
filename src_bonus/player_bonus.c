@@ -115,28 +115,29 @@ void	unload_player(t_v *v)
 
 void	move_player(int keycode, t_v *v)
 {
-	v->player->moves += 1;
 	v->player->is_static = 0;
-	v->player->static_moves = 0;
-	v->player->static_delay = 0;
 	if (keycode == XK_w && !player_wall(v, -1, 0))
 	{
 		v->player->y -= 1;
 		v->player->dir = 'U';
+		v->player->moves += 1;
 	}
 	else if (keycode == XK_s && !player_wall(v, 1, 0))
 	{
 		v->player->y += 1;
 		v->player->dir = 'D';
+		v->player->moves += 1;
 	}
 	else if (keycode == XK_a && !player_wall(v, 0, -1))
 	{
 		v->player->x -= 1;
 		v->player->dir = 'L';
+		v->player->moves += 1;
 	}
 	else if (keycode == XK_d && !player_wall(v, 0, 1))
 	{
 		v->player->x += 1;
 		v->player->dir = 'R';
+		v->player->moves += 1;
 	}
 }

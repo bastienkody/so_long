@@ -73,6 +73,7 @@ typedef struct s_player
 	int		y;
 	char	dir;
 	int		moves;
+	int		old_moves;
 	t_data	*pos_l;
 	t_data	*pos_r;
 	t_data	*pos_u;
